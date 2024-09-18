@@ -131,7 +131,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="Email"
-                className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="Twitter"
-                className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="GitHub"
-                className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
