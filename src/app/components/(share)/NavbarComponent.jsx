@@ -14,23 +14,34 @@ const NavbarComponent = () => {
           <p className=" sm:block font-bold text-inherit text-2xl">Skill-Connect</p>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
-          <NavbarItem isActive>
-            <Link href="#" aria-current="page" color="secondary">
+          <NavbarItem 
+          // isActive
+          >
+            <Link href="findFreelancers"
+            color="foreground"
+            // aria-current="page" 
+            // color="secondary"
+            >
             Find Freelancers
             </Link>
           </NavbarItem>
+          <NavbarItem >
+            <Link href="jobPost" color="foreground">
+            Job Post
+            </Link>
+          </NavbarItem>
           <NavbarItem>
-            <Link color="foreground"  href="#" >
+            <Link color="foreground"  href="findJobs" >
             Find Jobs
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link color="foreground" href="about">
             About 
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link color="foreground" href="solutions">
             Solutions 
             </Link>
           </NavbarItem>
