@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Card,
@@ -8,9 +9,18 @@ import {
   Link,
 } from "@nextui-org/react";
 
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import { SearchIcon } from "./SearchIcon";
 
 export default function FreelancerProfile() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
@@ -48,6 +58,7 @@ export default function FreelancerProfile() {
           }
         />
       </div>
+
       {/* GRID CARD  */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
         <Card className="py-4 ">
@@ -85,9 +96,10 @@ export default function FreelancerProfile() {
               <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
               React
             </small>
-            <div className="mt-5 w-full ">
+            <div className="mt-5 w-full">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -133,6 +145,7 @@ export default function FreelancerProfile() {
             <div className="mt-5 flex items-end w-full justify-end">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -178,6 +191,7 @@ export default function FreelancerProfile() {
             <div className="mt-5 flex items-end w-full justify-end">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -223,6 +237,7 @@ export default function FreelancerProfile() {
             <div className="mt-5 flex items-end w-full justify-end">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -268,6 +283,7 @@ export default function FreelancerProfile() {
             <div className="mt-5 flex items-end w-full justify-end">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -313,6 +329,7 @@ export default function FreelancerProfile() {
             <div className="mt-5 flex items-end w-full justify-end">
               <Button
                 size="md"
+                onPress={onOpen}
                 className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
               >
                 Details
@@ -322,6 +339,43 @@ export default function FreelancerProfile() {
         </Card>
       </div>
       {/* MODAL  */}
+      <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat
+                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
+                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
+                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
+                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
+                  eiusmod et. Culpa deserunt nostrud ad veniam.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary">Hire</Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
