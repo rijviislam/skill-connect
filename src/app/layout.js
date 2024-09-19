@@ -3,9 +3,6 @@ import Footer from "./components/(share)/Footer";
 import NavbarComponent from "./components/(share)/NavbarComponent";
 import "./globals.css";
 import { Providers } from "./providers";
-import BannerSlider from "./component/BannerSlider";
-import Feature from "./component/Feature";
-import Review from "./component/Review";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,10 +30,8 @@ export default function RootLayout({ children }) {
           <nav>
             <NavbarComponent />
           </nav>
-          <BannerSlider />
-          <Feature/>
-          <Review/>
-          <div className="h-screen">{children}</div>
+          
+          <div className="">{children}</div>
          <Footer/>
         </Providers>
       </body>
