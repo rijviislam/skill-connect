@@ -17,22 +17,17 @@ const NavbarComponent = () => {
           <NavbarItem 
           // isActive
           >
-            <Link href="findFreelancers"
+            <Link href="freelancerProfile"
             color="foreground"
             // aria-current="page" 
             // color="secondary"
             >
-            Find Freelancers
+            Freelancers Profile
             </Link>
           </NavbarItem>
           <NavbarItem >
             <Link href="jobPost" color="foreground">
             Job Post
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground"  href="findJobs" >
-            Find Jobs
             </Link>
           </NavbarItem>
           <NavbarItem>
@@ -79,10 +74,10 @@ const NavbarComponent = () => {
             </DropdownItem>
 
             
-            <DropdownItem key="settings">Find Freelancers</DropdownItem>
-            <DropdownItem key="team_settings">Find Jobs</DropdownItem>
-            <DropdownItem key="analytics">About</DropdownItem>
-            <DropdownItem key="system">Solutions</DropdownItem>
+            <DropdownItem key="freelancerProfile">Freelancers Profile</DropdownItem>
+            <DropdownItem key="jobPost">Jobs Post</DropdownItem>
+            <DropdownItem key="about">About</DropdownItem>
+            <DropdownItem key="solution">Solutions</DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
             </DropdownItem>
