@@ -11,7 +11,7 @@ const NavbarComponent = () => {
     <Navbar isBordered>
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4">
-          <p className=" sm:block font-bold text-inherit text-2xl">Skill-Connect</p>
+        <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">SkillConnect</Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
           <NavbarItem 
