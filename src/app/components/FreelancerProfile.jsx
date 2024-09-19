@@ -7,9 +7,10 @@ import {
   Input,
   Link,
 } from "@nextui-org/react";
+
 import { SearchIcon } from "./SearchIcon";
 
-export default function FreelancerProfilePage() {
+export default function FreelancerProfile() {
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
