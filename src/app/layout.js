@@ -30,7 +30,12 @@ export default function RootLayout({ children }) {
           <nav>
             <NavbarComponent />
           </nav>
+<<<<<<< HEAD
           <div className="min-h-screen">{children}</div>
+=======
+          
+          <div className="">{children}</div>
+>>>>>>> 92e91cb3ce48e501129f9bec6e6f7d5f1eb7a0ca
          <Footer/>
         </Providers>
       </body>
