@@ -53,7 +53,7 @@ export default function JobPost() {
         className="w-2/3 flex flex-col gap-5 mt-10 items-end justify-end shadow-xl p-10 rounded-lg"
       >
         <div className="flex items-center justify-center w-full gap-5 flex-col">
-          <div className="flex w-full gap-5">
+          <div className="flex w-full gap-5 lg:flex-row md:flex-row flex-col">
             {/* INPUT TEXT AND TEXTAREA  */}
             <div className="w-1/2 flex items-center flex-col  gap-5 ">
               <Input
