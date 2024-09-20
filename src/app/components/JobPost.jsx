@@ -50,12 +50,12 @@ export default function JobPost() {
       </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-2/3 flex flex-col gap-5 mt-10 items-end justify-end shadow-xl p-10 rounded-lg"
+        className="lg:w-2/3 md:w-2/3 sm:w-2/3 flex flex-col gap-5 mt-10 items-end justify-end shadow-xl p-10 rounded-lg border-2 border-silver"
       >
-        <div className="flex items-center justify-center w-full gap-5 flex-col">
-          <div className="flex w-full gap-5 lg:flex-row md:flex-row flex-col">
+        <div className="flex items-center justify-center w-full lg:w-full md:w-full sm:w-full gap-5 flex-col">
+          <div className="flex w-full gap-5 lg:flex-row md:flex-col flex-col">
             {/* INPUT TEXT AND TEXTAREA  */}
-            <div className="w-1/2 flex items-center flex-col  gap-5 ">
+            <div className="lg:w-1/2  flex items-center flex-col  gap-5 ">
               <Input
                 key="primary"
                 type="text"
@@ -63,7 +63,7 @@ export default function JobPost() {
                 label="Title"
                 placeholder="Post Title"
                 defaultValue="Frontend Developer"
-                className="max-w-[500px] max-h-[200px]"
+                className="max-w-[500px]"
                 {...register("text")}
               />
               {errors.text && <span>Title is required</span>}
@@ -83,7 +83,7 @@ export default function JobPost() {
               </div>
             </div>
             {/* INPUT SELECT CATEGORY AND BUDGET  */}
-            <div className="w-1/2 flex items-center flex-col gap-10">
+            <div className="lg:w-1/2 flex items-center flex-col gap-10">
               <Select
                 label="Category"
                 color="primary"
