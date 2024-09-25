@@ -13,43 +13,46 @@ const NavbarComponent = () => {
  
 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered className="bg-green-50">
       <NavbarContent justify="start">
-        <NavbarBrand className="mr-4">
+        <NavbarBrand className="mr-4 ">
         <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">SkillConnect</Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
           <NavbarItem 
           // isActive
           >
-            <Link href="freelancerProfile"
+            <Link href="dashboard"
             color="foreground"
             // aria-current="page" 
             // color="secondary"
             >
-            Freelancers Profile
+            Dashboard
             </Link>
           </NavbarItem>
-          <NavbarItem >
-            <Link href="jobPost" color="foreground">
-            Job Post
+         
+          <NavbarItem>
+            <Link color="foreground" href="freelancerProfile">
+            Freelancer profile
             </Link>
           </NavbarItem>
+         
           <NavbarItem>
             <Link color="foreground" href="about">
             About 
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="solutions">
-            Solutions 
+            <Link color="foreground" href="faq">
+            FAQ 
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="dashboard">
-            Dashboard 
+            <Link color="foreground" href="us">
+           Contact Us
             </Link>
           </NavbarItem>
+         
         </NavbarContent>
       </NavbarContent>
 

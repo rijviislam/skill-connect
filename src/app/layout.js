@@ -5,6 +5,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import AuthProvider from './services/AuthProvider';
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
