@@ -1,10 +1,15 @@
 "use client"
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, Button } from "@nextui-org/react";
 
 // import {SearchIcon} from "@/SearchIcon";
 import { SearchIcon } from './../SearchIcon';
+import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react"
+import { signOut } from "next-auth/react"
 
 const NavbarComponent = () => {
+  const session = useSession()
+  // console.log(session)
  
 
   return (
@@ -64,8 +69,18 @@ const NavbarComponent = () => {
           startContent={<SearchIcon size={18} />}
           type="search"
         />
+        <NavbarItem >
+            
+            <Link href="/api/auth/signup">
+            <Button color="primary" variant="ghost">
+       Sign Up
+      </Button>
+            </Link>
+           
+          </NavbarItem>
         <Dropdown placement="bottom-end">
-          <DropdownTrigger>
+          {
+            session?.status === "authenticated" ? <DropdownTrigger>
             <Avatar
               isBordered
               as="button"
@@ -73,25 +88,43 @@ const NavbarComponent = () => {
               color="secondary"
               name="Jason Hughes"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={ session?.data?.user?.image }
             />
-          </DropdownTrigger>
+          </DropdownTrigger> : <NavbarItem >
+            
+            <Button onClick={() => signIn()} color="primary" variant="ghost">
+       Sign In
+      </Button>
+           
+          </NavbarItem>
+    //       <NavbarItem >
+    //         <Link href="/api/auth/signin">
+    //       <Button color="primary" variant="ghost">
+    //  Sign In
+    // </Button>
+    // </Link>
+    //     </NavbarItem>
+          }
+          
           <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold"><span>{ session?.data?.user?.type }</span>: <span> {session?.data?.user?.email }</span></p>
             </DropdownItem>
 
             
-            <DropdownItem key="dashboard">Dashboard</DropdownItem>
-            <DropdownItem key="freelancerProfile">Freelancer Profile</DropdownItem>
-            <DropdownItem key="faq">FAQ</DropdownItem>
-            <DropdownItem key="us">Contact Us</DropdownItem>
-            <DropdownItem key="solution">Solutions</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem href="dashboard" key="dashboard">Dashboard</DropdownItem>
+            <DropdownItem href="freelancerProfile" key="freelancerProfile">Freelancers Profile</DropdownItem>
+            <DropdownItem href="jobPost" key="jobPost">Jobs Post</DropdownItem>
+            <DropdownItem href="about" key="about">About</DropdownItem>
+            <DropdownItem href="solution" key="solution">Solutions</DropdownItem>
+            <DropdownItem
+             onClick={() => signOut()}
+             color="danger">
               Log Out
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
+
       </NavbarContent>
     </Navbar>
   );
