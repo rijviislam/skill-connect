@@ -8,9 +8,9 @@ const NavbarComponent = () => {
  
 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered className="bg-green-50">
       <NavbarContent justify="start">
-        <NavbarBrand className="mr-4">
+        <NavbarBrand className="mr-4 ">
         <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">SkillConnect</Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
@@ -27,8 +27,24 @@ const NavbarComponent = () => {
           </NavbarItem>
          
           <NavbarItem>
+            <Link color="foreground" href="freelancerProfile">
+            Freelancer profile
+            </Link>
+          </NavbarItem>
+         
+          <NavbarItem>
             <Link color="foreground" href="about">
             About 
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="faq">
+            FAQ 
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="contact">
+           Contact Us
             </Link>
           </NavbarItem>
          
@@ -67,7 +83,9 @@ const NavbarComponent = () => {
 
             
             <DropdownItem key="dashboard">Dashboard</DropdownItem>
-            
+            <DropdownItem key="freelancerProfile">Freelancer Profile</DropdownItem>
+            <DropdownItem key="faq">FAQ</DropdownItem>
+            <DropdownItem key="contact">Contact Us</DropdownItem>
             <DropdownItem key="solution">Solutions</DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out

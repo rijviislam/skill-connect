@@ -1,4 +1,4 @@
-import Footer from "../components/(share)/Footer";
+
 import DashboardSideBar from "./DashboardSideBar";
 
 export default function DashboardLayout({ children }) {
@@ -14,8 +14,7 @@ export default function DashboardLayout({ children }) {
         {children}
       </div>
 
-      {/* Footer */}
-      <Footer />
+     
     </div>
   );
 }
