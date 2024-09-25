@@ -17,29 +17,21 @@ const NavbarComponent = () => {
           <NavbarItem 
           // isActive
           >
-            <Link href="freelancerProfile"
+            <Link href="dashboard"
             color="foreground"
             // aria-current="page" 
             // color="secondary"
             >
-            Freelancers Profile
+            Dashboard
             </Link>
           </NavbarItem>
-          <NavbarItem >
-            <Link href="jobPost" color="foreground">
-            Job Post
-            </Link>
-          </NavbarItem>
+         
           <NavbarItem>
             <Link color="foreground" href="about">
             About 
             </Link>
           </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="solutions">
-            Solutions 
-            </Link>
-          </NavbarItem>
+         
         </NavbarContent>
       </NavbarContent>
 
@@ -74,9 +66,8 @@ const NavbarComponent = () => {
             </DropdownItem>
 
             
-            <DropdownItem key="freelancerProfile">Freelancers Profile</DropdownItem>
-            <DropdownItem key="jobPost">Jobs Post</DropdownItem>
-            <DropdownItem key="about">About</DropdownItem>
+            <DropdownItem key="dashboard">Dashboard</DropdownItem>
+            
             <DropdownItem key="solution">Solutions</DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out

@@ -8,19 +8,20 @@ import {
   SelectItem,
   Textarea,
 } from "@nextui-org/react";
-
 import { useForm } from "react-hook-form";
+
 export default function JobPost() {
-  const categorys = [
+  const categories = [
     { key: "web developer", label: "Web Developer" },
     { key: "frontend developer", label: "Frontend Developer" },
     { key: "backend developer", label: "Backend Developer" },
-    { key: "wordpress developer ", label: "WordPress Developer " },
+    { key: "wordpress developer", label: "WordPress Developer" },
     { key: "php developer", label: "PHP Developer" },
-    { key: "laravel developer", label: "Laravel developer" },
-    { key: "ui designer", label: "UI designer" },
+    { key: "laravel developer", label: "Laravel Developer" },
+    { key: "ui designer", label: "UI Designer" },
     { key: "graphics designer", label: "Graphics Designer" },
   ];
+
   const budgets = [
     { key: "$10", label: "$10" },
     { key: "$20", label: "$20" },
@@ -31,17 +32,28 @@ export default function JobPost() {
     { key: "$70", label: "$70" },
     { key: "$80", label: "$80" },
     { key: "$90", label: "$90" },
-    { key: "$100", label: "100" },
+    { key: "$100", label: "$100" },
     { key: "$110", label: "$110" },
   ];
+
   const {
     register,
     handleSubmit,
-    watch,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const newPost = {
+      title: data.text,
+      description: data.description,
+      deadline: data.deadline,
+      category: data.category,
+      budget: data.budget,
+      requiredSkills: data.requiredSkills,
+    };
+    console.log(newPost);
+  };
 
   return (
     <div className="mx-10 flex items-center flex-col my-10">
@@ -55,7 +67,7 @@ export default function JobPost() {
         <div className="flex items-center justify-center w-full lg:w-full md:w-full sm:w-full gap-5 flex-col">
           <div className="flex w-full gap-5 lg:flex-row md:flex-col flex-col">
             {/* INPUT TEXT AND TEXTAREA  */}
-            <div className="lg:w-1/2  flex items-center flex-col  gap-5 ">
+            <div className="lg:w-1/2 flex items-center flex-col gap-5">
               <Input
                 key="primary"
                 type="text"
@@ -64,7 +76,7 @@ export default function JobPost() {
                 placeholder="Post Title"
                 defaultValue="Frontend Developer"
                 className="max-w-[500px]"
-                {...register("text")}
+                {...register("text", { required: true })} // Register title
               />
               {errors.text && <span>Title is required</span>}
               <Textarea
@@ -72,14 +84,18 @@ export default function JobPost() {
                 color="primary"
                 placeholder="Enter your description"
                 className="max-w-[500px]"
+                {...register("description", { required: true })} // Register description
               />
+              {errors.description && <span>Description is required</span>}
               <div className="flex w-full items-center justify-center flex-wrap md:flex-nowrap gap-4">
                 <DatePicker
                   label="Project Deadline"
                   color="primary"
                   className="max-w-[500px]"
                   isRequired
+                  onChange={(date) => setValue("deadline", date)} // Register deadline
                 />
+                {errors.deadline && <span>Deadline is required</span>}
               </div>
             </div>
             {/* INPUT SELECT CATEGORY AND BUDGET  */}
@@ -87,40 +103,39 @@ export default function JobPost() {
               <Select
                 label="Category"
                 color="primary"
-                placeholder="Select an Category"
-                defaultSelectedKeys={["Web Developer"]}
+                placeholder="Select a Category"
                 className="max-w-[500px]"
-                scrollShadowProps={{
-                  isEnabled: false,
-                }}
+                {...register("category", { required: true })} // Register category
               >
-                {categorys.map((category) => (
-                  <SelectItem key={category.key}>{category.label}</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.key} value={category.key}>{category.label}</SelectItem>
                 ))}
               </Select>
+              {errors.category && <span>Category is required</span>}
+              
               <Select
                 label="Budget"
                 color="primary"
-                placeholder="Select an Budget"
-                defaultSelectedKeys={["$20"]}
+                placeholder="Select a Budget"
                 className="max-w-[500px]"
-                scrollShadowProps={{
-                  isEnabled: false,
-                }}
+                {...register("budget", { required: true })} // Register budget
               >
                 {budgets.map((budget) => (
-                  <SelectItem key={budget.key}>{budget.label}</SelectItem>
+                  <SelectItem key={budget.key} value={budget.key}>{budget.label}</SelectItem>
                 ))}
               </Select>
+              {errors.budget && <span>Budget is required</span>}
+              
               <Select
                 label="Required Skills"
                 color="primary"
-                placeholder="Select an Skill"
+                placeholder="Select Skills"
                 selectionMode="multiple"
                 className="max-w-[500px]"
+                {...register("requiredSkills")} // Register required skills
               >
-                {categorys.map((category) => (
-                  <SelectItem key={category.key}>{category.label}</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.key} value={category.key}>{category.label}</SelectItem>
                 ))}
               </Select>
             </div>
@@ -131,7 +146,7 @@ export default function JobPost() {
           type="submit"
           className="w-[100px] flex items-center justify-center bg-[#2E8B57] hover:bg-[#90EE90]"
         >
-          Secondary
+          Submit
         </Button>
       </form>
     </div>
