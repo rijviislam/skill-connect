@@ -43,7 +43,7 @@ const NavbarComponent = () => {
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="contact">
+            <Link color="foreground" href="us">
            Contact Us
             </Link>
           </NavbarItem>
@@ -85,7 +85,7 @@ const NavbarComponent = () => {
             <DropdownItem key="dashboard">Dashboard</DropdownItem>
             <DropdownItem key="freelancerProfile">Freelancer Profile</DropdownItem>
             <DropdownItem key="faq">FAQ</DropdownItem>
-            <DropdownItem key="contact">Contact Us</DropdownItem>
+            <DropdownItem key="us">Contact Us</DropdownItem>
             <DropdownItem key="solution">Solutions</DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
