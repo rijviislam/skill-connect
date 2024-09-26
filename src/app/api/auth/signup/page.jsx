@@ -5,6 +5,7 @@ import { Input, Button, Spacer,Image } from '@nextui-org/react';
 
 
 export default function SignUpPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL
 
     const handleSubmitForm = async (e) => {
         e.preventDefault()
@@ -16,7 +17,7 @@ export default function SignUpPage() {
             image: e.target.image.value,
         }
         console.log(newUser)
-        const resp = await fetch("http://localhost:3000/api/auth/signup/register-user", {
+        const resp = await fetch(`${baseUrl}/api/auth/signup/register-user`, {
             method: "POST",
             body: JSON.stringify(newUser),
             headers: {
