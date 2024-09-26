@@ -14,7 +14,7 @@ const UsersManagementPage = () => {
       setUsers(data);
     };
     fetchUsers();
-  }, []);
+  }, [baseUrl]);
 
   return (
     <div>
