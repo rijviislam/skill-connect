@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const JobPostingForm = () => {
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -52,7 +52,6 @@ const JobPostingForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // Create a job object to send to the server
         const jobData = {
             title,
             description,
@@ -62,9 +61,7 @@ const JobPostingForm = () => {
         };
 
         try {
-            // Make a POST request to your server
-            const response = await fetch((`${baseUrl}/api/post-job`),
-             {
+            const response = await fetch(`${baseUrl}/api/post-job`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,11 +73,9 @@ const JobPostingForm = () => {
                 throw new Error('Network response was not ok');
             }
 
-           
             const result = await response.json();
             console.log('Job posted successfully:', result);
 
-           
             setTitle('');
             setDescription('');
             setBudget('');
@@ -94,14 +89,14 @@ const JobPostingForm = () => {
     return (
         <div className="container mx-auto p-6">
             <h2 className="text-2xl font-bold mb-4">Post a Job Offer</h2>
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md space-y-4">
+            <form onSubmit={handleSubmit} className="bg-green-200 p-6 rounded-lg shadow-md space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Job Title</label>
+                    <label className="block text-sm font-medium text-green-700">Job Title</label>
                     <select
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Job Title</option>
                         {availableTitles.map((jobTitle) => (
@@ -112,22 +107,22 @@ const JobPostingForm = () => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <label className="block text-sm font-medium text-green-700">Description</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
                         rows="4"
                     ></textarea>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Budget</label>
+                    <label className="block text-sm font-medium text-green-700">Budget</label>
                     <select
                         value={budget}
                         onChange={(e) => setBudget(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Budget</option>
                         {availableBudgets.map((budgetOption) => (
@@ -138,12 +133,12 @@ const JobPostingForm = () => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Timeline</label>
+                    <label className="block text-sm font-medium text-green-700">Timeline</label>
                     <select
                         value={timeline}
                         onChange={(e) => setTimeline(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Timeline</option>
                         {availableTimelines.map((timeOption) => (
@@ -154,13 +149,13 @@ const JobPostingForm = () => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Required Skills</label>
+                    <label className="block text-sm font-medium text-green-700">Required Skills <span className="text-xs text-green-500">(Select multiple)</span></label>
                     <select
                         multiple
                         value={skills}
                         onChange={(e) => setSkills([...e.target.selectedOptions].map(option => option.value))}
                         required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         {availableSkills.map((skill) => (
                             <option key={skill} value={skill}>
@@ -171,7 +166,7 @@ const JobPostingForm = () => {
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition duration-300"
+                    className="w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition duration-300"
                 >
                     Post Job Offer
                 </button>

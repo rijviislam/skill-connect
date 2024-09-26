@@ -8,7 +8,7 @@ const Feature = () => {
     return (
         <section className="py-12 ">
             <div className="container mx-auto px-4">
-                <h2 className="text-3xl font-extrabold text-center text-[#2e8b57] mb-8">
+                <h2 className="col-span-full text-center text-5xl font-semibold  text-[#2e8b57] mb-4 mt-8">
                     Features
                 </h2>
                 <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
