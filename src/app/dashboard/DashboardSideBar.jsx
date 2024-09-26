@@ -63,6 +63,11 @@ const DashboardSideBar = () => {
                         <FaAd className="mr-2" /> Review & Feedback
                     </Link>
                 </li>
+                <li>
+                    <Link href="/dashboard/user" className={`flex items-center mb-3 text-lg ${isActive('/dashboard/feedback') ? 'font-bold text-green-700' : ''}`}>
+                        <FaAd className="mr-2" /> user Management 
+                    </Link>
+                </li>
 
                 <div className="divider my-4"></div>
 
