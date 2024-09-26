@@ -24,12 +24,12 @@ export const authOptions = {
                 
                 if(email){
                     const db =await connectDB()
-                    const currentUser = await db.collection("users").findOne({email})
+                    const currentUser = await db.collection("users").findOne({email: email})
                     console.log(currentUser)
 
                     if(currentUser){
 
-                        if(currentUser.password === password){
+                        if(currentUser && currentUser.password === password){
                             return currentUser;
                         }
                     }
