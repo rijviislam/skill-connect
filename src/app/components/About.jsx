@@ -20,7 +20,7 @@ const About = () => {
   {/* Left Section */}
   <div className="w-full md:w-1/2 md:pr-10 mb-8 md:mb-0 text-center md:text-left">
     <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-4 transition-transform duration-300 hover:scale-105">
-      SkillConnect is more than just a platform; it's a community where freelancers and clients come together to realize their potential. Our mission is to create an environment that fosters collaboration and success for both parties.
+      SkillConnect is more than just a platform; it&apos;s a community where freelancers and clients come together to realize their potential. Our mission is to create an environment that fosters collaboration and success for both parties.
     </p>
     <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-4 transition-transform duration-300 hover:scale-105">
       We believe in empowering professionals by providing them with the tools they need to succeed. At SkillConnect, we facilitate connections that transcend geographical boundaries, enabling individuals to thrive in a flexible and supportive environment.
@@ -58,7 +58,7 @@ const About = () => {
         <FaGlobe className="text-green-800 text-3xl mr-2" />
         <h2 className="text-xl font-bold text-green-800">Our Vision</h2>
       </div>
-      <p className="text-gray-800 text-base">To help build a better world that's interconnected for prosperity and wired for peace.</p>
+      <p className="text-gray-800 text-base">To help build a better world that&apos;s interconnected for prosperity and wired for peace.</p>
     </div>
     {/* Proposition Card */}
     <div className="bg-yellow-200 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 max-w-2xl mx-auto">
