@@ -6,7 +6,7 @@ const WorkflowSteps = () => {
   return (
     <div className="py-12 ">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-extrabold text-center mb-8 text-[#2e8b57]">How It Works</h2>
+        <h2 className="col-span-full text-center text-5xl font-semibold  text-[#2e8b57] mb-4 mt-8">How It Works</h2>
         <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
         <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
           

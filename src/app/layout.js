@@ -3,6 +3,8 @@ import Footer from "./components/(share)/Footer";
 import NavbarComponent from "./components/(share)/NavbarComponent";
 import "./globals.css";
 import { Providers } from "./providers";
+import AuthProvider from './services/AuthProvider';
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,17 +25,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Providers>
-          <nav>
+      <AuthProvider>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <Providers>
             <NavbarComponent />
-          </nav>
-          <div >{children}</div>
-         <Footer/>
-        </Providers>
-      </body>
+            <div>{children}</div>
+           <Footer/>
+          </Providers>
+        </body>
+      </AuthProvider>
     </html>
   );
 }

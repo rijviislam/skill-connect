@@ -80,7 +80,7 @@ const Review = () => {
   return (
     <div className="py-16 ">
       <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8  ">
-        <h2 className="text-3xl font-extrabold text-center text-[#2e8b57] mb-8">
+        <h2 className="col-span-full text-center text-5xl font-semibold  text-[#2e8b57] mb-4 mt-8">
           Client & Freelancer Reviews
         </h2>
         <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />

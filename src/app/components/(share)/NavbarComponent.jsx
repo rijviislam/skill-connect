@@ -1,88 +1,128 @@
-"use client"
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar } from "@nextui-org/react";
-
-// import {SearchIcon} from "@/SearchIcon";
-import { SearchIcon } from './../SearchIcon';
+"use client";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+  Button
+} from "@nextui-org/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const NavbarComponent = () => {
- 
+  const { data: session, status } = useSession();
+  console.log(session)
+  console.log(status)
+  const isAuthenticated = status === "authenticated";
 
+  const userImage = session?.user?.image;
+    const userType = session?.user?.type;
+  const userEmail = session?.user?.email;
+  
+    // if (status === "loading") {
+    //   return <div>Loading...</div>;
+    // }
+ 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered className="bg-green-50">
       <NavbarContent justify="start">
-        <NavbarBrand className="mr-4">
+        <NavbarBrand className="mr-4 ">
         <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">SkillConnect</Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
           <NavbarItem 
           // isActive
           >
-            <Link href="freelancerProfile"
+            <Link href="dashboard"
             color="foreground"
             // aria-current="page" 
             // color="secondary"
             >
-            Freelancers Profile
+            Dashboard
             </Link>
           </NavbarItem>
-          <NavbarItem >
-            <Link href="jobPost" color="foreground">
-            Job Post
+         
+          <NavbarItem>
+            <Link color="foreground" href="freelancerProfile">
+            Freelancer profile
             </Link>
           </NavbarItem>
+         
           <NavbarItem>
             <Link color="foreground" href="about">
             About 
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="solutions">
-            Solutions 
+            <Link color="foreground" href="faq">
+            FAQ 
             </Link>
           </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="us">
+           Contact Us
+            </Link>
+          </NavbarItem>
+         
         </NavbarContent>
       </NavbarContent>
-
+      
+     
       <NavbarContent as="div" className="items-center" justify="end">
-        <Input
-          classNames={{
-            base: "max-w-full sm:max-w-[10rem] h-10",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-          }}
-          placeholder="Type to search..."
-          size="sm"
-          startContent={<SearchIcon size={18} />}
-          type="search"
-        />
+
         <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
+  {
+    isAuthenticated ? (
+      <>
+      <DropdownTrigger>
+             <Avatar
               isBordered
               as="button"
               className="transition-transform"
               color="secondary"
               name="Jason Hughes"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              src={ userImage }
             />
           </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-
-            
-            <DropdownItem key="freelancerProfile">Freelancers Profile</DropdownItem>
-            <DropdownItem key="jobPost">Jobs Post</DropdownItem>
-            <DropdownItem key="about">About</DropdownItem>
-            <DropdownItem key="solution">Solutions</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+          </>
+    ):(
+      <>
+              <NavbarItem>
+                <Button onClick={() => signIn()} color="primary" variant="ghost">Sign In</Button>
+              </NavbarItem>
+              <NavbarItem>
+                <Link href="/api/auth/signup">
+                  <Button color="primary" variant="ghost">Sign Up</Button>
+                </Link>
+              </NavbarItem>
+            </>
+    )
+  }
+          
+<DropdownMenu aria-label="Profile Actions" variant="flat">
+<DropdownItem key="profile" className="h-14 gap-2">
+  <p className="font-semibold"><span>{ userType }</span>: <span> { userEmail }</span></p>
+         </DropdownItem>
+          
+         <DropdownItem href="dashboard" key="dashboard">Dashboard</DropdownItem>
+           <DropdownItem href="freelancerProfile" key="freelancerProfile">Freelancers Profile</DropdownItem>
+           <DropdownItem href="jobPost" key="jobPost">Jobs Post</DropdownItem>
+           <DropdownItem href="about" key="about">About</DropdownItem>
+           <DropdownItem href="solution" key="solution">Solutions</DropdownItem>
+           <DropdownItem
+             onClick={() => signOut()}
+             color="danger">
               Log Out
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
+
       </NavbarContent>
     </Navbar>
   );
