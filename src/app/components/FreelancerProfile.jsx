@@ -35,7 +35,6 @@ export default function FreelancerProfile() {
     { key: "graphics designer", label: "Graphics Designer" },
   ];
 
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const { isOpen, onOpenChange } = useDisclosure();
   const [profiles, setProfiles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,7 +45,7 @@ export default function FreelancerProfile() {
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${baseUrl}/api/profiles`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/profiles`);
       const data = await response.json();
       setProfiles(data);
       setFilterData(data);
@@ -59,7 +58,7 @@ export default function FreelancerProfile() {
 
   useEffect(() => {
     fetchProfiles();
-  }, [baseUrl]);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
