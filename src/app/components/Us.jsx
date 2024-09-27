@@ -29,7 +29,7 @@ const Us = () => {
                 </div>
 
                 {/* Contact Form */}
-                <form className="bg-green-50 shadow-2xl rounded-lg p-6 flex-1 transition-transform transform hover:scale-105 ">
+                <form className="bg-green-50 shadow-md rounded-lg p-6 flex-1 transition-transform transform hover:scale-105 ">
                     <h2 className="text-xl font-semibold mb-4">Send Us a Message</h2>
                     <input
                         type="text"
