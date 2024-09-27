@@ -94,11 +94,11 @@ const NavbarComponent = () => {
     ):(
       <>
               <NavbarItem>
-                <Button onClick={() => signIn()} color="primary" variant="ghost">Sign In</Button>
+                <Button onClick={() => signIn()}  variant="ghost" className="bg-green-300  border-green-800">Sign In</Button>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/api/auth/signup">
-                  <Button color="primary" variant="ghost">Sign Up</Button>
+                  <Button  variant="ghost" className="bg-green-300  border-green-800">Sign Up</Button>
                 </Link>
               </NavbarItem>
             </>

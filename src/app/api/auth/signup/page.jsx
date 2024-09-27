@@ -144,6 +144,7 @@
 import { Input, Button, Spacer, Image } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 
+
 export default function SignUpPage() {
   const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const router = useRouter();
@@ -175,33 +176,98 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="container mx-auto flex justify-center items-center gap-10 h-screen">
-      <div>
-        <Image
-          isBlurred
-          src="https://i.ibb.co.com/8jJYbVw/Young-Man-Register-Domain-Name.png"
-          alt="NextUI Album Cover"
-          className="w-full"
-        />
-      </div>
-      <div className="w-full">
-        <h3>Sign Up</h3>
-        <form onSubmit={handleSubmitForm}>
-          <Input type="name" name="name" label="Name" placeholder="Enter Your name" required />
-          <Spacer y={1.5} />
-          <Input type="email" name="email" label="Email" placeholder="skillconnect@gmail.com" required />
-          <Spacer y={1.5} />
-          <Input type="password" name="password" label="Password" placeholder="Enter your password" required />
-          <Spacer y={1.5} />
-          <Input type="text" name="type" label="Type" placeholder="Enter your Type" required />
-          <Spacer y={1.5} />
-          <Input type="text" name="image" label="Image link" placeholder="Enter your Image link" required />
-          <Spacer y={1.5} />
-          <Button type="submit" shadow color="primary" auto>
-            Sign Up
-          </Button>
-        </form>
-      </div>
+    <div className="container mx-auto flex flex-col lg:flex-row justify-center items-center gap-10 h-screen px-4">
+    <div className="flex-shrink-0">
+      <Image
+        isBlurred
+        src="https://i.ibb.co/W3wPyqm/Sign-up-amico.png"
+        alt="NextUI Album Cover"
+        className=" w-[600px]"
+      />
     </div>
+    <div className="w-full max-w-md">
+      <h3 className="text-3xl font-semibold mb-4 text-green-600 text-center">Sign Up</h3>
+      <form onSubmit={handleSubmitForm}>
+        <div className="mb-4">
+          <Input
+            type="text"
+            name="image"
+            label="Image link"
+            placeholder="Enter your Image link"
+            required
+            className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+          />
+        </div>
+        <div className="mb-4">
+          <Input
+            type="text"
+            name="name"
+            label="Name"
+            placeholder="Enter Your name"
+            required
+            className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+          />
+        </div>
+        <div className="mb-4">
+          <Input
+            type="email"
+            name="email"
+            label="Email"
+            placeholder="skillconnect@gmail.com"
+            required
+            className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+          />
+        </div>
+        <div className="mb-4">
+          <Input
+            type="password"
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+            required
+            className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
+            Type
+          </label>
+          <div className="flex items-center gap-4">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="type"
+                value="freelancer"
+                required
+                className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
+              />
+              <span className="ml-2">Freelancer</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="type"
+                value="client"
+                required
+                className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
+              />
+              <span className="ml-2">Client</span>
+            </label>
+          </div>
+        </div>
+        <Button
+          type="submit"
+          shadow
+          color="success"
+          auto
+          className="w-full bg-green-500 rounded-xl hover:bg-green-600 text-white transition duration-200"
+        >
+          Sign Up
+        </Button>
+      </form>
+    </div>
+  </div>
+  
+  
   );
 }

@@ -21,7 +21,7 @@ const TopCategories = () => (
     
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {/* Card 1: Graphic Design */}
-      <a href="#graphic-design" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Graphic Design']}`}>
+      <a href="#graphic-design" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Graphic Design']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaDesktop size={24} />
@@ -33,7 +33,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 2: Web Development */}
-      <a href="#web-development" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Web Development']}`}>
+      <a href="#web-development" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Web Development']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaCode size={24} />
@@ -45,7 +45,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 3: Content Writing */}
-      <a href="#content-writing" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Content Writing']}`}>
+      <a href="#content-writing" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Content Writing']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaPen size={24} />
@@ -57,7 +57,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 4: Photography */}
-      <a href="#photography" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Photography']}`}>
+      <a href="#photography" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Photography']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaCamera size={24} />
@@ -69,7 +69,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 5: Music Production */}
-      <a href="#music-production" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Music Production']}`}>
+      <a href="#music-production" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Music Production']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaMusic size={24} />
@@ -81,7 +81,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 6: Video Editing */}
-      <a href="#video-editing" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Video Editing']}`}>
+      <a href="#video-editing" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Video Editing']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaVideo size={24} />
@@ -93,7 +93,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 7: App Development */}
-      <a href="#app-development" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['App Development']}`}>
+      <a href="#app-development" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['App Development']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaMobileAlt size={24} />
@@ -105,7 +105,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 8: E-commerce */}
-      <a href="#e-commerce" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['E-commerce']}`}>
+      <a href="#e-commerce" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['E-commerce']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaShoppingCart size={24} />
@@ -117,7 +117,7 @@ const TopCategories = () => (
       </a>
 
       {/* Card 9: Writing & Translation */}
-      <a href="#writing-translation" className={`block p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Writing & Translation']}`}>
+      <a href="#writing-translation" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Writing & Translation']}`}>
         <div className="flex items-center space-x-4">
           <div className="text-3xl text-green-500">
             <FaBook size={24} />
