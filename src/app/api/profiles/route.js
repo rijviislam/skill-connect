@@ -20,6 +20,7 @@ export const GET = async (request) => {
 
         return Response.json(users);
     } catch (error) {
+        console.error('Error fetching profiles:', error);
         return Response.json({ message: "Something went wrong" }, { status: 500 });
     }
 };
