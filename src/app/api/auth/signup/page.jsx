@@ -6,7 +6,6 @@ import { useState } from 'react';
 import Loader from '../../../../app/loading'; // Adjust the import path as needed
 
 export default function SignUpPage() {
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const router = useRouter();
   const [loading, setLoading] = useState(false); // State for loading
 
@@ -23,7 +22,7 @@ export default function SignUpPage() {
     };
 
     try {
-      const resp = await fetch(`${baseUrl}/api/auth/signup/register-user`, {
+      const resp = await fetch('/api/auth/signup/register-user', {
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {
