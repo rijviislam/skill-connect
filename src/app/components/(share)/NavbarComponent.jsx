@@ -32,9 +32,9 @@ const NavbarComponent = () => {
   const userEmail = session?.user?.email;
 
    // If loading, show the loader
-   if (loading) {
-    return <Loader />;
-  }
+  //  if (loading) {
+  //   return <Loader />;
+  // }
 
   return (
     <Navbar isBordered className="bg-green-50">

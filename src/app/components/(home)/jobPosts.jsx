@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import { FaArrowRight, FaClipboardList, FaDollarSign, FaClock, FaTools } from 'react-icons/fa';
 import Loader from '../../../app/loading'; // Adjust the import path as needed
 
-const JobPosts = () => {
-    const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;      
+const JobPosts = () => {      
 
     const [jobPosts, setJobPosts] = useState([]);
     const [loading, setLoading] = useState(true); // State for loading
@@ -15,7 +14,7 @@ const JobPosts = () => {
         const fetchData = async () => {
             setLoading(true); // Start loading
             try {
-                const response = await fetch(`${baseUrl}/api/get-job`); 
+                const response = await fetch('/api/get-job'); 
                 const data = await response.json();
                 setJobPosts(data);
             } catch (error) {
@@ -26,7 +25,7 @@ const JobPosts = () => {
         };
 
         fetchData();
-    }, [baseUrl]);
+    }, []);
 
     // If loading, show the loader
     if (loading) {

@@ -45,7 +45,7 @@ export default function FreelancerProfile() {
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/profiles`);
+      const response = await fetch('/api/profiles');
       const data = await response.json();
       setProfiles(data);
       setFilterData(data);
