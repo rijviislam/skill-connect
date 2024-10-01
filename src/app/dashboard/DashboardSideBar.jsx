@@ -19,7 +19,7 @@ const DashboardSideBar = () => {
                     <li className="font-bold text-sm mb-2">Freelancer Menu</li> {/* Smaller font size */}
                     <li>
                         <Link href="/dashboard/profile" className={`flex items-center mb-2 text-sm ${isActive('/dashboard/profile') ? 'font-bold text-green-700' : ''}`}>
-                            <FaHome className="mr-1" /> My Profile
+                            <FaHome className="mr-1" />Freelancer  Profile
                         </Link>
                     </li>
                     <li>
@@ -42,6 +42,11 @@ const DashboardSideBar = () => {
 
                     {/* Client specific links */}
                     <li className="font-bold text-sm mb-2">Client Menu</li> {/* Smaller font size */}
+                    <li>
+                        <Link href="/dashboard/clientProfile" className={`flex items-center mb-2 text-sm ${isActive('/dashboard/job') ? 'font-bold text-green-700' : ''}`}>
+                            <FaHome className="mr-1" /> my profile
+                        </Link>
+                    </li>
                     <li>
                         <Link href="/dashboard/job" className={`flex items-center mb-2 text-sm ${isActive('/dashboard/job') ? 'font-bold text-green-700' : ''}`}>
                             <FaHome className="mr-1" /> Job Posting

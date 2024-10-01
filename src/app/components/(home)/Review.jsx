@@ -7,6 +7,7 @@ import Img5 from "../../../Image/photo-1667053508464-eb11b394df83.avif";
 import Img6 from "../../../Image/photo-1723200166097-4eed8c141f03.avif";
 import Img7 from "../../../Image/photo-1724159768353-55b083d0d435.avif";
 import Img8 from "../../../Image/photo-1630026317249-c1c83b21ea07.avif";
+import { FaArrowRight } from "react-icons/fa";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
@@ -48,7 +49,7 @@ const Review = () => {
 
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 900,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -80,10 +81,10 @@ const Review = () => {
   return (
     <div className="py-16 ">
       <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8  ">
-        <h2 className="col-span-full text-center text-5xl font-semibold  text-[#2e8b57] mb-4 mt-8">
-          Client & Freelancer Reviews
-        </h2>
-        <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
+      <h2 className="container mx-auto text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center ">
+           Reviews
+  <FaArrowRight className="ml-2" />
+</h2>
         
         <Slider {...settings}>
           {reviews.map((review, index) => (
