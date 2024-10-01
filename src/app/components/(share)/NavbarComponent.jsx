@@ -12,7 +12,7 @@ import {
   Avatar,
   Button,
 } from "@nextui-org/react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Loader from "../../../app/loading"
 
@@ -80,7 +80,9 @@ const NavbarComponent = () => {
           ) : (
             <>
               <NavbarItem>
-                <Button onClick={() => signIn()} variant="ghost" className="bg-green-300 border-green-800">Sign In</Button>
+              <Link href="/api/auth/signin">
+                <Button variant="ghost" className="bg-green-300 border-green-800">Sign In</Button>
+                </Link>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/api/auth/signup">
