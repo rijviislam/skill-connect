@@ -4,12 +4,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CircularProgress,
   Image,
   Input,
   Link,
   Select,
   SelectItem,
+  Spinner,
 } from "@nextui-org/react";
 
 import {
@@ -25,13 +25,14 @@ import { SearchIcon } from "./SearchIcon";
 
 export default function FreelancerProfile() {
   const category = [
+    { key: "all", label: "All" },
     { key: "web developer", label: "Web Developer" },
     { key: "frontend developer", label: "Frontend Developer" },
     { key: "backend developer", label: "Backend Developer" },
-    { key: "wordpress developer", label: "WordPress Developer" },
+    { key: "devops engineer", label: "DevOps Engineer" },
     { key: "php developer", label: "PHP Developer" },
-    { key: "laravel developer", label: "Laravel Developer" },
-    { key: "ui designer", label: "UI Designer" },
+    { key: "full stack developer", label: "Full Stack Developer" },
+    { key: "ui/ux designer", label: "UI/UX Designer" },
     { key: "graphics designer", label: "Graphics Designer" },
   ];
 
@@ -40,12 +41,12 @@ export default function FreelancerProfile() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/profiles');
+      const response = await fetch("/api/profiles");
       const data = await response.json();
       setProfiles(data);
       setFilterData(data);
@@ -68,6 +69,27 @@ export default function FreelancerProfile() {
     setSelectedCategory(categoryKey);
   };
 
+  // useEffect(() => {
+  //   let filtered = profiles;
+
+  //   if (searchTerm) {
+  //     filtered = filtered.filter(
+  //       (profile) =>
+  //         profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //         profile.profession.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //   }
+
+  //   if (selectedCategory) {
+  //     filtered = filtered.filter(
+  //       (profile) =>
+  //         profile.profession.toLowerCase() === selectedCategory.toLowerCase()
+  //     );
+  //   }
+
+  //   setFilterData(filtered);
+  // }, [searchTerm, selectedCategory, profiles]);
+
   useEffect(() => {
     let filtered = profiles;
 
@@ -79,7 +101,7 @@ export default function FreelancerProfile() {
       );
     }
 
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory !== "all") {
       filtered = filtered.filter(
         (profile) =>
           profile.profession.toLowerCase() === selectedCategory.toLowerCase()
@@ -128,7 +150,7 @@ export default function FreelancerProfile() {
       {/* GRID CARD */}
       {loading ? (
         <div className="flex justify-center my-10">
-          <CircularProgress size="lg" aria-label="Loading..." />
+          <Spinner size="lg" color="success" />
         </div>
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
