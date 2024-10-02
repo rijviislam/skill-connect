@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import Swal from 'sweetalert2'
 
 
 export default function SignUpPage() {
@@ -19,12 +20,13 @@ export default function SignUpPage() {
     setLoading(true); // Set loading to true when form is submitted
 
     const newUser = {
-      name: e.target.name.value,
+      username: e.target.name.value,
       email: e.target.email.value,
-      password: e.target.password.value,
-      type: e.target.type.value,
+      passwordHash: e.target.password.value,
+      role: e.target.role.value,
       image: e.target.image.value,
     };
+    console.log(newUser)
 
     try {
       const resp = await fetch('/api/auth/signup/register-user', {
@@ -37,7 +39,20 @@ export default function SignUpPage() {
 
       if (resp.ok) {
         router.push('/api/auth/signin'); 
+        // show sweetalart when successfully registered
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are registered successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });  
       } else {
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "error",
+        //   title: "Register error",
+        // }); 
         console.log("Register error");
       }
     } catch (error) {
@@ -106,14 +121,14 @@ export default function SignUpPage() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
-              Type
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+              Role
             </label>
             <div className="flex items-center gap-4">
               <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  name="type"
+                  name="role"
                   value="freelancer"
                   required
                   className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
@@ -123,7 +138,7 @@ export default function SignUpPage() {
               <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  name="type"
+                  name="role"
                   value="client"
                   required
                   className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
@@ -171,7 +186,7 @@ export default function SignUpPage() {
         <Spacer y={1.5} />
         <div>
           <p className="text-center text-gray-600">
-          Already have an account? <Link ClassName='hover:text-green-600' href="/api/auth/signin">Sign in</Link>
+          Already have an account? <Link className='hover:text-green-600' href="/api/auth/signin">Sign in</Link>
           </p>
         </div>
       </div>
