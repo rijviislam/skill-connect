@@ -11,9 +11,9 @@ const DashboardSideBar = () => {
     const isActive = (path) => pathname === path;
 
     return (
-        <div className="flex flex-col w-48 h-screen bg-green-200 p-2"> {/* Adjusted width and padding */}
-            {/* Wrapping the menu in a scrollable div with a fixed height */}
-            <div className="overflow-y-auto max-h-[calc(100vh-64px)]"> {/* Adjust height as needed */}
+        <div className="flex flex-col w-48 h-screen bg-green-200 p-2"> 
+            
+            <div className="overflow-y-auto max-h-[calc(100vh-64px)]"> 
                 <ul className="menu flex flex-col w-full">
                     {/* Freelancer specific links */}
                     <li className="font-bold text-sm mb-2">Freelancer Menu</li> {/* Smaller font size */}
@@ -43,7 +43,7 @@ const DashboardSideBar = () => {
                     {/* Client specific links */}
                     <li className="font-bold text-sm mb-2">Client Menu</li> {/* Smaller font size */}
                     <li>
-                        <Link href="/dashboard/clientProfile" className={`flex items-center mb-2 text-sm ${isActive('/dashboard/job') ? 'font-bold text-green-700' : ''}`}>
+                        <Link href="/dashboard/clientProfile" className={`flex items-center mb-2 text-sm ${isActive('/dashboard/clientProfile') ? 'font-bold text-green-700' : ''}`}>
                             <FaHome className="mr-1" /> my profile
                         </Link>
                     </li>
