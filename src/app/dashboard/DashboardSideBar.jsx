@@ -10,7 +10,7 @@ const DashboardSideBar = () => {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="lg:flex hidden flex-col w-48 h-screen bg-green-200 p-2">
+    <div className="flex flex-col w-48 h-screen bg-green-200 p-2">
       {" "}
       {/* Adjusted width and padding */}
       {/* Wrapping the menu in a scrollable div with a fixed height */}
@@ -28,7 +28,8 @@ const DashboardSideBar = () => {
                 isActive("/dashboard/profile") ? "font-bold text-green-700" : ""
               }`}
             >
-              <FaHome className="mr-1" /> My Profile
+              <FaHome className="mr-1" />
+              Freelancer Profile
             </Link>
           </li>
           <li>
@@ -73,12 +74,34 @@ const DashboardSideBar = () => {
           {/* Smaller font size */}
           <li>
             <Link
+              href="/dashboard/clientProfile"
+              className={`flex items-center mb-2 text-sm ${
+                isActive("/dashboard/job") ? "font-bold text-green-700" : ""
+              }`}
+            >
+              <FaHome className="mr-1" /> my profile
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/dashboard/job"
               className={`flex items-center mb-2 text-sm ${
                 isActive("/dashboard/job") ? "font-bold text-green-700" : ""
               }`}
             >
               <FaHome className="mr-1" /> Job Posting
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/dashboard/services"
+              className={`flex items-center mb-2 text-sm ${
+                isActive("/dashboard/services")
+                  ? "font-bold text-green-700"
+                  : ""
+              }`}
+            >
+              <FaHome className="mr-1" /> Services
             </Link>
           </li>
           <li>

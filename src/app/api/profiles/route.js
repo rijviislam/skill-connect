@@ -1,4 +1,5 @@
 import connectDB from '@/lib/connectDB';
+import { user } from '@nextui-org/react';
 
 export const GET = async (request) => {
     try {
@@ -13,9 +14,12 @@ export const GET = async (request) => {
         let users;
         if (profession) {
             users = await userCollection.find({ profession: profession }).toArray();
+            console.log(user)
         } else {
             // If no profession is specified, return all users
             users = await userCollection.find({}).toArray();
+            console.log(user)
+
         }
 
         return Response.json(users);

@@ -9,13 +9,14 @@ export default function Home() {
   return (
     <div>
       <BannerSlider />
-      
+      <TopCategories />
+      <WorkflowSteps />
       <Feature />
       <JobPosts/>
-      <WorkflowSteps />
+     
       
       <Review />
-      <TopCategories />
+      
     </div>
   );
 }

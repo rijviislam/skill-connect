@@ -33,13 +33,18 @@ const JobPosts = () => {
     }
 
     return (
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            <h1 className="col-span-full text-center text-5xl font-semibold text-[#2e8b57] mb-4 mt-8">Recently posted jobs</h1>
-            <hr className="col-span-full text-center border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
+        <div>
+             <h2 className="container mx-auto text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center ">
+           Recently posted jobs
+  <FaArrowRight className="ml-2" />
+</h2>
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 pl-5">
+          
+            
             {jobPosts.length > 0 ? (
                 jobPosts.map((job) => (
                     <div key={job._id} className="transition-transform transform hover:scale-105">
-                        <Card className="bg-green-50 max-w-[600px] shadow-md border-green-500 border-2 hover:bg-green-100 p-4">
+                        <Card className="bg-green-50 max-w-[600px] max-h-[200px] shadow-md border-green-500 border-2 hover:bg-green-100 p-4">
                             <CardHeader className="justify-between">
                                 <div className="flex gap-5">
                                     <div className="flex flex-col gap-1 items-start justify-center">
@@ -64,6 +69,7 @@ const JobPosts = () => {
             ) : (
                 <p>No job posts found</p>
             )}
+        </div>
         </div>
     );
 };
