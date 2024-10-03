@@ -19,19 +19,23 @@ const ProfilePage = () => {
   }, [status]);
 
   
-  const userImage = session?.user?.image;
-   
+  const userImage = session?.user?.profile?.avatarUrl;  
   const userEmail = session?.user?.email;
-  const userName = session?.user?.name;
+  const userName = session?.user?.username;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
 };
 
+ const updateHandler = (e) => {
+  e.preventDefault() ;
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  console.log(data);
+ };
 
 
-
-  if (loading) return <p>Loading...</p>;
+ 
     return (
         <div>
        <div>
@@ -41,14 +45,7 @@ const ProfilePage = () => {
     <div>
       <>
         <div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target);
-              const data = Object.fromEntries(formData.entries());
-              console.log(data); // Logs form data to the console
-            }}
-          >
+          <form onSubmit={updateHandler}>      
             <div className="lg:flex lg:gap-8">
               <Input
                 clearable

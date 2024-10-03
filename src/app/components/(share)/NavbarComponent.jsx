@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(status === "loading");
+  console.log(session);
 
   useEffect(() => {
     if (status !== "loading") {
@@ -26,9 +27,11 @@ const NavbarComponent = () => {
   }, [status]);
 
   const isAuthenticated = status === "authenticated";
-  const userImage = session?.user?.image;
+  const userImage = session?.user?.profile?.avatarUrl;
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
+
+  
 
   // if (status === "loading") {
   //   return <div>Loading...</div>;
