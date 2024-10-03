@@ -25,6 +25,7 @@ const ProfilePage = () => {
   const userEmail = user?.email;
   const userName = user?.username;
   const userId = user?._id; 
+  const userPhone =user?.profile?.phone;
 
  
 
@@ -67,7 +68,7 @@ const ProfilePage = () => {
           <div className="flex items-center">
             <FaPhone className="text-gray-600 mr-3" />
             <span className="text-2xl font-bold">Phone:</span>
-            <span className="ml-4 text-xl">{dummyData.phone}</span>
+            <span className="ml-4 text-xl">{userPhone}</span>
           </div>
           <div className="flex items-center">
             <FaMapMarkerAlt className="text-gray-600 mr-3" />

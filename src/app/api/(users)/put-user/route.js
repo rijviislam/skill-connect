@@ -15,13 +15,13 @@ export async function PUT(request) {
     }
 
     const { email } = session.user;
+    console.log("Request received:", updateData);
 
     // Dynamically build the update fields
     const updatedFields = {};
     if (updateData.username) updatedFields.username = updateData.username;
   // profile
-    if (updateData["profile.firstName"]) updatedFields["profile.firstName"] = updateData["profile.firstName"];
-    if (updateData["profile.lastName"]) updatedFields["profile.lastName"] = updateData["profile.lastName"];
+   
     if (updateData["profile.bio"]) updatedFields["profile.bio"] = updateData["profile.bio"];
     if (updateData["profile.avatarUrl"]) updatedFields["profile.avatarUrl"] = updateData["profile.avatarUrl"];
     if (updateData["profile.phone"]) updatedFields["profile.phone"] = updateData["profile.phone"];
