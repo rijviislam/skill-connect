@@ -88,15 +88,16 @@ const JobPostingForm = () => {
 
     return (
         <div className="container mx-auto p-6">
-            <h2 className="text-2xl font-bold mb-4">Post a Job Offer</h2>
-            <form onSubmit={handleSubmit} className="bg-green-200 p-6 rounded-lg shadow-md space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-green-700">Job Title</label>
+        <h2 className="text-2xl font-bold mb-4">Post a Job Offer</h2>
+        <form onSubmit={handleSubmit} className="bg-green-50 p-6 rounded-lg shadow-md space-y-4">
+            <div className="flex flex-col lg:flex-row lg:space-x-4">
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700">Job Title</label>
                     <select
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
+                        className="mt-1 block w-full bg-gray-300 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Job Title</option>
                         {availableTitles.map((jobTitle) => (
@@ -106,23 +107,13 @@ const JobPostingForm = () => {
                         ))}
                     </select>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-green-700">Description</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
-                        rows="4"
-                    ></textarea>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-green-700">Budget</label>
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700">Budget</label>
                     <select
                         value={budget}
                         onChange={(e) => setBudget(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
+                        className="mt-1 block w-full bg-gray-300 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Budget</option>
                         {availableBudgets.map((budgetOption) => (
@@ -132,13 +123,25 @@ const JobPostingForm = () => {
                         ))}
                     </select>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-green-700">Timeline</label>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:space-x-4">
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                        className="mt-1 block w-full bg-gray-300 rounded-md shadow-sm focus:ring focus:ring-green-300"
+                        rows="4"
+                    ></textarea>
+                </div>
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700">Timeline</label>
                     <select
                         value={timeline}
                         onChange={(e) => setTimeline(e.target.value)}
                         required
-                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
+                        className="mt-1 block w-full bg-gray-300 rounded-md shadow-sm focus:ring focus:ring-green-300"
                     >
                         <option value="">Select Timeline</option>
                         {availableTimelines.map((timeOption) => (
@@ -148,30 +151,32 @@ const JobPostingForm = () => {
                         ))}
                     </select>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium text-green-700">Required Skills <span className="text-xs text-green-500">(Select multiple)</span></label>
-                    <select
-                        multiple
-                        value={skills}
-                        onChange={(e) => setSkills([...e.target.selectedOptions].map(option => option.value))}
-                        required
-                        className="mt-1 block w-full border border-green-50 rounded-md shadow-sm focus:ring focus:ring-green-300"
-                    >
-                        {availableSkills.map((skill) => (
-                            <option key={skill} value={skill}>
-                                {skill}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition duration-300"
+            </div>
+            <div>
+                <label className="block text-sm font-medium text-gray-700">Required Skills <span className="text-xs text-gray-500">(Select multiple)</span></label>
+                <select
+                    multiple
+                    value={skills}
+                    onChange={(e) => setSkills([...e.target.selectedOptions].map(option => option.value))}
+                    required
+                    className="mt-1 block w-full bg-gray-300 rounded-md shadow-sm focus:ring focus:ring-green-300"
                 >
-                    Post Job Offer
-                </button>
-            </form>
-        </div>
+                    {availableSkills.map((skill) => (
+                        <option key={skill} value={skill}>
+                            {skill}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <button
+                type="submit"
+                className="w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition duration-300"
+            >
+                Post Job Offer
+            </button>
+        </form>
+    </div>
+    
     );
 };
 
