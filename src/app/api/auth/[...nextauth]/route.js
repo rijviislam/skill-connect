@@ -1,6 +1,8 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import connectDB from '@/lib/connectDB';
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export const authOptions = {
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
@@ -11,8 +13,8 @@ export const authOptions = {
       providers: [
         CredentialsProvider({
             credentials: {
-                email : { label: "Email", type: "text", placeholder: "Your Email", require: true },
-                password : { label: "Password", type: "password", placeholder: "Your Password", require: true }
+                email : { },
+                password : { }
             },
 
             async authorize(credentials) {
@@ -36,7 +38,15 @@ export const authOptions = {
                 }
                 return null
             }
-        })
+        }),
+        GoogleProvider({
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+          }),
+        GitHubProvider({
+            clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET
+          })
       ],
     callbacks: {
         async jwt({token, account, user}){
@@ -48,7 +58,11 @@ export const authOptions = {
         async session ({session, token}){
             session.user.type = token.type
             return session
-        }
+        },
+    },
+    pages: {
+        signIn: "/signin",
+        signUp: "/signup",
     }
 }
 
