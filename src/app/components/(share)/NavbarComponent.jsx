@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(status === "loading");
-  console.log(session);
+  
 
   useEffect(() => {
     if (status !== "loading") {
