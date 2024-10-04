@@ -1,134 +1,113 @@
-import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaVideo, FaMobileAlt, FaShoppingCart, FaBook } from 'react-icons/fa';
+"use client";
 
-const cardColors = {
-  'Graphic Design': 'bg-green-50',
-  'Web Development': 'bg-blue-50',
-  'Content Writing': 'bg-yellow-50',
-  'Photography': 'bg-red-50',
-  'Music Production': 'bg-purple-50',
-  'Video Editing': 'bg-teal-50',
-  'App Development': 'bg-indigo-50',
-  'E-commerce': 'bg-orange-50',
-  'Writing & Translation': 'bg-pink-50',
-};
+import React from 'react';
+import { Card, CardFooter, Image, Button } from '@nextui-org/react';
+import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaVideo, FaMobileAlt, FaShoppingCart, FaBook, FaArrowRight } from 'react-icons/fa';
+
+const cardData = [
+  {
+    id: 1,
+    title: 'Graphic Design',
+    description: 'Explore stunning designs.',
+    imageUrl: 'https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg',
+    icon: <FaDesktop size={24} />,
+  },
+  {
+    id: 2,
+    title: 'Web Development',
+    description: 'Build dynamic websites.',
+    imageUrl: 'https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg',
+    icon: <FaCode size={24} />,
+  },
+  {
+    id: 3,
+    title: 'Content Writing',
+    description: 'Engage with great content.',
+    imageUrl: 'https://i.postimg.cc/mkpX22Cy/unseen-studio-s9-CC2-SKy-SJM-unsplash.jpg',
+    icon: <FaPen size={24} />,
+  },
+  {
+    id: 4,
+    title: 'Photography',
+    description: 'Capture perfect moments.',
+    imageUrl: 'https://i.postimg.cc/mZm6SVJ1/jamie-street-q-WYv-QMIJyf-E-unsplash.jpg',
+    icon: <FaCamera size={24} />,
+  },
+  {
+    id: 5,
+    title: 'Music Production',
+    description: 'Produce inspiring tracks.',
+    imageUrl: 'https://i.postimg.cc/tgGrgcZw/caught-in-joy-Puk-ZSAi-K5o-unsplash.jpg',
+    icon: <FaMusic size={24} />,
+  },
+  {
+    id: 6,
+    title: 'Video Editing',
+    description: 'Edit stunning videos.',
+    imageUrl: 'https://i.postimg.cc/QtX0QWqq/wahid-khene-i-Kd-QCIi-SMl-Q-unsplash.jpg',
+    icon: <FaVideo size={24} />,
+  },
+  {
+    id: 7,
+    title: 'App Development',
+    description: 'Develop innovative apps.',
+    imageUrl: 'https://i.postimg.cc/hjpMpPyR/jexo-y-Vx-UC9-I9-Cik-unsplash.jpg',
+    icon: <FaMobileAlt size={24} />,
+  },
+  {
+    id: 8,
+    title: 'E-commerce',
+    description: 'Build online stores.',
+    imageUrl: 'https://i.postimg.cc/7hR9rtrB/shoper-sl-Lo94w-ES2-M-unsplash.jpg',
+    icon: <FaShoppingCart size={24} />,
+  },
+  {
+    id: 9,
+    title: 'Writing & Translation',
+    description: 'Craft engaging translations.',
+    imageUrl: 'https://i.postimg.cc/2Shwgxcw/aaron-burden-y02j-EX-B0-O0-unsplash.jpg',
+    icon: <FaBook size={24} />,
+  },
+];
 
 const TopCategories = () => (
-  <div className="p-6">
-    <h2 className="col-span-full text-center text-5xl font-semibold  text-[#2e8b57] mb-4 mt-8">
-    Top Categories
-    </h2>
-    <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
-    
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {/* Card 1: Graphic Design */}
-      <a href="#graphic-design" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Graphic Design']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaDesktop size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Graphic Design
-          </div>
-        </div>
-      </a>
 
-      {/* Card 2: Web Development */}
-      <a href="#web-development" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Web Development']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaCode size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Web Development
-          </div>
-        </div>
-      </a>
-
-      {/* Card 3: Content Writing */}
-      <a href="#content-writing" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Content Writing']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaPen size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Content Writing
-          </div>
-        </div>
-      </a>
-
-      {/* Card 4: Photography */}
-      <a href="#photography" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Photography']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaCamera size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Photography
-          </div>
-        </div>
-      </a>
-
-      {/* Card 5: Music Production */}
-      <a href="#music-production" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Music Production']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaMusic size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Music Production
-          </div>
-        </div>
-      </a>
-
-      {/* Card 6: Video Editing */}
-      <a href="#video-editing" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Video Editing']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaVideo size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Video Editing
-          </div>
-        </div>
-      </a>
-
-      {/* Card 7: App Development */}
-      <a href="#app-development" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['App Development']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaMobileAlt size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            App Development
-          </div>
-        </div>
-      </a>
-
-      {/* Card 8: E-commerce */}
-      <a href="#e-commerce" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['E-commerce']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaShoppingCart size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            E-commerce
-          </div>
-        </div>
-      </a>
-
-      {/* Card 9: Writing & Translation */}
-      <a href="#writing-translation" className={` p-4 shadow-lg rounded-lg hover:bg-green-100 hover:scale-105 transition-transform duration-300 ease-in-out w-full h-40 flex flex-col items-center justify-center max-w-xs mx-auto ${cardColors['Writing & Translation']}`}>
-        <div className="flex items-center space-x-4">
-          <div className="text-3xl text-green-500">
-            <FaBook size={24} />
-          </div>
-          <div className="text-md font-semibold text-gray-700 text-center">
-            Writing & Translation
-          </div>
-        </div>
-      </a>
+    <div className="container mx-auto p-6">
+      <h2 className="text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center">
+        Most Popular Categories 
+        <FaArrowRight className="ml-2" />
+      </h2>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {cardData.map((card) => (
+          <Card
+            key={card.id}
+            isFooterBlurred
+            radius="lg"
+            className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+          >
+            <Image
+              alt={card.title}
+              className="object-cover"
+              height={250} // Adjusted height to make the image bigger
+              src={card.imageUrl}
+              width="100%"
+            />
+            <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <div className="flex items-center space-x-2 text-center">
+                <div className="text-3xl text-green-500">{card.icon}</div>
+                <div className="text-lg font-bold text-green-400">{card.title}</div>
+              </div>
+              <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                Explore
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
-  </div>
+ 
+  
 );
 
 export default TopCategories;

@@ -4,12 +4,12 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CircularProgress,
   Image,
   Input,
   Link,
   Select,
   SelectItem,
+  Spinner,
 } from "@nextui-org/react";
 
 import {
@@ -46,7 +46,7 @@ export default function FreelancerProfile() {
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/profiles');
+      const response = await fetch("/api/profiles");
       const data = await response.json();
       setProfiles(data);
       setFilterData(data);
@@ -150,7 +150,7 @@ export default function FreelancerProfile() {
       {/* GRID CARD */}
       {loading ? (
         <div className="flex justify-center my-10">
-          <CircularProgress size="lg" aria-label="Loading..." />
+          <Spinner size="lg" color="success" />
         </div>
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">

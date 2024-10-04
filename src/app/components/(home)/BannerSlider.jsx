@@ -12,7 +12,7 @@ import "slick-carousel/slick/slick.css";
 const BannerSlider = () => {
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 900,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -33,21 +33,21 @@ const BannerSlider = () => {
         <Slider {...settings}>
           <div className="flex justify-center items-center">
             <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
+              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[500px] object-cover rounded-b-xl"
               src={Img1}
               alt="Banner 1"
             />
           </div>
           <div className="flex justify-center items-center">
             <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
+              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[500px] object-cover rounded-b-xl"
               src={Img2}
               alt="Banner 2"
             />
           </div>
           <div className="flex justify-center items-center">
             <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
+              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[500px] object-cover rounded-b-xl"
               src={Img3}
               alt="Banner 3"
             />
