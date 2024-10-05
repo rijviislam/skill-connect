@@ -1,5 +1,7 @@
 import connectDB from '@/lib/connectDB';
 
+export const dynamic = 'force-dynamic';  // Force dynamic rendering
+
 export const GET = async (request) => {
   try {
     const db = await connectDB();
