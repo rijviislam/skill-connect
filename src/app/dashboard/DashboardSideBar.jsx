@@ -68,6 +68,18 @@ const DashboardSideBar = () => {
               <FaUsers className="mr-1" /> Messages
             </Link>
           </li>
+          <li>
+            <Link
+              href="/dashboard/myServices"
+              className={`flex items-center mb-2 text-sm ${
+                isActive("/dashboard/myServices")
+                  ? "font-bold text-green-700"
+                  : ""
+              }`}
+            >
+              <FaUsers className="mr-1" /> My Services
+            </Link>
+          </li>
           <div className="divider my-2"></div>
           {/* Client specific links */}
           <li className="font-bold text-sm mb-2">Client Menu</li>{" "}
