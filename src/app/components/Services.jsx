@@ -63,7 +63,7 @@ export default function Services() {
     }
   }, [priceRange, services]);
   //   AND THIS FILTERING IS NOW WORKING PERFECTLY NEED TO IMPROVE IT AFTER THIS WEEK //
-
+  console.log(filteredServices);
   useEffect(() => {
     fetchServices();
   }, [searchTerm]);
