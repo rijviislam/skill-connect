@@ -27,6 +27,7 @@ const NavbarComponent = () => {
 
   const isAuthenticated = status === "authenticated";
   const userImage = session?.user?.profile?.avatarUrl;
+
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
   console.log(session);
