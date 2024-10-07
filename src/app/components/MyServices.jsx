@@ -48,38 +48,17 @@ export default function MyServices() {
     reset,
   } = useForm();
 
-  // const {
-  //   data: services = [],
-  //   isLoading,
-  //   isError,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ["services"],
-  //   queryFn: async () => {
-  //     const result = await fetch("/api/my-services-get");
-
-  //     if (!result.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     const data = await result.json();
-  //     if (!data) {
-  //       throw new Error("No data returned");
-  //     }
-  //     return data;
-  //   },
-  // });
-
   const {
     data: services = [],
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["services", userEmail], // Add userEmail to the query key
+    queryKey: ["services", userEmail],
     queryFn: async () => {
       const result = await fetch(
         `/api/my-services-get?email=${encodeURIComponent(userEmail)}`
-      ); // Pass userEmail as a query parameter
+      );
 
       if (!result.ok) {
         throw new Error("Network response was not ok");
@@ -174,7 +153,6 @@ export default function MyServices() {
         });
       }
 
-      // Refetch the services to update the UI
       refetch();
       console.log("Post deleted and UI updated");
     } catch (error) {
@@ -309,7 +287,6 @@ export default function MyServices() {
                       selectionMode="multiple"
                       className="max-w-1/2"
                       {...register("tags")}
-                      // Ensure this select component correctly handles multiple selections
                     >
                       {category.map((cat) => (
                         <SelectItem key={cat.key} value={cat.label}>
