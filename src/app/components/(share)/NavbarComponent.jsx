@@ -38,7 +38,7 @@ const NavbarComponent = () => {
   // }
 
   return (
-    <Navbar isBordered className="bg-green-50">
+    <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4 ">
           <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">
