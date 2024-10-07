@@ -21,6 +21,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { IoIosCreate } from "react-icons/io";
+import Swal from "sweetalert2";
 
 export default function MyServices() {
   const { data: session } = useSession();
@@ -47,23 +48,49 @@ export default function MyServices() {
     reset,
   } = useForm();
 
+  // const {
+  //   data: services = [],
+  //   isLoading,
+  //   isError,
+  //   refetch,
+  // } = useQuery({
+  //   queryKey: ["services"],
+  //   queryFn: async () => {
+  //     const result = await fetch("/api/my-services-get");
+
+  //     if (!result.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     const data = await result.json();
+  //     if (!data) {
+  //       throw new Error("No data returned");
+  //     }
+  //     return data;
+  //   },
+  // });
+
   const {
     data: services = [],
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["services"],
+    queryKey: ["services", userEmail], // Add userEmail to the query key
     queryFn: async () => {
-      const result = await fetch("/api/my-services-get");
+      const result = await fetch(
+        `/api/my-services-get?email=${encodeURIComponent(userEmail)}`
+      ); // Pass userEmail as a query parameter
 
       if (!result.ok) {
         throw new Error("Network response was not ok");
       }
+
       const data = await result.json();
+
       if (!data) {
         throw new Error("No data returned");
       }
+
       return data;
     },
   });
@@ -73,7 +100,7 @@ export default function MyServices() {
   // POST SERVICE
   const onSubmit = async (data) => {
     const createdAt = new Date();
-    const postData = { ...data, createdAt, userEmail };
+    const postData = { ...data, createdAt, userEmail, tags: data.tags || [] };
 
     try {
       const response = await fetch(`${baseUrl}/api/my-services`, {
@@ -89,7 +116,26 @@ export default function MyServices() {
       }
 
       const result = await response.json();
-      console.log("Job posted successfully:", result);
+
+      if (result) {
+        Swal.fire({
+          title: "Service Post Successfully!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
+      }
 
       refetch();
       reset();
@@ -107,6 +153,25 @@ export default function MyServices() {
 
       if (!response.ok) {
         throw new Error("Failed to delete post");
+      }
+      if (response.ok) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
       }
 
       // Refetch the services to update the UI
@@ -227,7 +292,7 @@ export default function MyServices() {
                     />
                   </div>
                   <div className="flex gap-5">
-                    <Select
+                    {/* <Select
                       label="Tags"
                       placeholder="Select tags"
                       selectionMode="multiple"
@@ -236,6 +301,20 @@ export default function MyServices() {
                     >
                       {category.map((cat) => (
                         <SelectItem key={cat.key}>{cat.label}</SelectItem>
+                      ))}
+                    </Select> */}
+                    <Select
+                      label="Tags"
+                      placeholder="Select tags"
+                      selectionMode="multiple"
+                      className="max-w-1/2"
+                      {...register("tags")}
+                      // Ensure this select component correctly handles multiple selections
+                    >
+                      {category.map((cat) => (
+                        <SelectItem key={cat.key} value={cat.label}>
+                          {cat.label}
+                        </SelectItem>
                       ))}
                     </Select>
                     <Input
