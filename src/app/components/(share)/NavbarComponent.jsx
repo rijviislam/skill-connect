@@ -30,11 +30,6 @@ const NavbarComponent = () => {
 
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
-  console.log(session);
-
-  // if (status === "loading") {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300 ">
