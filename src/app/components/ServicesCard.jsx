@@ -1,7 +1,9 @@
-"use client";
 import { CardContext } from "@/ServicesContext/ServicesContext";
 import {
   Button,
+  Card,
+  CardBody,
+  CardHeader,
   Input,
   Modal,
   ModalBody,
@@ -10,23 +12,19 @@ import {
   ModalHeader,
   Select,
   SelectItem,
+  Spinner,
   Textarea,
   useDisclosure,
 } from "@nextui-org/react";
-
-import { useSession } from "next-auth/react";
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { IoIosCreate } from "react-icons/io";
-import Swal from "sweetalert2";
-import ServicesCard from "./ServicesCard";
 
-export default function MyServices() {
-  const { refetch, isLoading, isError } = useContext(CardContext);
-  const { data: session } = useSession();
-  const { isOpen, onOpenChange } = useDisclosure();
-
+export default function ServicesCard({ handleDelete }) {
   const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
+  const { services, refetch, isLoading, isError } = useContext(CardContext);
+  const { isOpen, onOpenChange } = useDisclosure();
+  const [selectedService, setSelectedService] = useState(null); // State to track selected service
   const category = [
     { key: "node.js", label: "Node.js" },
     { key: "mern stack", label: "MERN Stack" },
@@ -40,7 +38,6 @@ export default function MyServices() {
     { key: "react", label: "React" },
   ];
 
-  const userEmail = session?.user?.email;
   const {
     register,
     handleSubmit,
@@ -48,106 +45,108 @@ export default function MyServices() {
     reset,
   } = useForm();
 
-  // POST SERVICE
-  const onSubmit = async (data) => {
-    const createdAt = new Date();
-    const postData = { ...data, createdAt, userEmail, tags: data.tags || [] };
-
-    try {
-      const response = await fetch(`${baseUrl}/api/my-services`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-
-      if (result) {
-        Swal.fire({
-          title: "Service Post Successfully!",
-          showClass: {
-            popup: `
-              animate__animated
-              animate__fadeInUp
-              animate__faster
-            `,
-          },
-          hideClass: {
-            popup: `
-              animate__animated
-              animate__fadeOutDown
-              animate__faster
-            `,
-          },
-        });
-      }
-
-      refetch();
-      reset();
-    } catch (error) {
-      console.error("Error posting job:", error);
-    }
+  const handleEditClick = (service) => {
+    setSelectedService(service); // Store the clicked service
+    reset(service); // Reset form fields with selected service data
+    onOpenChange(true); // Open the modal
   };
+  // Submit handler for updating the service
 
-  // DELETE SERVICE
-  const handleDelete = async (id) => {
+  const onSubmit = async (data) => {
     try {
-      const response = await fetch(`/api/service-delete?id=${id}`, {
-        method: "DELETE",
-      });
+      const { _id, ...updatedFields } = data; // Destructure and exclude _id
+      const response = await axios.patch(
+        `http://localhost:3000/api/update-service?id=${selectedService._id}`,
+        updatedFields // Send the modified object without _id
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to delete post");
+      if (response.status === 200) {
+        alert("Service updated successfully");
+        refetch(); // Refetch services to get the updated data
+        onOpenChange(false); // Close the modal
       }
-      if (response.ok) {
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
-      }
-
-      refetch();
-      console.log("Post deleted and UI updated");
     } catch (error) {
-      console.error("Error deleting post:", error);
+      console.error("Error updating service:", error);
+      alert("Failed to update service");
     }
   };
   if (isLoading) return <h1>Loading....</h1>;
-  if (isError) return <h1>Error Occer...</h1>;
+  if (isError) return <h1>Error...</h1>;
+
   return (
     <div>
-      <Button color="success" onPress={() => onOpenChange(true)}>
-        Create a Service <IoIosCreate />
-      </Button>
-      {/* GRID */}
+      <div className="my-5 h-[500px]">
+        {isLoading ? (
+          <div className="flex justify-center my-10">
+            <Spinner size="lg" color="success" />
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3">
+            {services?.map((service) => (
+              <Card className="py-4" key={service._id}>
+                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                  <h5 className="text-sm font-semibold">{service.title}</h5>
+                </CardBody>
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                  <div className="flex flex-col">
+                    <small>
+                      <strong>Delivery Time:</strong> {service.date}
+                    </small>
+                    <small>
+                      <strong>Posted Time: </strong>
+                      {new Date(service.createdAt).toLocaleDateString(
+                        undefined,
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </small>
+                  </div>
+                  <small>
+                    <strong>Price:</strong> {service.price}
+                  </small>
+                  <p className="text-xs">{service.description}</p>
+                  <small className="text-xs flex items-center">
+                    <strong>Skills:</strong>
+                    {/* <div className="pl-1 flex gap-1">
+                      <p className="text-xs">{service.tags.join(", ")}</p>
+                    </div> */}
+                    <div className="pl-1 flex gap-1">
+                      <p className="text-xs">{service.tags}</p>
+                    </div>
+                  </small>
+                  <div className="mt-5 w-full flex justify-between">
+                    <Button
+                      size="md"
+                      className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                      onPress={() => handleEditClick(service)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      size="md"
+                      className="bg-red-800 text-white hover:bg-[#b12d2d]"
+                      onClick={() => handleDelete(service._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
 
-      <ServicesCard handleDelete={handleDelete} />
       {/* MODAL */}
       <Modal size="4xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Post Service
+                Edit Service
               </ModalHeader>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <ModalBody>
@@ -216,7 +215,7 @@ export default function MyServices() {
                 </ModalBody>
                 <ModalFooter>
                   <Button type="submit" color="primary" onPress={onClose}>
-                    Save
+                    Save & Change
                   </Button>
                 </ModalFooter>
               </form>
