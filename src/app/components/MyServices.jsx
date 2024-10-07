@@ -16,14 +16,16 @@ import {
   Textarea,
   useDisclosure,
 } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoIosCreate } from "react-icons/io";
+
 export default function MyServices() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const { isOpen, onOpenChange } = useDisclosure();
+  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const category = [
     { key: "node.js", label: "Node.js" },
     { key: "mern stack", label: "MERN Stack" },
@@ -36,22 +38,43 @@ export default function MyServices() {
     { key: "graphics designer", label: "Graphics Designer" },
     { key: "react", label: "React" },
   ];
+
   const userEmail = session?.user?.email;
-  console.log(userEmail);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-  const onSubmit = async (data) => {
-    const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
-    const createdAt = new Date();
 
-    const postData = {
-      ...data,
-      createdAt,
-      userEmail,
-    };
+  const {
+    data: services = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["services"],
+    queryFn: async () => {
+      const result = await fetch("/api/my-services-get");
+
+      if (!result.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await result.json();
+      if (!data) {
+        throw new Error("No data returned");
+      }
+      return data;
+    },
+  });
+
+  console.log(services);
+
+  // POST SERVICE
+  const onSubmit = async (data) => {
+    const createdAt = new Date();
+    const postData = { ...data, createdAt, userEmail };
+
     try {
       const response = await fetch(`${baseUrl}/api/my-services`, {
         method: "POST",
@@ -60,7 +83,6 @@ export default function MyServices() {
         },
         body: JSON.stringify(postData),
       });
-      console.log(response);
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -68,82 +90,17 @@ export default function MyServices() {
 
       const result = await response.json();
       console.log("Job posted successfully:", result);
+
+      refetch();
+      reset();
     } catch (error) {
       console.error("Error posting job:", error);
     }
   };
-  const [myServices, setMyServices] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("/api/my-services-get");
-        const data = await response.json();
-        setMyServices(data);
-      } catch (error) {
-        console.error("Error fetching job posts:", error);
-      } finally {
-        setLoading(false); // Stop loading
-      }
-    };
-
-    fetchData();
-  }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // If session is still loading, wait
-  //     if (status === "loading") {
-  //       return; // Return early if session is still being fetched
-  //     }
-
-  //     // Check if session exists and contains email
-  //     const userEmail = session?.user?.email;
-
-  //     if (!userEmail) {
-  //       console.error("User email not found");
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await fetch(`/api/my-services-get?email=${userEmail}`);
-  //       const data = await response.json();
-  //       setMyServices(data);
-  //     } catch (error) {
-  //       console.error("Error fetching job posts:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // const handleDelete = (id) => {
-  //   console.log("Deleted Id", id);
-
-  //   // Step 1: Call your API to delete the post from the database with the id as a query parameter
-  //   fetch(`/api/service-delete?id=${id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed to delete post");
-  //       }
-  //       // Step 2: Update the UI by removing the post from the state
-  //       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting post:", error);
-  //     });
-  // };
-
+  // DELETE SERVICE
   const handleDelete = async (id) => {
-    console.log("Deleted Id", id);
-
     try {
-      // Step 1: Call your API to delete the post from the database
       const response = await fetch(`/api/service-delete?id=${id}`, {
         method: "DELETE",
       });
@@ -152,30 +109,29 @@ export default function MyServices() {
         throw new Error("Failed to delete post");
       }
 
-      // Step 2: Update the UI by removing the post from the state
-      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id)); // Assuming _id is the unique identifier in posts
+      // Refetch the services to update the UI
+      refetch();
       console.log("Post deleted and UI updated");
     } catch (error) {
       console.error("Error deleting post:", error);
     }
   };
-
-  console.log(myServices);
+  if (isError) return <h1>Error Occer</h1>;
   return (
     <div>
       <Button color="success" onPress={() => onOpenChange(true)}>
         Create a Service <IoIosCreate />
       </Button>
-      {/* GRID  */}
+      {/* GRID */}
       <div className="my-5 h-[500px]">
-        {loading ? (
+        {isLoading ? (
           <div className="flex justify-center my-10">
             <Spinner size="lg" color="success" />
           </div>
         ) : (
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3">
-            {myServices?.map((service, idx) => (
-              <Card className="py-4" key={idx}>
+            {services?.map((service, idx) => (
+              <Card className="py-4" key={service._id}>
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
                   <h5 className="text-sm font-semibold">{service.title}</h5>
                 </CardBody>
@@ -215,7 +171,7 @@ export default function MyServices() {
                     </Button>
                     <Button
                       size="md"
-                      className="bg-red-800 text-white hover:bg-[#b12d2d] "
+                      className="bg-red-800 text-white hover:bg-[#b12d2d]"
                       onClick={() => handleDelete(service._id)}
                     >
                       Delete
@@ -227,7 +183,7 @@ export default function MyServices() {
           </div>
         )}
       </div>
-      {/* MODAL  */}
+      {/* MODAL */}
       <Modal size="4xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -255,12 +211,6 @@ export default function MyServices() {
                   </div>
 
                   <div className="flex gap-5">
-                    {/* <DateInput
-                      variant="bordered"
-                      label={"Delivery Time"}
-                      placeholderValue={new CalendarDate(1995, 11, 6)}
-                      {...register("delivery")}
-                    /> */}
                     <Input
                       type="date"
                       variant="bordered"
@@ -279,13 +229,13 @@ export default function MyServices() {
                   <div className="flex gap-5">
                     <Select
                       label="Tags"
-                      placeholder="Select an tags"
+                      placeholder="Select tags"
                       selectionMode="multiple"
                       className="max-w-1/2"
                       {...register("tags")}
                     >
-                      {category.map((animal) => (
-                        <SelectItem key={animal.key}>{animal.label}</SelectItem>
+                      {category.map((cat) => (
+                        <SelectItem key={cat.key}>{cat.label}</SelectItem>
                       ))}
                     </Select>
                     <Input
