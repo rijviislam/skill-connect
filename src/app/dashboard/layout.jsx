@@ -1,4 +1,5 @@
 
+
 import DashboardSideBar from "./DashboardSideBar";
 
 export default function DashboardLayout({ children }) {
@@ -11,7 +12,9 @@ export default function DashboardLayout({ children }) {
 
       {/* Main Content */}
       <div className="flex flex-col w-full p-4">
+        
         {children}
+        
       </div>
 
      
