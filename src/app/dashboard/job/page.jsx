@@ -51,7 +51,7 @@ const JobPostingForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const jobData = {
             title,
             description,
@@ -76,6 +76,7 @@ const JobPostingForm = () => {
             const result = await response.json();
             console.log('Job posted successfully:', result);
 
+            // Clear the form
             setTitle('');
             setDescription('');
             setBudget('');
@@ -97,8 +98,7 @@ const JobPostingForm = () => {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
-                            className="mt-1 block w-full 
-                             text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+                            className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
                         >
                             <option value="">Select Job Title</option>
                             {availableTitles.map((jobTitle) => (
@@ -125,17 +125,20 @@ const JobPostingForm = () => {
                         </select>
                     </div>
                 </div>
-                <div className="flex flex-col lg:flex-row lg:space-x-4">
-                    <div className="flex-1">
+                <div className="flex flex-col lg:space-x-4">
+                    <div className="w-full">
                         <label className="block text-sm font-medium text-gray-700">Description</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             required
-                            className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                            className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300 overflow-y-auto"
                             rows="4"
+                            style={{ maxHeight: '150px' }} // Scrollbar appears when content exceeds height
                         ></textarea>
                     </div>
+                </div>
+                <div className="flex flex-col lg:flex-row lg:space-x-4">
                     <div className="flex-1">
                         <label className="block text-sm font-medium text-gray-700">Timeline</label>
                         <select
@@ -152,22 +155,22 @@ const JobPostingForm = () => {
                             ))}
                         </select>
                     </div>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Required Skills <span className="text-xs text-gray-500">(Select multiple)</span></label>
-                    <select
-                        multiple
-                        value={skills}
-                        onChange={(e) => setSkills([...e.target.selectedOptions].map(option => option.value))}
-                        required
-                        className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
-                    >
-                        {availableSkills.map((skill) => (
-                            <option key={skill} value={skill}>
-                                {skill}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-700">Required Skills</label>
+                        <select
+                            value={skills}
+                            onChange={(e) => setSkills([e.target.value])}
+                            required
+                            className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+                        >
+                            <option value="">Select Required Skill</option>
+                            {availableSkills.map((skill) => (
+                                <option key={skill} value={skill}>
+                                    {skill}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <button
                     type="submit"

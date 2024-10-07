@@ -10,8 +10,8 @@ const DashboardSideBar = () => {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="flex flex-col w-62 h-full bg-blue-400 p-4">
-      <div className="overflow-y-auto max-h-[calc(100vh-64px)]">
+    <div className="flex flex-col w-62 h-full bg-gradient-to-r from-blue-400 to-green-300 p-4">
+      <div className="">
         <ul className="menu flex flex-col w-full">
           <li className="font-bold text-lg mb-4">Freelancer Menu</li>
           <li>
@@ -149,6 +149,9 @@ const DashboardSideBar = () => {
               <FaAd className="mr-2" /> Review & Feedback
             </Link>
           </li>
+
+          <div className="divider my-4"></div>
+          <li className="font-bold text-lg mb-4">Client Menu</li>
           <li>
             <Link
               href="/dashboard/user"
@@ -161,6 +164,7 @@ const DashboardSideBar = () => {
               <FaAd className="mr-2" /> User Management
             </Link>
           </li>
+          
           <div className="divider my-4"></div>
           <li>
             <Link
@@ -172,6 +176,7 @@ const DashboardSideBar = () => {
               <FaHome className="mr-2" /> Home
             </Link>
           </li>
+          
         </ul>
       </div>
     </div>
