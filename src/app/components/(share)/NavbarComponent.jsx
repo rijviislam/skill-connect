@@ -13,12 +13,14 @@ import {
   NavbarItem,
 } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import logo from "../../../Image/C-removebg-preview.png"
 
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(status === "loading");
-  
+ 
 
   useEffect(() => {
     if (status !== "loading") {
@@ -41,8 +43,13 @@ const NavbarComponent = () => {
     <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4 ">
-          <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">
-            SkillConnect
+          <Link href="/" className="w-48 h-48 mb-12">
+          <Image 
+             src={logo} 
+             alt="Digital Web Design" 
+            className=""
+             />
+
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
