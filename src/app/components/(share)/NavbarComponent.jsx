@@ -14,6 +14,7 @@ import {
 } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+// import logo from "../../../Image/C-removebg-preview.png";
 
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
@@ -27,19 +28,34 @@ const NavbarComponent = () => {
 
   const isAuthenticated = status === "authenticated";
   const userImage = session?.user?.profile?.avatarUrl;
-
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
 
+  // if (status === "loading") {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
-    <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300 ">
-      <NavbarContent>
+    <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300">
+      <NavbarContent justify="start">
         <NavbarBrand className="mr-4 ">
-          <Link href="/" className="text-[#2e8b57] sm:block font-bold text-2xl">
-            SkillConnect
-          </Link>
+          {/* <Link href="/" className="w-48 h-48 mb-12">
+            <Image src={logo} alt="Digital Web Design" className="" />
+          </Link> */}
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-3">
+          <NavbarItem
+          // isActive
+          >
+            <Link
+              href="dashboard"
+              color="foreground"
+              // aria-current="page"
+              // color="secondary"
+            >
+              Dashboard
+            </Link>
+          </NavbarItem>
           <NavbarItem>
             <Link color="foreground" href="freelancerProfile">
               Freelancer profile
@@ -63,7 +79,7 @@ const NavbarComponent = () => {
         </NavbarContent>
       </NavbarContent>
 
-      <NavbarContent as="div" justify="end">
+      <NavbarContent as="div" className="items-center" justify="end">
         <Dropdown placement="bottom-end">
           {isAuthenticated ? (
             <>
@@ -75,7 +91,7 @@ const NavbarComponent = () => {
                   color="secondary"
                   name="Jason Hughes"
                   size="sm"
-                  src={userImage || "https://i.ibb.co.com/jvrF6dJ/th.jpg"}
+                  src={userImage}
                 />
               </DropdownTrigger>
             </>
@@ -110,11 +126,15 @@ const NavbarComponent = () => {
             <DropdownItem href="dashboard" key="dashboard">
               Dashboard
             </DropdownItem>
-
+            <DropdownItem href="freelancerProfile" key="freelancerProfile">
+              Freelancers Profile
+            </DropdownItem>
             <DropdownItem href="jobPost" key="jobPost">
               Jobs Post
             </DropdownItem>
-
+            <DropdownItem href="about" key="about">
+              About
+            </DropdownItem>
             <DropdownItem href="solution" key="solution">
               Solutions
             </DropdownItem>
