@@ -126,7 +126,7 @@ const UsersManagementPage = () => {
     return (
       <td className="py-2 px-4 flex">
         {isBlocked ? (
-          <button className="bg-gray-500 text-white px-3 py-1 rounded flex items-center mr-2 font-bold">
+          <button className="bg-gray-500 text-white px-3 py-1 rounded flex items-center mr-4 font-bold">
             Blocked
           </button>
         ) : (
@@ -136,7 +136,7 @@ const UsersManagementPage = () => {
         )}
 
         {isSuspended ? (
-          <button className="bg-gray-500 text-white px-3 py-1 rounded flex items-center font-bold">
+          <button className="bg-gray-500 text-white px-4 py-1 mx-1 rounded flex items-center font-bold">
             Suspended
           </button>
         ) : (
