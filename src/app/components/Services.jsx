@@ -51,7 +51,7 @@ export default function Services() {
   };
 
   // Apply filtering on the services based on price range
-  //   AND THIS FILTERING IS NOW WORKING PERFECTLY NEED TO IMPROVE IT AFTER THIS WEEK //
+
   useEffect(() => {
     if (priceRange !== 100) {
       const filtered = services.filter(
@@ -62,6 +62,7 @@ export default function Services() {
       setFilteredServices(services);
     }
   }, [priceRange, services]);
+  //   AND THIS FILTERING IS NOW WORKING PERFECTLY NEED TO IMPROVE IT AFTER THIS WEEK //
 
   useEffect(() => {
     fetchServices();

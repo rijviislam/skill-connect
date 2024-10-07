@@ -1,6 +1,8 @@
 import connectDB from '@/lib/connectDB';
 import { user } from '@nextui-org/react';
 
+export const dynamic = 'force-dynamic';  // Force dynamic rendering
+
 export const GET = async (request) => {
     try {
         const db = await connectDB();
@@ -13,18 +15,23 @@ export const GET = async (request) => {
         // Fetch users based on profession if provided
         let users;
         if (profession) {
-            users = await userCollection.find({ profession: profession }).toArray();
+            users = await userCollection.find({ profession }).toArray();
             console.log(user)
         } else {
             // If no profession is specified, return all users
             users = await userCollection.find({}).toArray();
             console.log(user)
-
         }
 
-        return Response.json(users);
+        return new Response(JSON.stringify(users), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
     } catch (error) {
         console.error('Error fetching profiles:', error);
-        return Response.json({ message: "Something went wrong" }, { status: 500 });
+        return new Response(JSON.stringify({ message: "Something went wrong" }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 };

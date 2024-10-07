@@ -10,154 +10,116 @@ const DashboardSideBar = () => {
   const isActive = (path) => pathname === path;
 
   return (
-    <div className="flex flex-col w-48 h-screen bg-green-200 p-2">
-      {" "}
-      {/* Adjusted width and padding */}
-      {/* Wrapping the menu in a scrollable div with a fixed height */}
+    <div className="flex flex-col w-62 h-full bg-blue-400 p-4">
       <div className="overflow-y-auto max-h-[calc(100vh-64px)]">
-        {" "}
-        {/* Adjust height as needed */}
         <ul className="menu flex flex-col w-full">
-          {/* Freelancer specific links */}
-          <li className="font-bold text-sm mb-2">Freelancer Menu</li>{" "}
-          {/* Smaller font size */}
+          <li className="font-bold text-lg mb-4">Freelancer Menu</li>
           <li>
             <Link
               href="/dashboard/profile"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/profile") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/profile") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaHome className="mr-1" />
+              <FaHome className="mr-2" />
               Freelancer Profile
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/earnings"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/earnings")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/earnings") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaBook className="mr-1" /> Earnings Tracking
+              <FaBook className="mr-2" /> Earnings Tracking
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/proposals"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/proposals")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/proposals") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaList className="mr-1" /> My Proposals
+              <FaList className="mr-2" /> My Proposals
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/messages"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/messages")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/messages") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaUsers className="mr-1" /> Messages
+              <FaUsers className="mr-2" /> Messages
             </Link>
           </li>
-          <div className="divider my-2"></div>
-          {/* Client specific links */}
-          <li className="font-bold text-sm mb-2">Client Menu</li>{" "}
-          {/* Smaller font size */}
+          <li>
+            <Link
+              href="/dashboard/myServices"
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/myServices") ? "font-extrabold text-green-800" : ""}`}
+            >
+              <FaUsers className="mr-2" /> My Services
+            </Link>
+          </li>
+          <div className="divider my-4"></div>
+          <li className="font-bold text-lg mb-4">Client Menu</li>
           <li>
             <Link
               href="/dashboard/clientProfile"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/job") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/clientProfile") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaHome className="mr-1" /> my profile
+              <FaHome className="mr-2" /> My Profile
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/job"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/job") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/job") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaHome className="mr-1" /> Job Posting
+              <FaHome className="mr-2" /> Job Posting
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/services"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/services")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/services") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaHome className="mr-1" /> Services
+              <FaHome className="mr-2" /> Services
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/management"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/management")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/management") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaList className="mr-1" /> Proposals Management
+              <FaList className="mr-2" /> Proposals Management
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/payment"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/payment") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/payment") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaBook className="mr-1" /> Payment Management
+              <FaBook className="mr-2" /> Payment Management
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/feedback"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/feedback")
-                  ? "font-bold text-green-700"
-                  : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/feedback") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaAd className="mr-1" /> Review & Feedback
+              <FaAd className="mr-2" /> Review & Feedback
             </Link>
           </li>
           <li>
             <Link
               href="/dashboard/user"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/dashboard/user") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/dashboard/user") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaAd className="mr-1" /> User Management
+              <FaAd className="mr-2" /> User Management
             </Link>
           </li>
-          <div className="divider my-2"></div>
-          {/* Shared nav links */}
+          <div className="divider my-4"></div>
           <li>
             <Link
               href="/"
-              className={`flex items-center mb-2 text-sm ${
-                isActive("/") ? "font-bold text-green-700" : ""
-              }`}
+              className={`flex items-center mb-4 text-lg ${isActive("/") ? "font-extrabold text-green-800" : ""}`}
             >
-              <FaHome className="mr-1" /> Home
+              <FaHome className="mr-2" /> Home
             </Link>
           </li>
         </ul>
