@@ -1,55 +1,86 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import connectDB from "@/lib/connectDB";
-import { getServerSession } from "next-auth/next";
+// import connectDB from '@/lib/connectDB'; // Adjust the import according to your project structure
+// import { ObjectId } from 'mongodb';
 
-export async function PUT(request) {
+// export const PATCH = async (request) => {
+//     try {
+//         const db = await connectDB(); // Connect to the database
+//         const userCollection = db.collection("users");
+
+//         const { searchParams } = new URL(request.url);
+//         const id = searchParams.get('id'); // Get the service ID from query parameters
+
+//         if (!id) {
+//             return new Response(JSON.stringify({ message: "ID is required" }), { status: 400 });
+//         }
+
+//         // Ensure the id is valid before trying to create an ObjectId
+//         if (!ObjectId.isValid(id)) {
+//             return new Response(JSON.stringify({ message: "Invalid ID format" }), { status: 400 });
+//         }
+
+//         const updatedData = await request.json(); // Get the updated data from the request body
+//         console.log("Received Data:", updatedData); // Log the incoming data
+
+//         // Exclude _id from the updatedData to prevent modification of the immutable field
+//         const { _id, ...updateFields } = updatedData;
+
+//         // Perform the update operation
+//         const result = await userCollection.updateOne(
+//             { _id: new ObjectId(id) },
+//             { $set: updateFields } // Only update fields other than _id
+//         );
+
+//         if (result.modifiedCount === 0) {
+//             return new Response(JSON.stringify({ message: "Service not found or no changes made" }), { status: 404 });
+//         }
+
+//         return new Response(JSON.stringify({ message: "Service updated successfully" }), { status: 200 });
+//     } catch (error) {
+//         console.error("Error updating service:", error);
+//         return new Response(JSON.stringify({ message: "Something went wrong", error: error.message }), { status: 500 });
+//     }
+// };
+
+
+import connectDB from '@/lib/connectDB'; // Adjust the import according to your project structure
+import { ObjectId } from 'mongodb';
+
+export const PATCH = async (request) => {
   try {
-    const db = await connectDB();
+    const db = await connectDB(); // Connect to the database
     const userCollection = db.collection("users");
-    
-    const updateData = await request.json();
 
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return new Response(JSON.stringify({ message: "Unauthorized: Please log in" }), { status: 401 });
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id'); // Get the user ID from query parameters
+
+    if (!id) {
+      return new Response(JSON.stringify({ message: "ID is required" }), { status: 400 });
     }
 
-    const { email } = session.user;
-    console.log("Request received:", updateData);
+    // Ensure the id is valid before trying to create an ObjectId
+    if (!ObjectId.isValid(id)) {
+      return new Response(JSON.stringify({ message: "Invalid ID format" }), { status: 400 });
+    }
 
-    // Dynamically build the update fields
-    const updatedFields = {};
-    if (updateData.username) updatedFields.username = updateData.username;
-  // profile
-   
-    if (updateData["profile.bio"]) updatedFields["profile.bio"] = updateData["profile.bio"];
-    if (updateData["profile.avatarUrl"]) updatedFields["profile.avatarUrl"] = updateData["profile.avatarUrl"];
-    if (updateData["profile.phone"]) updatedFields["profile.phone"] = updateData["profile.phone"];
-//   address 
-    if (updateData["profile.address.street"]) updatedFields["profile.address.street"] = updateData["profile.address.street"];
-    if (updateData["profile.address.city"]) updatedFields["profile.address.city"] = updateData["profile.address.city"];
-    if (updateData["profile.address.state"]) updatedFields["profile.address.state"] = updateData["profile.address.state"];
-    if (updateData["profile.address.zipCode"]) updatedFields["profile.address.zipCode"] = updateData["profile.address.zipCode"];
-    if (updateData["profile.address.country"]) updatedFields["profile.address.country"] = updateData["profile.address.country"];
-    
-    if (updateData["profile.skills"]) updatedFields["profile.skills"] = updateData["profile.skills"];
-    if (updateData["profile.socialLinks"]) updatedFields["profile.socialLinks"] = updateData["profile.socialLinks"];
-    if (updateData["profile.services"]) updatedFields["profile.services"] = updateData["profile.services"]
+    const updatedData = await request.json(); // Get the updated data from the request body
+    console.log("Received Data:", updatedData); // Log the incoming data
 
-    // Update the user's profile in the database
-    const updateResult = await userCollection.updateOne(
-      { email },                  // Match the logged-in user's email
-      { $set: updatedFields }      // Set the fields dynamically
+    // Exclude _id from the updatedData to prevent modification of the immutable field
+    const { _id, ...updateFields } = updatedData;
+
+    // Perform the update operation
+    const result = await userCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateFields } // Only update fields other than _id
     );
 
-    if (updateResult.matchedCount === 0) {
-      return new Response(JSON.stringify({ message: "User not found" }), { status: 404 });
+    if (result.modifiedCount === 0) {
+      return new Response(JSON.stringify({ message: "User not found or no changes made" }), { status: 404 });
     }
 
-    const updatedUser = await userCollection.findOne({ email });
-    return new Response(JSON.stringify({ message: "Profile updated successfully", user: updatedUser }), { status: 200 });
+    return new Response(JSON.stringify({ message: "User updated successfully" }), { status: 200 });
   } catch (error) {
-    console.error("Error updating profile:", error);
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
+    console.error("Error updating user:", error);
+    return new Response(JSON.stringify({ message: "Something went wrong", error: error.message }), { status: 500 });
   }
-}
+};
