@@ -1,25 +1,23 @@
 "use client";
+
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Image,
   Input,
-  Link,
-  Select,
-  SelectItem,
-  Spinner,
-} from "@nextui-org/react";
-
-import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
+  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
 
@@ -80,7 +78,7 @@ export default function FreelancerProfile() {
   //     );
   //   }
 
-  //   if (selectedCategory) {
+  //   if (selectedCategory && selectedCategory !== "all") {
   //     filtered = filtered.filter(
   //       (profile) =>
   //         profile.profession.toLowerCase() === selectedCategory.toLowerCase()
@@ -89,22 +87,22 @@ export default function FreelancerProfile() {
 
   //   setFilterData(filtered);
   // }, [searchTerm, selectedCategory, profiles]);
-
+  console.log("Filter Data", filterData);
   useEffect(() => {
     let filtered = profiles;
 
     if (searchTerm) {
       filtered = filtered.filter(
         (profile) =>
-          profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          profile.profession.toLowerCase().includes(searchTerm.toLowerCase())
+          profile.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          profile.profession?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     if (selectedCategory && selectedCategory !== "all") {
       filtered = filtered.filter(
         (profile) =>
-          profile.profession.toLowerCase() === selectedCategory.toLowerCase()
+          profile.profession?.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -162,6 +160,7 @@ export default function FreelancerProfile() {
                   className="object-cover w-[100px] h-[100px] rounded-full"
                   src="https://nextui.org/images/hero-card-complete.jpeg"
                   width={270}
+                  height={100}
                 />
                 <div className="mt-3">
                   <h4 className="text-sm">{profile.name}</h4>
