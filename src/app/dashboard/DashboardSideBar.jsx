@@ -213,7 +213,7 @@ const DashboardSideBar = () => {
   console.log("FindRole", currentUserRole);
 
   return (
-    <div className="flex flex-col w-62 h-full bg-gradient-to-r from-blue-400 to-green-300 p-4 border-4 border-red-700">
+    <div className="flex flex-col w-62 h-full bg-gradient-to-r from-blue-400 to-green-300 p-4">
       <div className="">
         <ul className="menu flex flex-col w-full">
           {currentUserRole === "freelancer" && (
