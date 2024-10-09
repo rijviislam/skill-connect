@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export default function ServicesCard({ handleDelete }) {
   const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
@@ -61,7 +62,23 @@ export default function ServicesCard({ handleDelete }) {
       );
 
       if (response.status === 200) {
-        alert("Service updated successfully");
+        Swal.fire({
+          title: "Service updated successfully",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
         refetch(); // Refetch services to get the updated data
         onOpenChange(false); // Close the modal
       }
