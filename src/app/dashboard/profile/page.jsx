@@ -57,14 +57,20 @@ const ProfilePage = () => {
   const userName = user?.username;
   const userId = user?._id;
   const userPhone = user?.phone;
-  console.log("Phone", user.linkedin);
+  const isValidUrl = (url) => {
+    try {
+      new URL(url); // This will throw if the URL is invalid
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
 
   const { isOpen, onOpenChange } = useDisclosure();
   const handleEditClick = (profile) => {
     setProfiles(profile); // Store the clicked Profile
     reset(profile); // Reset form fields with selected service data
     onOpenChange(true);
-    console.log(profile);
   };
 
   const onSubmit = async (data) => {
@@ -94,16 +100,17 @@ const ProfilePage = () => {
       alert("Failed to update profile");
     }
   };
-
+  console.log(user);
   return (
-    <div className="flex flex-col items-start justify-start min-h-screen p-4 border-2 border-red-600">
+    <div className="flex flex-col items-start justify-start min-h-screen p-4">
       {user ? (
         <div className="flex flex-col md:flex-row w-full max-w-5xl">
           <div className="flex flex-col items-center w-full md:w-1/3 p-6">
             <Image
               src={
-                user?.profile?.avatarUrl ||
-                "https://i.postimg.cc/wT791byT/2919906.png"
+                isValidUrl(user?.profile?.avatarUrl)
+                  ? user.profile.avatarUrl
+                  : "https://i.postimg.cc/wT791byT/2919906.png"
               }
               alt="Profile"
               className="w-56 h-56 rounded-full mb-4 transition-opacity duration-300 hover:opacity-80"
