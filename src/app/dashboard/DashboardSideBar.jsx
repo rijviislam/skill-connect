@@ -1,9 +1,11 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaAd, FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
+import logo from "../../Image/C-removebg-preview.png";
 
 const DashboardSideBar = () => {
   const pathname = usePathname();
@@ -14,12 +16,15 @@ const DashboardSideBar = () => {
   console.log("FindRole", currentUserRole);
 
   return (
-    <div className="flex flex-col w-62 h-full bg-gradient-to-r from-blue-400 to-green-300 p-4">
+    <div className="flex flex-col w-62 h-full bg-green-300 p-4">
       <div className="">
         <ul className="menu flex flex-col w-full">
+          <Link href="/" className="w-20 h-8 mb-5">
+            <Image src={logo} alt="Digital Web Design" className="" />
+          </Link>
           {currentUserRole === "freelancer" && (
             <>
-              <li className="font-bold text-lg mb-4">Freelancer Menu</li>
+              <li className="font-bold text-lg mb-4 mt-5">Freelancer Menu</li>
               <li>
                 <Link
                   href="/dashboard/profile"
@@ -193,18 +198,6 @@ const DashboardSideBar = () => {
               </li>
             </>
           )}
-
-          <div className="divider my-4"></div>
-          <li>
-            <Link
-              href="/"
-              className={`flex items-center mb-4 text-lg ${
-                isActive("/") ? "font-extrabold text-green-800" : ""
-              }`}
-            >
-              <FaHome className="mr-2" /> Home
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
