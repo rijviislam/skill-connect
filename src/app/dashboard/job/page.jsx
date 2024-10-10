@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const JobPostingForm = () => {
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const { data: session } = useSession();
   console.log(session?.user?.email);
   const userEmail = session?.user?.email;
@@ -66,7 +65,7 @@ const JobPostingForm = () => {
     };
 
     try {
-      const response = await fetch(`${baseUrl}/api/post-job`, {
+      const response = await fetch("/api/post-job", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

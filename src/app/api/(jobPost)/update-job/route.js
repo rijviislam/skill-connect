@@ -1,4 +1,4 @@
-import connectDB from '@/lib/connectDB'; // Adjust the import according to your project structure
+import connectDB from '@/lib/connectDB';
 import { ObjectId } from 'mongodb';
 
 export const PATCH = async (request) => {
@@ -7,7 +7,7 @@ export const PATCH = async (request) => {
         const jobPostCollection = db.collection("jobs");
 
         const { searchParams } = new URL(request.url);
-        const id = searchParams.get('id'); // Get the service ID from query parameters
+        const id = searchParams.get('id'); // Get the job ID from query parameters
 
         if (!id) {
             return new Response(JSON.stringify({ message: "ID is required" }), { status: 400 });
@@ -19,23 +19,41 @@ export const PATCH = async (request) => {
         }
 
         const updatedData = await request.json(); // Get the updated data from the request body
+        console.log('UpdatedData',updatedData)
+        const { appliedPeople } = updatedData;
+        const user = appliedPeople[0]; // Assuming `appliedPeople` contains only one user at a time
+console.log("Applie user",user)
+        if (!user) {
+            return new Response(JSON.stringify({ message: "User information is required" }), { status: 400 });
+        }
 
-        // Exclude _id from the updatedData to prevent modification of the immutable field
-        const { _id, ...updateFields } = updatedData;
+        // Find the job post by its ID
+        const job = await jobPostCollection.findOne({ _id: new ObjectId(id) });
 
-        // Perform the update operation
+        if (!job) {
+            return new Response(JSON.stringify({ message: "Job not found" }), { status: 404 });
+        }
+
+        // Check if the user has already applied
+        const hasAlreadyApplied = job.appliedPeople?.some(person => person.email === user.email);
+
+        if (hasAlreadyApplied) {
+            return new Response(JSON.stringify({ message: "User has already applied" }), { status: 400 });
+        }
+
+        // Perform the update operation if the user has not applied yet
         const result = await jobPostCollection.updateOne(
             { _id: new ObjectId(id) },
-            { $set: updateFields } // Only update fields other than _id
+            { $addToSet: { appliedPeople: user } } // Use $addToSet to ensure the user is only added once
         );
 
         if (result.modifiedCount === 0) {
-            return new Response(JSON.stringify({ message: "Service not found or no changes made" }), { status: 404 });
+            return new Response(JSON.stringify({ message: "No changes made" }), { status: 404 });
         }
 
-        return new Response(JSON.stringify({ message: "Service updated successfully" }), { status: 200 });
+        return new Response(JSON.stringify({ message: "Job applied successfully" }), { status: 200 });
     } catch (error) {
-        console.error("Error updating service:", error);
+        console.error("Error updating job:", error);
         return new Response(JSON.stringify({ message: "Something went wrong", error: error.message }), { status: 500 });
     }
 };

@@ -22,7 +22,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 export default function ServicesCard({ handleDelete }) {
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const { services, refetch, isLoading, isError } = useContext(CardContext);
   const { isOpen, onOpenChange } = useDisclosure();
   const [selectedService, setSelectedService] = useState(null); // State to track selected service
