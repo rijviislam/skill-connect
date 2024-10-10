@@ -23,9 +23,9 @@ export default function Jobs() {
   const { isLoading, isError, refetch } = useContext(CardContext);
   const { data: session } = useSession();
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true); // State for loading
+  const [loading, setLoading] = useState(true);
   const { isOpen, onOpenChange } = useDisclosure();
-  const [selectedJobId, setSelectedJobId] = useState(null); // Track selected job ID
+  const [selectedJobId, setSelectedJobId] = useState(null);
   const currUser = session?.user;
   console.log(currUser);
   console.log(jobs);
