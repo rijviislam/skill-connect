@@ -87,12 +87,27 @@ export default function Jobs() {
         refetch();
         onOpenChange(false);
       } else {
-        console.error("Failed to apply for the job:", response.status);
-        alert("Failed to apply for the job");
+        Swal.fire({
+          title: "Failed to apply for the job!",
+          showClass: {
+            popup: "animate__animated animate__fadeInUp animate__faster",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutDown animate__faster",
+          },
+        });
       }
     } catch (error) {
       console.error("Error applying for the job:", error);
-      alert("Failed to apply for the job");
+      Swal.fire({
+        title: "Failed to apply for the job!",
+        showClass: {
+          popup: "animate__animated animate__fadeInUp animate__faster",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutDown animate__faster",
+        },
+      });
     }
   };
 
