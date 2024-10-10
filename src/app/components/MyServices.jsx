@@ -26,7 +26,6 @@ export default function MyServices() {
   const { data: session } = useSession();
   const { isOpen, onOpenChange } = useDisclosure();
 
-  const baseUrl = process.env.NEXT_PUBLIC_NEXT_URL;
   const category = [
     { key: "node.js", label: "Node.js" },
     { key: "mern stack", label: "MERN Stack" },
@@ -54,7 +53,7 @@ export default function MyServices() {
     const postData = { ...data, createdAt, userEmail, tags: data.tags || [] };
 
     try {
-      const response = await fetch(`${baseUrl}/api/my-services`, {
+      const response = await fetch("/api/my-services", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
