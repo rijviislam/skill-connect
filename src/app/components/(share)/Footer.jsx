@@ -1,23 +1,17 @@
 import Image from "next/image";
-import logo from "../../../Image/C-removebg-preview.png"
+import logo from "../../../Image/C-removebg-preview.png";
 export default function Footer() {
   return (
     <footer className="px-4 divide-y drop-shadow-2xl border-t border-[#2e8b57]">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
-        <div className="lg:w-1/3">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            className="flex justify-center space-x-3 lg:justify-start"
-          >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-600">
-            </div>
-            <span className="self-center text-2xl font-bold text-[#2e8b57]">
-            <Image
-             src={logo} 
-             alt="Digital Web Design" 
-            className="w-56 h-56 "
-             />
+        <div className="lg:w-1/3  ">
+          <a rel="noopener noreferrer" href="#" className="flex items-start">
+            <span className="self-start text-2xl font-bold text-[#2e8b57]  flex items-start justify-start">
+              <Image
+                src={logo}
+                alt="Digital Web Design"
+                className="w-56 h-56 "
+              />
             </span>
           </a>
         </div>
