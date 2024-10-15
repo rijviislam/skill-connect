@@ -1,5 +1,3 @@
-console.log("my services")
-
 import connectDB from '@/lib/connectDB';
 
 export const POST = async(request) => {
