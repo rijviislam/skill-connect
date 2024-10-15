@@ -8,15 +8,15 @@ import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
-import Loader from "../../../../app/loading"; // Adjust the import path as needed
+import Loader from "../../../../app/loading";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // State for loading
+  const [loading, setLoading] = useState(false);
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when form is submitted
+    setLoading(true);
 
     const newUser = {
       name: e.target.name.value,
@@ -37,7 +37,7 @@ export default function SignUpPage() {
 
       if (resp.ok) {
         router.push("/api/auth/signin");
-        // Show SweetAlert when successfully registered
+
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -56,11 +56,10 @@ export default function SignUpPage() {
     } catch (error) {
       console.error("Error during registration:", error);
     } finally {
-      setLoading(false); // Set loading to false after request completes
+      setLoading(false);
     }
   };
 
-  // If loading, show the loader
   if (loading) {
     return <Loader />;
   }
