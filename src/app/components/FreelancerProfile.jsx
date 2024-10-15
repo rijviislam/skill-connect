@@ -1,344 +1,219 @@
 "use client";
+
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Image,
   Input,
-  Link,
-} from "@nextui-org/react";
-
-import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
+  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
 
 export default function FreelancerProfile() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const category = [
+    { key: "all", label: "All" },
+    { key: "web developer", label: "Web Developer" },
+    { key: "frontend developer", label: "Frontend Developer" },
+    { key: "backend developer", label: "Backend Developer" },
+    { key: "devops engineer", label: "DevOps Engineer" },
+    { key: "php developer", label: "PHP Developer" },
+    { key: "full stack developer", label: "Full Stack Developer" },
+    { key: "ui/ux designer", label: "UI/UX Designer" },
+    { key: "graphics designer", label: "Graphics Designer" },
+  ];
+
+  const { isOpen, onOpenChange } = useDisclosure();
+  const [profiles, setProfiles] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterData, setFilterData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const fetchProfiles = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/profiles");
+      const data = await response.json();
+      setProfiles(data);
+      setFilterData(data);
+    } catch (error) {
+      console.error("Error fetching profiles:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfiles();
+  }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleFilter = (categoryKey) => {
+    setSelectedCategory(categoryKey);
+  };
+
+  // useEffect(() => {
+  //   let filtered = profiles;
+
+  //   if (searchTerm) {
+  //     filtered = filtered.filter(
+  //       (profile) =>
+  //         profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //         profile.profession.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //   }
+
+  //   if (selectedCategory && selectedCategory !== "all") {
+  //     filtered = filtered.filter(
+  //       (profile) =>
+  //         profile.profession.toLowerCase() === selectedCategory.toLowerCase()
+  //     );
+  //   }
+
+  //   setFilterData(filtered);
+  // }, [searchTerm, selectedCategory, profiles]);
+  console.log("Filter Data", filterData);
+  useEffect(() => {
+    let filtered = profiles;
+
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (profile) =>
+          profile.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          profile.profession?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (selectedCategory && selectedCategory !== "all") {
+      filtered = filtered.filter(
+        (profile) =>
+          profile.profession?.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+
+    setFilterData(filtered);
+  }, [searchTerm, selectedCategory, profiles]);
+
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
         Freelancer Profile Page
       </h2>
-      {/* SEARCH BAR  */}
-      <div className="lg:w-[400px] mt-5">
-        <Input
-          isClearable
-          radius="lg"
-          classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "shadow-xl",
-              "bg-default-200/50",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focus=true]:bg-default-200/50",
-              "dark:group-data-[focus=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }}
-          placeholder="Type to search..."
-          startContent={
-            <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-          }
-        />
+
+      {/* SEARCH BAR */}
+      <div className="flex justify-between items-center mt-10">
+        <div className="lg:w-[400px] mt-5">
+          <Input
+            isClearable
+            radius="lg"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Type to search..."
+            startContent={
+              <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+            }
+          />
+        </div>
+
+        {/* CATEGORY FILTER */}
+        <Select
+          label="Filter by Categories"
+          placeholder="Select a category"
+          className="max-w-xs"
+          onChange={(event) => handleFilter(event.target.value)}
+        >
+          {category.map((item) => (
+            <SelectItem key={item.key} value={item.key}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </Select>
       </div>
 
-      {/* GRID CARD  */}
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 w-full">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 flex items-end w-full justify-end">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 flex items-end w-full justify-end">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 flex items-end w-full justify-end">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 flex items-end w-full justify-end">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-        <Card className="py-4 ">
-          <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-            <Image
-              alt="Card background"
-              className="object-cover w-[100px] h-[100px] rounded-full"
-              src="https://nextui.org/images/hero-card-complete.jpeg"
-              width={270}
-            />
-            <div className="mt-3">
-              <h4 className="text-sm">Rijvi Islam</h4>
-              <h5 className="text-sm font-semibold">Full Stack Developer</h5>
-              {/* WHEN THE USER CLICKS ON THE PORTFOLIO, IT OPENS IN A NEW TAB AND REDIRECTS THEM DIRECTLY TO THE PORTFOLIO PAGE. */}
-              <Link href="#" className="text-sm font-semibold cursor-pointer">
-                Portfolio
-              </Link>
-            </div>
-          </CardBody>
-          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-            <small>
-              {" "}
-              <strong>Location:</strong> Dhaka Bangladesh
-            </small>
-            <small>
-              <strong>Availability:</strong> vailable for hire
-            </small>
-            <p className="text-xs">
-              A Full Stack Developer builds both frontend and backend of web
-              applications, handling user interfaces, server logic, databases,
-              and API integrations, ensuring the whole system works smoothly.
-            </p>
-            <small className="text-xs">
-              {" "}
-              <strong>Skills and Expertise:</strong> HTML, CSS, JavaScript,
-              React
-            </small>
-            <div className="mt-5 flex items-end w-full justify-end">
-              <Button
-                size="md"
-                onPress={onOpen}
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-              >
-                Details
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
-      </div>
-      {/* MODAL  */}
+      {/* GRID CARD */}
+      {loading ? (
+        <div className="flex justify-center my-10">
+          <Spinner size="lg" color="success" />
+        </div>
+      ) : (
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
+          {filterData?.map((profile, idx) => (
+            <Card className="py-4" key={idx}>
+              <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                <Image
+                  alt="Card background"
+                  className="object-cover w-[100px] h-[100px] rounded-full"
+                  src="https://nextui.org/images/hero-card-complete.jpeg"
+                  width={270}
+                  height={100}
+                />
+                <div className="mt-3">
+                  <h4 className="text-sm">{profile.name}</h4>
+                  <h5 className="text-sm font-semibold">
+                    {profile.profession}
+                  </h5>
+                  <Link
+                    href="#"
+                    className="text-sm font-semibold cursor-pointer"
+                  >
+                    Portfolio
+                  </Link>
+                </div>
+              </CardBody>
+              <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                <small>
+                  <strong>Location:</strong> {profile.location}
+                </small>
+                <small>
+                  <strong>Availability:</strong> {profile.availability}
+                </small>
+                <p className="text-xs">
+                  A Full Stack Developer builds both frontend and backend of web
+                  applications, handling user interfaces, server logic,
+                  databases, and API integrations, ensuring the whole system
+                  works smoothly.
+                </p>
+                <small className="text-xs flex items-center">
+                  <strong>Skills and Expertise:</strong>
+                  <div className="pl-1 flex gap-1">
+                    {profile?.skills?.map((skill, index) => (
+                      <p key={index} className="text-sm">
+                        {skill}
+                      </p>
+                    ))}
+                  </div>
+                </small>
+                <div className="mt-5 w-full">
+                  <Button
+                    size="md"
+                    onPress={() => onOpenChange(true)}
+                    className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                  >
+                    Details
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {/* MODAL */}
       <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -350,26 +225,9 @@ export default function FreelancerProfile() {
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
                 </p>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
                 <Button color="primary">Hire</Button>
               </ModalFooter>
             </>

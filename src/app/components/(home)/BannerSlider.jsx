@@ -1,58 +1,39 @@
 "use client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-
-import Img2 from "../../../Image/Blue White Modern Online Business Webinar Banner Landscape (1).png";
-import Img3 from "../../../Image/Digital Marketing.png";
-import Img1 from "../../../Image/Img1.png";
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
+import Link from "next/link";
+import banner from "../../../Image/Working remotely-cuate.png";
 
 const BannerSlider = () => {
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false,
-        },
-      },
-    ],
-  };
-
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === "authenticated";
   return (
-    <div className="relative overflow-hidden">
-      <div className="banner-slider rounded-lg overflow-hidden ">
-        <Slider {...settings}>
-          <div className="flex justify-center items-center">
-            <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
-              src={Img1}
-              alt="Banner 1"
-            />
+    <div>
+      <div className="h-[500px] md:h-[800px] lg:h-[400px] xl:h-[400px] bg-gradient-to-r from-green-400 to-blue-300">
+        <div className="container mx-auto flex flex-col lg:flex-row-reverse items-center justify-center py-5 px-4 h-full">
+          <Image
+            src={banner}
+            alt="Digital Web Design"
+            className="max-w-full lg:max-w-2xl rounded-lg h-auto"
+            layout="responsive"
+            objectFit="cover"
+          />
+          <div className="text-center lg:text-left mb-10 md:mb-56 lg:mb-1 lg:mr-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold text-gray-800">
+              FIND THE RIGHT FREELANCER
+            </h1>
+            <p className="py-2 text-lg sm:text-xl md:text-xl text-gray-100">
+              FOR YOUR NEXT PROJECT
+            </p>
+            {!isAuthenticated && (
+              <Link href="/api/auth/signup">
+                <button className="bg-transparent border-2 border-green-900 hover:bg-green-500 hover:text-white text-green-800 font-semibold py-2 px-6 transition duration-300 w-28 rounded-xl">
+                  Sign Up
+                </button>
+              </Link>
+            )}
           </div>
-          <div className="flex justify-center items-center">
-            <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
-              src={Img2}
-              alt="Banner 2"
-            />
-          </div>
-          <div className="flex justify-center items-center">
-            <Image
-              className="w-full h-auto max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-cover rounded-b-xl"
-              src={Img3}
-              alt="Banner 3"
-            />
-          </div>
-        </Slider>
+        </div>
       </div>
     </div>
   );

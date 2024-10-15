@@ -7,6 +7,7 @@ import Img5 from "../../../Image/photo-1667053508464-eb11b394df83.avif";
 import Img6 from "../../../Image/photo-1723200166097-4eed8c141f03.avif";
 import Img7 from "../../../Image/photo-1724159768353-55b083d0d435.avif";
 import Img8 from "../../../Image/photo-1630026317249-c1c83b21ea07.avif";
+import { FaArrowRight } from "react-icons/fa";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
@@ -21,7 +22,7 @@ const Review = () => {
       },
       {
         name: "Michael Lee",
-        review: "Outstanding work and a smooth collaboration process. Highly recommended! The team went above and beyond to ensure that all my requirements were met. The final product exceeded my expectations in every way. Will definitely work with them again.",
+        review: "Working with the team was a great experience! Highly professional and always on time. The project was delivered ahead of schedule, and the communication was top-notch. Highly recommend this service to anyone looking for quality work",
         image: Img5,
         rating: 5,
       },
@@ -39,7 +40,7 @@ const Review = () => {
       },
       {
         name: "James Parker",
-        review: "A game-changer for freelancers looking for consistent work! The project opportunities are plentiful, and the payment process is seamless. I’ve found the platform to be very reliable, and it has significantly improved my workflow.",
+        review: "A game-changer for freelancers looking for consistent work! The project opportunities are plentiful, and the payment process is seamless. I have found the platform to be very reliable, and it has significantly improved my workflow.",
         image: Img8,
         rating: 4,
       },
@@ -48,7 +49,7 @@ const Review = () => {
 
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 900,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -79,15 +80,15 @@ const Review = () => {
 
   return (
     <div className="py-16 ">
-      <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8  ">
-        <h2 className="text-3xl font-extrabold text-center text-[#2e8b57] mb-8">
-          Client & Freelancer Reviews
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="container mx-auto text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center ">
+          Reviews
+          <FaArrowRight className="ml-2" />
         </h2>
-        <hr className="border-t-2 border-[#2e8b57] mb-8 mx-auto w-2/12 md:w-1/3" />
-        
+
         <Slider {...settings}>
           {reviews.map((review, index) => (
-            <div key={index} className="bg-green-50 p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:bg-teal-50 hover:shadow-2xl">
+            <div key={index} className="bg-green-50 p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:bg-teal-50 hover:shadow-2xl h-[400px]"> {/* Fixed height */}
               <div className="flex justify-center mb-4">
                 <Image
                   src={review.image}

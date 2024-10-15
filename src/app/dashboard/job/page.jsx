@@ -1,154 +1,203 @@
 "use client";
 
-import {
-  Button,
-  DatePicker,
-  Input,
-  Select,
-  SelectItem,
-  Textarea,
-} from "@nextui-org/react";
-import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
-export default function JobPost() {
-  const categories = [
-    { key: "web developer", label: "Web Developer" },
-    { key: "frontend developer", label: "Frontend Developer" },
-    { key: "backend developer", label: "Backend Developer" },
-    { key: "wordpress developer", label: "WordPress Developer" },
-    { key: "php developer", label: "PHP Developer" },
-    { key: "laravel developer", label: "Laravel Developer" },
-    { key: "ui designer", label: "UI Designer" },
-    { key: "graphics designer", label: "Graphics Designer" },
+const JobPostingForm = () => {
+  const { data: session } = useSession();
+  console.log(session?.user?.email);
+  const userEmail = session?.user?.email;
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [budget, setBudget] = useState("");
+  const [timeline, setTimeline] = useState("");
+  const [skills, setSkills] = useState([]);
+
+  const availableTitles = [
+    "Website Development",
+    "Mobile App Development",
+    "Graphic Design",
+    "SEO Services",
+    "Content Writing",
+    "Digital Marketing",
+    "Data Analysis",
+    "Virtual Assistant",
   ];
 
-  const budgets = [
-    { key: "$10", label: "$10" },
-    { key: "$20", label: "$20" },
-    { key: "$30", label: "$30" },
-    { key: "$40", label: "$40" },
-    { key: "$50", label: "$50" },
-    { key: "$60", label: "$60" },
-    { key: "$70", label: "$70" },
-    { key: "$80", label: "$80" },
-    { key: "$90", label: "$90" },
-    { key: "$100", label: "$100" },
-    { key: "$110", label: "$110" },
+  const availableBudgets = [
+    "Under $100",
+    "$100 - $500",
+    "$500 - $1000",
+    "$1000 - $5000",
+    "Above $5000",
   ];
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const availableTimelines = [
+    "Less than a week",
+    "1 week",
+    "2 weeks",
+    "1 month",
+    "More than a month",
+  ];
 
-  const onSubmit = (data) => {
-    const newPost = {
-      title: data.text,
-      description: data.description,
-      deadline: data.deadline,
-      category: data.category,
-      budget: data.budget,
-      requiredSkills: data.requiredSkills,
+  const availableSkills = [
+    "Web Development",
+    "Graphic Design",
+    "Content Writing",
+    "Digital Marketing",
+    "Data Entry",
+    "SEO",
+    "Mobile App Development",
+    "Software Development",
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const jobData = {
+      userEmail,
+      title,
+      description,
+      budget,
+      timeline,
+      skills,
     };
-    console.log(newPost);
+
+    try {
+      const response = await fetch("/api/post-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jobData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      console.log("Job posted successfully:", result);
+
+      // Clear the form
+      setTitle("");
+      setDescription("");
+      setBudget("");
+      setTimeline("");
+      setSkills([]);
+    } catch (error) {
+      console.error("Error posting job:", error);
+    }
   };
 
   return (
-    <div className="mx-10 flex items-center flex-col my-10">
-      <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
-        Job Post
-      </h2>
+    <div className="container mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Post a Job Offer</h2>
       <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="lg:w-2/3 md:w-2/3 sm:w-2/3 flex flex-col gap-5 mt-10 items-end justify-end shadow-xl p-10 rounded-lg border-2 border-silver"
+        onSubmit={handleSubmit}
+        className="bg-blue-50 p-6 rounded-lg shadow-md space-y-4"
       >
-        <div className="flex items-center justify-center w-full lg:w-full md:w-full sm:w-full gap-5 flex-col">
-          <div className="flex w-full gap-5 lg:flex-row md:flex-col flex-col">
-            {/* INPUT TEXT AND TEXTAREA  */}
-            <div className="lg:w-1/2 flex items-center flex-col gap-5">
-              <Input
-                key="primary"
-                type="text"
-                color="primary"
-                label="Title"
-                placeholder="Post Title"
-                defaultValue="Frontend Developer"
-                className="max-w-[500px]"
-                {...register("text", { required: true })} // Register title
-              />
-              {errors.text && <span>Title is required</span>}
-              <Textarea
-                label="Description"
-                color="primary"
-                placeholder="Enter your description"
-                className="max-w-[500px]"
-                {...register("description", { required: true })} // Register description
-              />
-              {errors.description && <span>Description is required</span>}
-              <div className="flex w-full items-center justify-center flex-wrap md:flex-nowrap gap-4">
-                <DatePicker
-                  label="Project Deadline"
-                  color="primary"
-                  className="max-w-[500px]"
-                  isRequired
-                  onChange={(date) => setValue("deadline", date)} // Register deadline
-                />
-                {errors.deadline && <span>Deadline is required</span>}
-              </div>
-            </div>
-            {/* INPUT SELECT CATEGORY AND BUDGET  */}
-            <div className="lg:w-1/2 flex items-center flex-col gap-10">
-              <Select
-                label="Category"
-                color="primary"
-                placeholder="Select a Category"
-                className="max-w-[500px]"
-                {...register("category", { required: true })} // Register category
-              >
-                {categories.map((category) => (
-                  <SelectItem key={category.key} value={category.key}>{category.label}</SelectItem>
-                ))}
-              </Select>
-              {errors.category && <span>Category is required</span>}
-              
-              <Select
-                label="Budget"
-                color="primary"
-                placeholder="Select a Budget"
-                className="max-w-[500px]"
-                {...register("budget", { required: true })} // Register budget
-              >
-                {budgets.map((budget) => (
-                  <SelectItem key={budget.key} value={budget.key}>{budget.label}</SelectItem>
-                ))}
-              </Select>
-              {errors.budget && <span>Budget is required</span>}
-              
-              <Select
-                label="Required Skills"
-                color="primary"
-                placeholder="Select Skills"
-                selectionMode="multiple"
-                className="max-w-[500px]"
-                {...register("requiredSkills")} // Register required skills
-              >
-                {categories.map((category) => (
-                  <SelectItem key={category.key} value={category.key}>{category.label}</SelectItem>
-                ))}
-              </Select>
-            </div>
+        <div className="flex flex-col lg:flex-row lg:space-x-4">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Job Title
+            </label>
+            <select
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+            >
+              <option value="">Select Job Title</option>
+              {availableTitles.map((jobTitle) => (
+                <option key={jobTitle} value={jobTitle}>
+                  {jobTitle}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Budget
+            </label>
+            <select
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              required
+              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+            >
+              <option value="">Select Budget</option>
+              {availableBudgets.map((budgetOption) => (
+                <option key={budgetOption} value={budgetOption}>
+                  {budgetOption}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-
-        <Button
+        <div className="flex flex-col lg:space-x-4">
+          <div className="w-full">
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300 overflow-y-auto"
+              rows="4"
+              style={{ maxHeight: "150px" }} // Scrollbar appears when content exceeds height
+            ></textarea>
+          </div>
+        </div>
+        <div className="flex flex-col lg:flex-row lg:space-x-4">
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Timeline
+            </label>
+            <select
+              value={timeline}
+              onChange={(e) => setTimeline(e.target.value)}
+              required
+              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+            >
+              <option value="">Select Timeline</option>
+              {availableTimelines.map((timeOption) => (
+                <option key={timeOption} value={timeOption}>
+                  {timeOption}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-gray-700">
+              Required Skills
+            </label>
+            <select
+              value={skills}
+              onChange={(e) => setSkills([e.target.value])}
+              required
+              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+            >
+              <option value="">Select Required Skill</option>
+              {availableSkills.map((skill) => (
+                <option key={skill} value={skill}>
+                  {skill}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <button
           type="submit"
-          className="w-[100px] flex items-center justify-center bg-[#2E8B57] hover:bg-[#90EE90]"
+          className="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition duration-300"
         >
-          Submit
-        </Button>
+          Post Job Offer
+        </button>
       </form>
     </div>
   );
-}
+};
+
+export default JobPostingForm;
