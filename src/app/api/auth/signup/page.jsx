@@ -8,23 +8,24 @@ import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
-import Loader from "../../../../app/loading";
+import Loader from "../../../../app/loading"; // Adjust the import path as needed
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // Set loading to true when form is submitted
 
     const newUser = {
-      name: e.target.name.value,
+      username: e.target.name.value,
       email: e.target.email.value,
-      password: e.target.password.value,
+      passwordHash: e.target.password.value,
       role: e.target.role.value,
       image: e.target.image.value,
     };
+    console.log(newUser);
 
     try {
       const resp = await fetch("/api/auth/signup/register-user", {
@@ -37,7 +38,7 @@ export default function SignUpPage() {
 
       if (resp.ok) {
         router.push("/api/auth/signin");
-
+        // show sweetalart when successfully registered
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -46,20 +47,21 @@ export default function SignUpPage() {
           timer: 1500,
         });
       } else {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Register error",
-        });
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "error",
+        //   title: "Register error",
+        // });
         console.log("Register error");
       }
     } catch (error) {
       console.error("Error during registration:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false after request completes
     }
   };
 
+  // If loading, show the loader
   if (loading) {
     return <Loader />;
   }
@@ -164,6 +166,7 @@ export default function SignUpPage() {
         <Spacer y={4} />
         <div className="flex justify-center items-center gap-2">
           <Button
+            type="submit"
             shadow
             color="success"
             auto
@@ -176,6 +179,7 @@ export default function SignUpPage() {
           </Button>
           <Spacer y={1.5} />
           <Button
+            type="submit"
             shadow
             color="success"
             auto
