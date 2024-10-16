@@ -1,15 +1,14 @@
 "use client";
 
-import { Input, Button, Image, Spacer } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import Loader from '../../../../app/loading'; // Adjust the import path as needed
-import Link from 'next/link';
-import { signIn } from 'next-auth/react';
-import { FcGoogle } from "react-icons/fc";
+import { Button, Image, Input, Spacer } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import Swal from 'sweetalert2'
-
+import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
+import Loader from "../../../../app/loading"; // Adjust the import path as needed
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -26,10 +25,10 @@ export default function SignUpPage() {
       role: e.target.role.value,
       image: e.target.image.value,
     };
-    console.log(newUser)
+    console.log(newUser);
 
     try {
-      const resp = await fetch('/api/auth/signup/register-user', {
+      const resp = await fetch("/api/auth/signup/register-user", {
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {
@@ -38,7 +37,7 @@ export default function SignUpPage() {
       });
 
       if (resp.ok) {
-        router.push('/api/auth/signin'); 
+        router.push("/api/auth/signin");
         // show sweetalart when successfully registered
         Swal.fire({
           position: "top-end",
@@ -46,13 +45,13 @@ export default function SignUpPage() {
           title: "You are registered successfully",
           showConfirmButton: false,
           timer: 1500,
-        });  
+        });
       } else {
         // Swal.fire({
         //   position: "top-end",
         //   icon: "error",
         //   title: "Register error",
-        // }); 
+        // });
         console.log("Register error");
       }
     } catch (error) {
@@ -78,7 +77,9 @@ export default function SignUpPage() {
         />
       </div>
       <div className="w-full max-w-md">
-        <h3 className="text-3xl font-semibold mb-4 text-green-600 text-center">Sign Up</h3>
+        <h3 className="text-3xl font-semibold mb-4 text-green-600 text-center">
+          Sign Up
+        </h3>
         <form onSubmit={handleSubmitForm}>
           <div className="mb-4">
             <Input
@@ -121,7 +122,10 @@ export default function SignUpPage() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="role"
+            >
               Role
             </label>
             <div className="flex items-center gap-4">
@@ -158,35 +162,42 @@ export default function SignUpPage() {
           </Button>
         </form>
         <Spacer y={4} />
-        <hr/>
+        <hr />
         <Spacer y={4} />
-        <div className='flex justify-center items-center gap-2'>
-        <Button
-         type="submit"
-         shadow
-         color="success"
-         auto
-         className="px-2 bg-green-500 hover:bg-green-600 text-white"
-                  
-        onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000' })}>
-          <FcGoogle />
-        </Button>
-        <Spacer y={1.5} />
-        <Button
-         type="submit"
-         shadow
-         color="success"
-         auto
-         className="px-2 bg-green-500 hover:bg-green-600 text-white"
-                  
-        onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000' })}>
-          <FaGithub />
-         </Button>
-         </div>
+        <div className="flex justify-center items-center gap-2">
+          <Button
+            type="submit"
+            shadow
+            color="success"
+            auto
+            className="px-2 bg-green-500 hover:bg-green-600 text-white"
+            onClick={() =>
+              signIn("google", { callbackUrl: "http://localhost:3000" })
+            }
+          >
+            <FcGoogle />
+          </Button>
+          <Spacer y={1.5} />
+          <Button
+            type="submit"
+            shadow
+            color="success"
+            auto
+            className="px-2 bg-green-500 hover:bg-green-600 text-white"
+            onClick={() =>
+              signIn("github", { callbackUrl: "http://localhost:3000" })
+            }
+          >
+            <FaGithub />
+          </Button>
+        </div>
         <Spacer y={1.5} />
         <div>
           <p className="text-center text-gray-600">
-          Already have an account? <Link className='hover:text-green-600' href="/api/auth/signin">Sign in</Link>
+            Already have an account?{" "}
+            <Link className="hover:text-green-600" href="/api/auth/signin">
+              Sign in
+            </Link>
           </p>
         </div>
       </div>
