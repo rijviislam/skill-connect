@@ -64,7 +64,7 @@ const ProfilePage = () => {
     try {
       const { _id, ...updatedFields } = data;
       const response = await axios.patch(
-        `http://localhost:3001/api/put-user?id=${user._id}`,
+        `http://localhost:3000/api/put-user?id=${user._id}`,
         updatedFields
       );
 
