@@ -6,7 +6,7 @@ export const GET = async (request) => {
         const userCollection = db.collection("users");
 
         
-        const freelancers = await userCollection.find({ role: "freelancer" }).toArray();
+        const freelancers = await userCollection.find({ role: "client" }).toArray();
 
         return Response.json(freelancers);
     } catch (error) {

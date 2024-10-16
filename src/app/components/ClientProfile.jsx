@@ -1,42 +1,21 @@
 "use client";
 
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Select,
-  SelectItem,
-  Spinner,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Input, Spinner } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
 
-export default function FreelancerProfile() {
-  const categories = [
-    { key: "all", label: "All" },
-    { key: "web developer", label: "Web Developer" },
-    { key: "frontend developer", label: "Frontend Developer" },
-    { key: "backend developer", label: "Backend Developer" },
-    { key: "devops engineer", label: "DevOps Engineer" },
-    { key: "php developer", label: "PHP Developer" },
-    { key: "full stack developer", label: "Full Stack Developer" },
-    { key: "ui/ux designer", label: "UI/UX Designer" },
-    { key: "graphics designer", label: "Graphics Designer" },
-  ];
-
+export default function ClientProfile() {
   const [profiles, setProfiles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("all");
 
   // Fetch profiles from API
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/profiles");
+      const response = await fetch("/api/clientProfile");
       const data = await response.json();
 
       if (Array.isArray(data)) {
@@ -65,12 +44,7 @@ export default function FreelancerProfile() {
     setSearchTerm(event.target.value);
   };
 
-  // Category filter handler
-  const handleFilter = (categoryKey) => {
-    setSelectedCategory(categoryKey);
-  };
-
-  // Filter logic based on search term and category
+  // Search logic based on search term
   useEffect(() => {
     let filtered = profiles;
 
@@ -78,25 +52,17 @@ export default function FreelancerProfile() {
       filtered = filtered.filter(
         (profile) =>
           profile.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          profile.skills?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (selectedCategory && selectedCategory !== "all") {
-      filtered = filtered.filter(
-        (profile) =>
-          profile.profession?.toLowerCase() === selectedCategory.toLowerCase()
+          profile.profile?.bio?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     setFilterData(filtered);
-  }, [searchTerm, selectedCategory, profiles]);
-  console.log(filterData);
+  }, [searchTerm, profiles]);
 
   return (
     <div className="mx-10">
-      <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
-        Freelancer Profile Page
+      <h2 className="text-4xl font-bold bg-gradient-to-l from-[#ADD8E6] to-[#00008B] bg-clip-text text-transparent text-center">
+        Client Profile Page
       </h2>
 
       {/* SEARCH BAR */}
@@ -107,32 +73,18 @@ export default function FreelancerProfile() {
             radius="lg"
             value={searchTerm}
             onChange={handleSearchChange}
-            placeholder="Type to search..."
+            placeholder="Search for clients..."
             startContent={
               <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
             }
           />
         </div>
-
-        {/* CATEGORY FILTER */}
-        <Select
-          label="Filter by Categories"
-          placeholder="Select a category"
-          className="max-w-xs"
-          onChange={(event) => handleFilter(event.target.value)}
-        >
-          {categories.map((item) => (
-            <SelectItem key={item.key} value={item.key}>
-              {item.label}
-            </SelectItem>
-          ))}
-        </Select>
       </div>
 
       {/* GRID CARD */}
       {loading ? (
         <div className="flex justify-center my-10">
-          <Spinner size="lg" color="success" />
+          <Spinner size="lg" color="primary" />
         </div>
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
@@ -147,9 +99,8 @@ export default function FreelancerProfile() {
                     alt="Profile avatar"
                     className="object-cover w-[100px] h-[100px] rounded-full"
                     src={
-                      profile.avatar?.url?.startsWith("http") ||
                       profile.profile?.avatarUrl?.startsWith("http")
-                        ? profile.avatar?.url || profile.profile?.avatarUrl
+                        ? profile.profile?.avatarUrl
                         : "/images/default-avatar.png"
                     }
                     width={100}
@@ -161,32 +112,51 @@ export default function FreelancerProfile() {
                       {profile.username}
                     </h4>
                     <h5 className="text-sm">
-                      {profile.profession || "Freelancer"}
+                      {profile.profile?.bio || "Client"}
                     </h5>
                     <p>
                       <strong>Email:</strong> {profile.email || "N/A"}
                     </p>
                     <p>
-                      <strong>Phone:</strong> {profile.phone || "N/A"}
+                      <strong>Phone:</strong> {profile.profile?.phone || "N/A"}
                     </p>
                     <p>
-                      <strong>Location:</strong> {profile.city},{" "}
-                      {profile.country}
+                      <strong>Location:</strong>{" "}
+                      {profile.profile?.address?.city},{" "}
+                      {profile.profile?.address?.country || "N/A"}
                     </p>
                   </div>
                 </CardBody>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
                   <p>
-                    <strong>Skills:</strong>{" "}
-                    {profile.skills ? profile.skills : "N/A"}
+                    <strong>Services:</strong>{" "}
+                    {profile.services.length > 0
+                      ? profile.services.join(", ")
+                      : "No services listed"}
                   </p>
                   <p>
-                    <strong>Bio:</strong> {profile.bio || "No bio available"}
+                    <strong>Ratings:</strong>{" "}
+                    {profile.ratings.averageRating || "0"} ⭐ (
+                    {profile.ratings.totalRatings} reviews)
+                  </p>
+                  <p>
+                    <strong>Payment Info:</strong>{" "}
+                    {profile.paymentInfo.bankDetails || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Skills:</strong>{" "}
+                    {profile.profile?.skills.length > 0
+                      ? profile.profile?.skills.join(", ")
+                      : "N/A"}
                   </p>
                   <p>
                     <strong>LinkedIn:</strong>{" "}
-                    {profile.linkedin ? (
-                      <a href={profile.linkedin} target="_blank">
+                    {profile.profile?.socialLinks?.linkedin ? (
+                      <a
+                        href={profile.profile?.socialLinks?.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         View Profile
                       </a>
                     ) : (
@@ -197,7 +167,7 @@ export default function FreelancerProfile() {
               </Card>
             ))
           ) : (
-            <p>No freelancers found</p>
+            <p>No clients found</p>
           )}
         </div>
       )}

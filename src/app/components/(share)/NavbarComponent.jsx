@@ -48,7 +48,12 @@ const NavbarComponent = () => {
         <NavbarContent className="hidden sm:flex gap-3">
           <NavbarItem>
             <Link color="foreground" href="freelancerProfile">
-              Freelancer profile
+              Freelancer profiles
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="clientProfile">
+              Client profiles
             </Link>
           </NavbarItem>
           <NavbarItem>
