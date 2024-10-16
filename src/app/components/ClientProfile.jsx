@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Spinner,
-  Input,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Input, Spinner } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
@@ -50,7 +44,7 @@ export default function ClientProfile() {
     setSearchTerm(event.target.value);
   };
 
-  // Filter logic based on search term
+  // Search logic based on search term
   useEffect(() => {
     let filtered = profiles;
 
@@ -96,7 +90,10 @@ export default function ClientProfile() {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile, idx) => (
-              <Card className="py-4" key={idx}>
+              <Card
+                className="py-4  lg:w-[450px] min-w-[350px] h-[350px]"
+                key={idx}
+              >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
                   <Image
                     alt="Profile avatar"
@@ -124,7 +121,9 @@ export default function ClientProfile() {
                       <strong>Phone:</strong> {profile.profile?.phone || "N/A"}
                     </p>
                     <p>
-                      <strong>Location:</strong> {profile.profile?.address?.city}, {profile.profile?.address?.country || "N/A"}
+                      <strong>Location:</strong>{" "}
+                      {profile.profile?.address?.city},{" "}
+                      {profile.profile?.address?.country || "N/A"}
                     </p>
                   </div>
                 </CardBody>
@@ -136,7 +135,8 @@ export default function ClientProfile() {
                       : "No services listed"}
                   </p>
                   <p>
-                    <strong>Ratings:</strong> {profile.ratings.averageRating || "0"} ⭐ (
+                    <strong>Ratings:</strong>{" "}
+                    {profile.ratings.averageRating || "0"} ⭐ (
                     {profile.ratings.totalRatings} reviews)
                   </p>
                   <p>
