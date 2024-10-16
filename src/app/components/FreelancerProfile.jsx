@@ -4,10 +4,10 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Spinner,
+  Input,
   Select,
   SelectItem,
-  Input,
+  Spinner,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -91,6 +91,7 @@ export default function FreelancerProfile() {
 
     setFilterData(filtered);
   }, [searchTerm, selectedCategory, profiles]);
+  console.log(filterData);
 
   return (
     <div className="mx-10">
@@ -137,7 +138,10 @@ export default function FreelancerProfile() {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile, idx) => (
-              <Card className="py-4" key={idx}>
+              <Card
+                className="py-4  lg:w-[450px] min-w-[350px] h-[350px]"
+                key={idx}
+              >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
                   <Image
                     alt="Profile avatar"
