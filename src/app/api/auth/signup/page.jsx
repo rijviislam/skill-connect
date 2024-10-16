@@ -25,6 +25,14 @@ export default function SignUpPage() {
       role: e.target.role.value,
       image: e.target.image.value,
     };
+
+    // Add the conditionally empty array property based on the role
+    if (newUser.role === "freelancer") {
+      newUser.hiredClients = [];
+    } else if (newUser.role === "client") {
+      newUser.hiredFreelancers = [];
+    }
+
     console.log(newUser);
 
     try {
