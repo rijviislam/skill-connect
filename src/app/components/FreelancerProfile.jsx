@@ -46,6 +46,8 @@ export default function FreelancerProfile() {
     try {
       const response = await fetch("/api/profiles");
       const data = await response.json();
+      console.log("Data", data);
+
       setProfiles(data);
       setFilterData(data);
     } catch (error) {
@@ -67,27 +69,6 @@ export default function FreelancerProfile() {
     setSelectedCategory(categoryKey);
   };
 
-  // useEffect(() => {
-  //   let filtered = profiles;
-
-  //   if (searchTerm) {
-  //     filtered = filtered.filter(
-  //       (profile) =>
-  //         profile.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //         profile.profession.toLowerCase().includes(searchTerm.toLowerCase())
-  //     );
-  //   }
-
-  //   if (selectedCategory && selectedCategory !== "all") {
-  //     filtered = filtered.filter(
-  //       (profile) =>
-  //         profile.profession.toLowerCase() === selectedCategory.toLowerCase()
-  //     );
-  //   }
-
-  //   setFilterData(filtered);
-  // }, [searchTerm, selectedCategory, profiles]);
-  console.log("Filter Data", filterData);
   useEffect(() => {
     let filtered = profiles;
 
@@ -188,7 +169,7 @@ export default function FreelancerProfile() {
                   databases, and API integrations, ensuring the whole system
                   works smoothly.
                 </p>
-                <small className="text-xs flex items-center">
+                {/* <small className="text-xs flex items-center">
                   <strong>Skills and Expertise:</strong>
                   <div className="pl-1 flex gap-1">
                     {profile?.skills?.map((skill, index) => (
@@ -197,7 +178,7 @@ export default function FreelancerProfile() {
                       </p>
                     ))}
                   </div>
-                </small>
+                </small> */}
                 <div className="mt-5 w-full">
                   <Button
                     size="md"

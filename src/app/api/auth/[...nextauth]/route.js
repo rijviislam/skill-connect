@@ -1,9 +1,9 @@
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
 import connectDB from '@/lib/connectDB';
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
@@ -144,4 +144,4 @@ export const authOptions = {
 
 const handler = NextAuth( authOptions )
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
