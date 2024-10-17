@@ -64,6 +64,18 @@ const DashboardSideBar = () => {
               </li>
               <li>
                 <Link
+                  href="/dashboard/ongoing"
+                  className={`flex items-center mb-4 text-lg ${
+                    isActive("/dashboard/ongoing")
+                      ? "font-extrabold text-green-800"
+                      : ""
+                  }`}
+                >
+                  <FaList className="mr-2" /> Ongoing
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/dashboard/messages"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/messages")
@@ -128,6 +140,18 @@ const DashboardSideBar = () => {
                   }`}
                 >
                   <FaHome className="mr-2" /> Posted Job
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/dashboard/manageJobs"
+                  className={`flex items-center mb-4 text-lg ${
+                    isActive("/dashboard/manageJobs")
+                      ? "font-extrabold text-green-800"
+                      : ""
+                  }`}
+                >
+                  <FaHome className="mr-2" /> Manage Job
                 </Link>
               </li>
               <li>
