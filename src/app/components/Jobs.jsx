@@ -39,7 +39,7 @@ export default function Jobs() {
       } catch (error) {
         console.error("Error fetching job posts:", error);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 

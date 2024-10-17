@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, CardFooter, Image } from "@nextui-org/react";
-import Link from "next/link"; // Import Next.js Link component
+import Link from "next/link";
 import {
   FaArrowRight,
   FaCamera,

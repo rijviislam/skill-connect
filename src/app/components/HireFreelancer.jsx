@@ -13,12 +13,6 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 
-// const getData = async () =>{
-//     const result = await axios.get(
-//         `/api/posted-job?email=${encodeURIComponent(userEmail)}`
-//       );
-// }
-
 const HireFreelancer = ({ params }) => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
