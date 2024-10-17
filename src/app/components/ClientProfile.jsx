@@ -1,7 +1,6 @@
 "use client";
 
 import {
-
   Button,
   Card,
   CardBody,
@@ -12,6 +11,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
   Spinner,
   useDisclosure,
 } from "@nextui-org/react";
@@ -19,17 +20,26 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-  Spinner,
-  Select,
-  SelectItem,
-  Button,
-} from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SearchIcon } from "./SearchIcon";
 
 export default function ClientProfile() {
+  const { isOpen, onOpenChange } = useDisclosure();
+  const [selectedProfile, setSelectedProfile] = useState({});
+  const { data: session } = useSession();
+  const [review, setReview] = useState(0);
+  const [currUser, setCurrUser] = useState([]);
+  const currUserEmail = session?.user?.email;
+  const userEmail = session?.user?.email;
+  const { register, handleSubmit, reset } = useForm();
+  const [profiles, setProfiles] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterData, setFilterData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [dropdownVisible, setDropdownVisible] = useState({});
+  const [selectedReasons, setSelectedReasons] = useState({});
   const reportReasons = [
     { key: "spam", label: "Spam or irrelevant content" },
     { key: "harassment", label: "Harassment or bullying" },
@@ -38,22 +48,7 @@ export default function ClientProfile() {
     { key: "other", label: "Other" },
   ];
 
-  const [profiles, setProfiles] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterData, setFilterData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { isOpen, onOpenChange } = useDisclosure();
-  const [selectedProfile, setSelectedProfile] = useState({});
-  const { data: session } = useSession();
-  const [review, setReview] = useState(0);
-  const [currUser, setCurrUser] = useState([]);
-  const currUserEmail = session?.user?.email;
-  const userEmail = session?.user?.email;
-  const [dropdownVisible, setDropdownVisible] = useState({});
-  const [selectedReasons, setSelectedReasons] = useState({});
-
   // Fetch profiles from API
-
   const fetchProfiles = async () => {
     setLoading(true);
     try {
@@ -76,34 +71,13 @@ export default function ClientProfile() {
       setLoading(false);
     }
   };
+  console.log("CurrentUser", currUser);
 
   useEffect(() => {
     fetchProfiles();
   }, []);
 
-  // Search term change handler
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Search logic based on search term
-
-  useEffect(() => {
-    let filtered = profiles;
-
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (profile) =>
-          profile.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          profile.profile?.bio?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    setFilterData(filtered);
-  }, [searchTerm, profiles]);
-
   // Fetch profiles from API by email
-
   const fetchUserByEmail = async () => {
     try {
       const response = await fetch(`/api/get-user?email=${userEmail}`);
@@ -121,45 +95,26 @@ export default function ClientProfile() {
     fetchUserByEmail();
   }, [userEmail]);
 
-  const { register, handleSubmit, reset } = useForm();
+  // Search term change handler
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-  const onSubmit = async (data) => {
-    reset();
+  // Search logic based on search term
+  useEffect(() => {
+    let filtered = profiles;
 
-    const newReview = {
-      reviewerName: currUser?.username,
-      reviewerImage: currUser?.profile?.avatarUrl,
-      description: data.description,
-      rating: review,
-      createdAt: new Date().toISOString(),
-    };
-
-    const existingReviews = selectedProfile.reviewCollection || [];
-
-    const updatedReviewCollection = [...existingReviews, newReview];
-
-    const formData = {
-      ...data,
-      reviewCollection: updatedReviewCollection,
-    };
-
-    try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
-        formData
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (profile) =>
+          profile.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          profile.profile?.bio?.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      if (response.status === 200) {
-        console.log("Review submitted successfully");
+    }
 
-        setSelectedProfile((prev) => ({
-          ...prev,
-          reviewCollection: updatedReviewCollection,
-        }));
-      } else {
-        console.error("Error submitting review:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    setFilterData(filtered);
+  }, [searchTerm, profiles]);
+
   // Handle report user
   const handleReportUser = (profileId) => {
     setDropdownVisible((prev) => ({
@@ -207,6 +162,41 @@ export default function ClientProfile() {
       console.error("Error reporting user:", error);
     }
   };
+
+  const onSubmit = async (data) => {
+    reset();
+    const newReview = {
+      reviewerName: currUser?.username,
+      reviewerImage: currUser?.profile?.avatarUrl,
+      description: data.description,
+      rating: review,
+      createdAt: new Date().toISOString(),
+    };
+    const existingReviews = selectedProfile.reviewCollection || [];
+    const updatedReviewCollection = [...existingReviews, newReview];
+    const formData = {
+      ...data,
+      reviewCollection: updatedReviewCollection,
+    };
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("Review submitted successfully");
+        setSelectedProfile((prev) => ({
+          ...prev,
+          reviewCollection: updatedReviewCollection,
+        }));
+      } else {
+        console.error("Error submitting review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+  console.log(selectedProfile);
 
   return (
     <div className="mx-10">
@@ -285,6 +275,21 @@ export default function ClientProfile() {
                       : "No services listed"}
                   </p>
                   <p>
+                    <strong>Ratings:</strong>{" "}
+                    {profile.ratings.averageRating || "0"} ⭐ (
+                    {profile.ratings.totalRatings} reviews)
+                  </p>
+                  <p>
+                    <strong>Payment Info:</strong>{" "}
+                    {profile.paymentInfo.bankDetails || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Skills:</strong>{" "}
+                    {profile.profile?.skills.length > 0
+                      ? profile.profile?.skills.join(", ")
+                      : "N/A"}
+                  </p>
+                  <p>
                     <strong>LinkedIn:</strong>{" "}
                     {profile.profile?.socialLinks?.linkedin ? (
                       <a
@@ -298,16 +303,6 @@ export default function ClientProfile() {
                       "N/A"
                     )}
                   </p>
-                  <div className="flex justify-end items-end w-full">
-                    <Button
-                      onPress={() => {
-                        setSelectedProfile(profile);
-                        onOpenChange(true);
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </div>
 
                   {/* Report User */}
                   {dropdownVisible[profile._id] && (
@@ -327,21 +322,31 @@ export default function ClientProfile() {
                     </Select>
                   )}
 
-                  <button
-                    className="text-sm text-red-500 mt-3 hover:underline"
-                    onClick={() => handleReportUser(profile._id)}
-                  >
-                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                  </button>
-
-                  {dropdownVisible[profile._id] && (
-                    <button
-                      className="text-sm text-blue-500 mt-2 hover:underline"
-                      onClick={() => submitReport(profile._id)}
+                  <div className="flex justify-between items-end w-full">
+                    <Button
+                      className="text-sm text-white bg-[#C20E4D] mt-3 hover:underline"
+                      onClick={() => handleReportUser(profile._id)}
                     >
-                      Submit Report
-                    </button>
-                  )}
+                      {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
+                    </Button>
+                    {dropdownVisible[profile._id] && (
+                      <Button
+                        className="text-sm text-white bg-[#C20E4D] mt-2 hover:underline"
+                        onClick={() => submitReport(profile._id)}
+                      >
+                        Submit Report
+                      </Button>
+                    )}
+                    <Button
+                      className="bg-[#7828C8] text-white"
+                      onPress={() => {
+                        setSelectedProfile(profile);
+                        onOpenChange(true);
+                      }}
+                    >
+                      Details
+                    </Button>
+                  </div>
                 </CardHeader>
               </Card>
             ))
@@ -350,7 +355,6 @@ export default function ClientProfile() {
           )}
         </div>
       )}
-
       {/* MODAL */}
       <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
@@ -384,7 +388,6 @@ export default function ClientProfile() {
                   <strong>Bio:</strong>{" "}
                   {selectedProfile.bio || "No bio available"}
                 </p>
-                <div className="my-5 border-2 border-red-700"></div>
                 {selectedProfile?.hiredFreelancers?.includes(currUserEmail) && (
                   <form
                     className="flex w-[360px] md:w-[500px] lg:w-full flex-col"

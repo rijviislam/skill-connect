@@ -60,7 +60,7 @@ export default function FreelancerProfile() {
   const userEmail = session?.user?.email;
   const [currUser, setCurrUser] = useState([]);
   const [review, setReview] = useState(0);
-  console.log(selectedProfile);
+  const { register, handleSubmit, reset } = useForm();
 
   const fetchProfiles = async () => {
     setLoading(true);
@@ -79,6 +79,23 @@ export default function FreelancerProfile() {
   useEffect(() => {
     fetchProfiles();
   }, []);
+
+  const fetchUserByEmail = async () => {
+    try {
+      const response = await fetch(`/api/get-user?email=${userEmail}`);
+      if (response.ok) {
+        const data = await response.json();
+        setCurrUser(data); // Update the user state with new data
+      } else {
+        console.error("Failed to fetch user:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserByEmail();
+  }, [userEmail]);
 
   const handleSearchChange = (event) => setSearchTerm(event.target.value);
 
@@ -105,62 +122,6 @@ export default function FreelancerProfile() {
     setFilterData(filtered);
   }, [searchTerm, selectedCategory, profiles]);
 
-  const fetchUserByEmail = async () => {
-    try {
-      const response = await fetch(`/api/get-user?email=${userEmail}`);
-      if (response.ok) {
-        const data = await response.json();
-        setCurrUser(data); // Update the user state with new data
-      } else {
-        console.error("Failed to fetch user:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
-  useEffect(() => {
-    fetchUserByEmail();
-  }, [userEmail]);
-
-  const { register, handleSubmit, reset } = useForm();
-
-  const onSubmit = async (data) => {
-    reset();
-
-    const newReview = {
-      reviewerName: currUser?.username,
-      reviewerImage: currUser?.profile?.avatarUrl,
-      description: data.description,
-      rating: review,
-      createdAt: new Date().toISOString(),
-    };
-
-    const existingReviews = selectedProfile.reviewCollection || [];
-
-    const updatedReviewCollection = [...existingReviews, newReview];
-
-    const formData = {
-      ...data,
-      reviewCollection: updatedReviewCollection,
-    };
-
-    try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
-        formData
-      );
-      if (response.status === 200) {
-        console.log("Review submitted successfully");
-
-        setSelectedProfile((prev) => ({
-          ...prev,
-          reviewCollection: updatedReviewCollection,
-        }));
-      } else {
-        console.error("Error submitting review:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
   const handleReportUser = (profileId) => {
     setDropdownVisible((prev) => ({
       ...prev,
@@ -208,6 +169,42 @@ export default function FreelancerProfile() {
     }
   };
 
+  const onSubmit = async (data) => {
+    reset();
+    const newReview = {
+      reviewerName: currUser?.username,
+      reviewerImage: currUser?.profile?.avatarUrl,
+      description: data.description,
+      rating: review,
+      createdAt: new Date().toISOString(),
+    };
+    const existingReviews = selectedProfile.reviewCollection || [];
+    const updatedReviewCollection = [...existingReviews, newReview];
+    const formData = {
+      ...data,
+      reviewCollection: updatedReviewCollection,
+    };
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("Review submitted successfully");
+        setSelectedProfile((prev) => ({
+          ...prev,
+          reviewCollection: updatedReviewCollection,
+        }));
+      } else {
+        console.error("Error submitting review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+  console.log("CurrentUser", currUser);
+  console.log("Current Profile", selectedProfile);
+
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
@@ -215,7 +212,7 @@ export default function FreelancerProfile() {
       </h2>
 
       <div className="flex justify-between items-center mt-10">
-        <div className="lg:w-[400px] mt-5 ">
+        <div className="lg:w-[400px] mt-5">
           <Input
             isClearable
             radius="lg"
@@ -223,7 +220,7 @@ export default function FreelancerProfile() {
             onChange={handleSearchChange}
             placeholder="Type to search..."
             startContent={
-              <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 " />
+              <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
             }
           />
         </div>
@@ -251,8 +248,6 @@ export default function FreelancerProfile() {
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4  lg:w-[450px] min-w-[350px] h-[350px] bg-[#F2EAFA]"
-                key={idx}
                 className="py-4 w-full max-w-md min-w-[300px] h-auto"
                 key={profile._id}
               >
@@ -270,7 +265,9 @@ export default function FreelancerProfile() {
                   />
 
                   <div className="mt-3">
-                    <h4 className="text-sm font-semibold">{profile.username}</h4>
+                    <h4 className="text-sm font-semibold">
+                      {profile.username}
+                    </h4>
                     <h5 className="text-sm">{profile.role || "N/A"}</h5>
                     <p>
                       <strong>Email:</strong> {profile.email || "N/A"}
@@ -279,18 +276,17 @@ export default function FreelancerProfile() {
                       <strong>Phone:</strong> {profile.phone || "N/A"}
                     </p>
                     <p>
-                      <strong>Location:</strong> {profile.city}, {profile.country}
+                      <strong>Location:</strong> {profile.city},{" "}
+                      {profile.country}
                     </p>
                   </div>
                 </CardBody>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
                   <p>
-                    <strong>Skills:</strong>{" "}
-                    {profile.skills || "N/A"}
+                    <strong>Skills:</strong> {profile.skills || "N/A"}
                   </p>
                   <p>
-                    <strong>Bio:</strong>{" "}
-                    {profile.bio || "No bio available"}
+                    <strong>Bio:</strong> {profile.bio || "No bio available"}
                   </p>
                   <p>
                     <strong>LinkedIn:</strong>{" "}
@@ -320,23 +316,21 @@ export default function FreelancerProfile() {
                     </Select>
                   )}
 
-                  <button
-                    className="text-sm text-red-500 mt-3 hover:underline"
-                    onClick={() => handleReportUser(profile._id)}
-                  >
-                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                  </button>
-
-                  {dropdownVisible[profile._id] && (
-                    <button
-                      className="text-sm text-blue-500 mt-2 hover:underline"
-                      onClick={() => submitReport(profile._id)}
+                  <div className="flex justify-between items-end w-full">
+                    <Button
+                      className="text-sm text-white bg-[#C20E4D] mt-3 hover:underline"
+                      onClick={() => handleReportUser(profile._id)}
                     >
-                      Submit Report
-                    </button>
-                  )}
-
-                  <div className="flex justify-end items-end w-full">
+                      {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
+                    </Button>
+                    {dropdownVisible[profile._id] && (
+                      <Button
+                        className="text-sm text-white mt-2 hover:underline bg-[#C20E4D]"
+                        onClick={() => submitReport(profile._id)}
+                      >
+                        Submit Report
+                      </Button>
+                    )}
                     <Button
                       onPress={() => {
                         setSelectedProfile(profile);
@@ -355,69 +349,13 @@ export default function FreelancerProfile() {
         </div>
       )}
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
+      <Modal
+        size="5xl"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="center"
+      >
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {selectedProfile.username || "Profile Details"}
-              </ModalHeader>
-              <ModalBody>
-                <div>
-                  <p>
-                    <strong> Email: {selectedProfile.email}</strong>
-                  </p>
-                  <p>
-                    <strong> Phone: {selectedProfile.phone}</strong>
-                  </p>
-
-                  <p>
-                    <strong>
-                      {" "}
-                      Location: {selectedProfile.city},{" "}
-                      {selectedProfile.country}
-                    </strong>
-                  </p>
-                </div>
-                <p>
-                  <strong>Skills:</strong>{" "}
-                  {Array.isArray(selectedProfile.skills)
-                    ? selectedProfile.skills.join(", ")
-                    : selectedProfile.skills || "N/A"}
-                </p>
-                <p>
-                  <strong>Bio:</strong>{" "}
-                  {selectedProfile.bio || "No bio available"}
-                </p>
-                {selectedProfile?.hiredClients?.includes(currUserEmail) && (
-                  <form
-                    className="flex w-[360px] md:w-[500px] lg:w-full flex-col"
-                    onSubmit={handleSubmit(onSubmit)}
-                  >
-                    <input
-                      className="my-2 bg-transparent border-b outline-none border-[#9353D3] w-full h-[50px] p-2 rounded-lg"
-                      placeholder="description"
-                      type="text"
-                      {...register("description", { required: true })}
-                    />
-                    <Rating
-                      style={{ maxWidth: 150 }}
-                      value={review}
-                      onChange={(value) => setReview(value)}
-                    />
-                    <input
-                      type="submit"
-                      placeholder="Add Review"
-                      className="bg-[#9353D3] text-white p-3 font-semibold rounded-xl cursor-pointer mt-3 w-[100px] h-12"
-                    />
-                  </form>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary">Hire</Button>
-              </ModalFooter>
-            </>
-          )}
           <ModalHeader className="flex flex-col gap-1">
             Profile Details: {selectedProfile.username || "N/A"}
           </ModalHeader>
@@ -429,12 +367,10 @@ export default function FreelancerProfile() {
               <strong>Phone:</strong> {selectedProfile.phone || "N/A"}
             </p>
             <p>
-              <strong>Location:</strong>{" "}
-              {selectedProfile.city}, {selectedProfile.country}
+              <strong>Location:</strong> {selectedProfile.city},{" "}
+              {selectedProfile.country}
             </p>
-            <p>
-              <strong>Skills:</strong> {selectedProfile.skills || "N/A"}
-            </p>
+
             <p>
               <strong>Bio:</strong> {selectedProfile.bio || "N/A"}
             </p>
@@ -448,9 +384,37 @@ export default function FreelancerProfile() {
                 "N/A"
               )}
             </p>
+
+            {selectedProfile?.hiredClients?.includes(currUserEmail) && (
+              <form
+                className="flex w-[360px] md:w-[500px] lg:w-full flex-col"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <input
+                  className="my-2 bg-transparent border-b outline-none border-[#9353D3] w-full h-[50px] p-2 rounded-lg"
+                  placeholder="description"
+                  type="text"
+                  {...register("description", { required: true })}
+                />
+                <Rating
+                  style={{ maxWidth: 150 }}
+                  value={review}
+                  onChange={(value) => setReview(value)}
+                />
+                <input
+                  type="submit"
+                  placeholder="Add Review"
+                  className="bg-[#9353D3] text-white p-3 font-semibold rounded-xl cursor-pointer mt-3 w-[100px] h-12"
+                />
+              </form>
+            )}
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" variant="light" onPress={() => onOpenChange(false)}>
+            <Button
+              color="danger"
+              variant="light"
+              onPress={() => onOpenChange(false)}
+            >
               Close
             </Button>
           </ModalFooter>
