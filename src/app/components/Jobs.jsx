@@ -110,7 +110,7 @@ export default function Jobs() {
       });
     }
   };
-
+console.log(jobs)
   return (
     <div>
       <h1 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center mt-5">
@@ -124,52 +124,52 @@ export default function Jobs() {
         ) : (
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3 mx-5">
             {jobs?.map((job) => (
-              <Card
-                className="py-4 bg-gradient-to-r from-green-400 to-blue-500 shadow-md rounded-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-lg animate__animated animate__fadeIn"
-                key={job._id}
-              >
-                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-                  <h5 className="text-xl font-semibold">{job.title}</h5>
-                </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                  <div className="flex flex-col">
-                    <small>
-                      <strong> Timeline:</strong> {job.timeline}
-                    </small>
-                  </div>
+              !job.hired && <Card
+              className="py-4 bg-gradient-to-r from-green-400 to-blue-500 shadow-md rounded-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-lg animate__animated animate__fadeIn"
+              key={job._id}
+            >
+              <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                <h5 className="text-xl font-semibold">{job.title}</h5>
+              </CardBody>
+              <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                <div className="flex flex-col">
                   <small>
-                    <strong>Price:</strong> {job.budget}
+                    <strong> Timeline:</strong> {job.timeline}
                   </small>
+                </div>
+                <small>
+                  <strong>Price:</strong> {job.budget}
+                </small>
 
-                  <small className="text-xs flex items-center">
-                    <strong>Skills:</strong>
-                    <div className="pl-1 flex gap-1">
-                      <p className="text-xs">{job.skills.join(", ")}</p>
-                    </div>
-                  </small>
-                  <p className="text-xs">
-                    <strong>Description:</strong> {job.description}
-                  </p>
-                  <p className="text-sm">
-                    <strong>Applied People : </strong>
-                    {job?.appliedPeople?.length || 0}
-                  </p>
-                  <div className="mt-5 w-full flex justify-between">
-                    {currUser?.role === "freelancer" && (
-                      <Button
-                        size="md"
-                        className="bg-blue-500 text-white hover:bg-[#90EE90] hover:text-black"
-                        onPress={() => {
-                          setSelectedJobId(job._id);
-                          onOpenChange(true);
-                        }}
-                      >
-                        Apply
-                      </Button>
-                    )}
+                <small className="text-xs flex items-center">
+                  <strong>Skills:</strong>
+                  <div className="pl-1 flex gap-1">
+                    <p className="text-xs">{job.skills.join(", ")}</p>
                   </div>
-                </CardHeader>
-              </Card>
+                </small>
+                <p className="text-xs">
+                  <strong>Description:</strong> {job.description}
+                </p>
+                <p className="text-sm">
+                  <strong>Applied People : </strong>
+                  {job?.appliedPeople?.length || 0}
+                </p>
+                <div className="mt-5 w-full flex justify-between">
+                  {currUser?.role === "freelancer" && (
+                    <Button
+                      size="md"
+                      className="bg-blue-500 text-white hover:bg-[#90EE90] hover:text-black"
+                      onPress={() => {
+                        setSelectedJobId(job._id);
+                        onOpenChange(true);
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  )}
+                </div>
+              </CardHeader>
+            </Card>
             ))}
           </div>
         )}

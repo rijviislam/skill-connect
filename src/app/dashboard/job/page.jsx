@@ -96,7 +96,7 @@ const JobPostingForm = () => {
       <h2 className="text-2xl font-bold mb-4">Post a Job Offer</h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-blue-50 p-6 rounded-lg shadow-md space-y-4"
+        className="bg-green-50 p-6 rounded-lg shadow-md space-y-4"
       >
         <div className="flex flex-col lg:flex-row lg:space-x-4">
           <div className="flex-1">
@@ -107,7 +107,7 @@ const JobPostingForm = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-green-200 focus:ring-green-300"
             >
               <option value="">Select Job Title</option>
               {availableTitles.map((jobTitle) => (
@@ -125,7 +125,7 @@ const JobPostingForm = () => {
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
               required
-              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+              className="mt-1 block w-full bg-green-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-green-300"
             >
               <option value="">Select Budget</option>
               {availableBudgets.map((budgetOption) => (
@@ -136,21 +136,7 @@ const JobPostingForm = () => {
             </select>
           </div>
         </div>
-        <div className="flex flex-col lg:space-x-4">
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300 overflow-y-auto"
-              rows="4"
-              style={{ maxHeight: "150px" }} // Scrollbar appears when content exceeds height
-            ></textarea>
-          </div>
-        </div>
+       
         <div className="flex flex-col lg:flex-row lg:space-x-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700">
@@ -160,7 +146,7 @@ const JobPostingForm = () => {
               value={timeline}
               onChange={(e) => setTimeline(e.target.value)}
               required
-              className="mt-1 block w-full bg-blue-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+              className="mt-1 block w-full bg-green-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-green-300"
             >
               <option value="">Select Timeline</option>
               {availableTimelines.map((timeOption) => (
@@ -178,7 +164,7 @@ const JobPostingForm = () => {
               value={skills}
               onChange={(e) => setSkills([e.target.value])}
               required
-              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-blue-200 focus:ring-blue-300"
+              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-green-200 focus:ring-green-300"
             >
               <option value="">Select Required Skill</option>
               {availableSkills.map((skill) => (
@@ -188,10 +174,26 @@ const JobPostingForm = () => {
               ))}
             </select>
           </div>
+          
+        </div>
+        <div className="flex flex-col lg:space-x-4">
+          <div className="w-full">
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              className="mt-1 block w-full bg-green-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-green-300 overflow-y-auto"
+              rows="4"
+              style={{ maxHeight: "150px" }} // Scrollbar appears when content exceeds height
+            ></textarea>
+          </div>
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 transition duration-300"
+          className="w-full bg-green-600 text-white font-bold py-3 rounded hover:bg-green-700 transition duration-300"
         >
           Post Job Offer
         </button>

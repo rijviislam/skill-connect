@@ -11,6 +11,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Select,
+  SelectItem,
   Spinner,
   useDisclosure,
 } from "@nextui-org/react";
@@ -24,6 +26,14 @@ import { useForm } from "react-hook-form";
 import { SearchIcon } from "./SearchIcon";
 
 export default function ClientProfile() {
+  const reportReasons = [
+    { key: "spam", label: "Spam or irrelevant content" },
+    { key: "harassment", label: "Harassment or bullying" },
+    { key: "fake_profile", label: "Fake profile" },
+    { key: "inappropriate", label: "Inappropriate content" },
+    { key: "other", label: "Other" },
+  ];
+
   const [profiles, setProfiles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
@@ -35,6 +45,9 @@ export default function ClientProfile() {
   const [currUser, setCurrUser] = useState([]);
   const currUserEmail = session?.user?.email;
   const userEmail = session?.user?.email;
+  const [dropdownVisible, setDropdownVisible] = useState({});
+  const [selectedReasons, setSelectedReasons] = useState({});
+
   // Fetch profiles from API
 
   const fetchProfiles = async () => {
@@ -144,12 +157,59 @@ export default function ClientProfile() {
     } catch (error) {
       console.error("Error submitting form:", error);
     }
+    // Handle report user
+    const handleReportUser = (profileId) => {
+      setDropdownVisible((prev) => ({
+        ...prev,
+        [profileId]: !prev[profileId],
+      }));
+    };
+
+    const handleReasonChange = (profileId, reasonKey) => {
+      setSelectedReasons((prev) => ({
+        ...prev,
+        [profileId]: reasonKey,
+      }));
+    };
+
+    const submitReport = async (profileId) => {
+      const reason = selectedReasons[profileId];
+      if (!reason) {
+        alert("Please select a reason for reporting.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/report", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: profileId,
+            reason,
+          }),
+        });
+
+        if (response.ok) {
+          alert("User reported successfully.");
+          setDropdownVisible((prev) => ({
+            ...prev,
+            [profileId]: false,
+          }));
+        } else {
+          alert("Error reporting user.");
+        }
+      } catch (error) {
+        console.error("Error reporting user:", error);
+      }
+    };
   };
 
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#ADD8E6] to-[#00008B] bg-clip-text text-transparent text-center">
-        Client Profile Page
+        Client Profiles
       </h2>
 
       {/* SEARCH BAR */}
@@ -178,7 +238,7 @@ export default function ClientProfile() {
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile, idx) => (
               <Card
-                className="py-4  lg:w-[450px] min-w-[350px] h-[350px]"
+                className="py-4  lg:w-[450px] min-w-[350px] h-[450px]"
                 key={idx}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
@@ -214,6 +274,7 @@ export default function ClientProfile() {
                     </p>
                   </div>
                 </CardBody>
+
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
                   <p>
                     <strong>Services:</strong>{" "}
@@ -245,6 +306,40 @@ export default function ClientProfile() {
                       Details
                     </Button>
                   </div>
+
+                  {/* Report User */}
+                  {dropdownVisible[profile._id] && (
+                    <Select
+                      label="Select Report Reason"
+                      placeholder="Select a reason"
+                      onChange={(event) =>
+                        handleReasonChange(profile._id, event.target.value)
+                      }
+                      className="mt-2"
+                    >
+                      {reportReasons.map((item) => (
+                        <SelectItem key={item.key} value={item.key}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  )}
+
+                  <button
+                    className="text-sm text-red-500 mt-3 hover:underline"
+                    onClick={() => handleReportUser(profile._id)}
+                  >
+                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
+                  </button>
+
+                  {dropdownVisible[profile._id] && (
+                    <button
+                      className="text-sm text-blue-500 mt-2 hover:underline"
+                      onClick={() => submitReport(profile._id)}
+                    >
+                      Submit Report
+                    </button>
+                  )}
                 </CardHeader>
               </Card>
             ))

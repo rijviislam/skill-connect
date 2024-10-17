@@ -20,6 +20,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -148,7 +149,6 @@ export default function ClientJobPosted() {
     }
   };
 
-  console.log(jobPost);
   if (jobPost.length === 0) return <h1>No Job Available</h1>;
   if (isError) return <h1>Error....</h1>;
 
@@ -162,41 +162,46 @@ export default function ClientJobPosted() {
         ) : (
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3">
             {jobPost?.map((post) => (
-              <Card className="py-4" key={post._id}>
-                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-                  <h5 className="text-sm font-semibold">{post.title}</h5>
-                </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                  <div className="flex flex-col">
+              <Link
+                key={post._id}
+                href={`/dashboard/posted-job-client/${post._id}`}
+              >
+                <Card className="py-4">
+                  <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                    <h5 className="text-sm font-semibold">{post.title}</h5>
+                  </CardBody>
+                  <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                    <div className="flex flex-col">
+                      <small>
+                        <strong>Timeline:</strong> {post.timeline}
+                      </small>
+                    </div>
                     <small>
-                      <strong>Timeline:</strong> {post.timeline}
+                      <strong>Price:</strong> {post.budget}
                     </small>
-                  </div>
-                  <small>
-                    <strong>Price:</strong> {post.budget}
-                  </small>
-                  <p className="text-xs">{post.description}</p>
-                  <small className="text-xs flex items-center">
-                    {/* <strong>Skills:</strong> {post.tags.join(", ")}  */}
-                  </small>
-                  <div className="mt-5 w-full flex justify-between">
-                    <Button
-                      size="md"
-                      className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
-                      onPress={() => handleEditClick(post)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      size="md"
-                      className="bg-red-800 text-white hover:bg-[#b12d2d]"
-                      onClick={() => handleDelete(post._id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </CardHeader>
-              </Card>
+                    <p className="text-xs">{post.description}</p>
+                    <small className="text-xs flex items-center">
+                      {/* <strong>Skills:</strong> {post.tags.join(", ")}  */}
+                    </small>
+                    <div className="mt-5 w-full flex justify-between">
+                      <Button
+                        size="md"
+                        className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                        onPress={() => handleEditClick(post)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        size="md"
+                        className="bg-red-800 text-white hover:bg-[#b12d2d]"
+                        onClick={() => handleDelete(post._id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </Link>
             ))}
           </div>
         )}
