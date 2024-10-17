@@ -2,7 +2,12 @@ import connectDB from '@/lib/connectDB';
 
 export const POST = async(request) => {
 
-    const newPost = await request.json()
+    const data = await request.json();
+    const newPost = {
+        ...data,
+        hire: false,
+        
+    };
     try {
         const db = await connectDB()
         const jobPostCollection = db.collection("jobs")      

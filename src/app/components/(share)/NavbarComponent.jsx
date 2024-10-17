@@ -33,9 +33,7 @@ const NavbarComponent = () => {
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
 
-  // if (status === "loading") {
-  //   return <div>Loading...</div>;
-  // }
+  
 
   return (
     <Navbar isBordered className="bg-[#AE7EDE]">
