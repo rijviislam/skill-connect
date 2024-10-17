@@ -1,6 +1,25 @@
 "use client";
 
+
 import { Card, CardBody, CardHeader, Input, Select, SelectItem, Spinner } from "@nextui-org/react";
+
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Select,
+  SelectItem,
+  Spinner,
+  useDisclosure,
+} from "@nextui-org/react";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
@@ -27,12 +46,18 @@ export default function FreelancerProfile() {
   ];
 
   const [profiles, setProfiles] = useState([]);
+  const { isOpen, onOpenChange } = useDisclosure();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");
+
   const [dropdownVisible, setDropdownVisible] = useState({});
   const [selectedReasons, setSelectedReasons] = useState({}); 
+
+
+  const [selectedProfile, setSelectedProfile] = useState({});
+  console.log(selectedProfile);
 
   const fetchProfiles = async () => {
     setLoading(true);
@@ -89,6 +114,7 @@ export default function FreelancerProfile() {
     setFilterData(filtered);
   }, [searchTerm, selectedCategory, profiles]);
 
+
   const handleReportUser = (profileId) => {
     setDropdownVisible((prev) => ({
       ...prev,
@@ -136,6 +162,7 @@ export default function FreelancerProfile() {
     }
   };
 
+
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
@@ -179,10 +206,15 @@ export default function FreelancerProfile() {
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
+
                 className="py-4 w-full max-w-md min-w-[300px] h-auto"
                 key={profile._id}
+
+                className="py-4  lg:w-[450px] min-w-[350px] h-[350px] "
+                key={idx}
+
               >
-                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5 ">
                   <Image
                     alt="Profile avatar"
                     className="object-cover w-[100px] h-[100px] rounded-full"
@@ -196,6 +228,7 @@ export default function FreelancerProfile() {
                   />
 
                   <div className="mt-3">
+
                     <h4 className="text-sm font-semibold">{profile.username}</h4>
                     <h5 className="text-sm">{profile.role || "N/A"}</h5>
                     <p><strong>Email:</strong> {profile.email || "N/A"}</p>
@@ -240,6 +273,44 @@ export default function FreelancerProfile() {
                       Submit Report
                     </button>
                   )}
+
+                    <h4 className="text-sm font-semibold">
+                      {profile.username}
+                    </h4>
+                    <h5 className="text-sm">{profile.role}</h5>
+                  </div>
+                </CardBody>
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                  <p>
+                    <strong>Email:</strong> {profile.email || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> {profile.phone || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Location:</strong> {profile.city}, {profile.country}
+                  </p>
+                  <p>
+                    <strong>LinkedIn:</strong>{" "}
+                    {profile.linkedin ? (
+                      <a href={profile.linkedin} target="_blank">
+                        View Profile
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
+                  </p>
+                  <div className="flex justify-end items-end w-full">
+                    <Button
+                      onPress={() => {
+                        setSelectedProfile(profile);
+                        onOpenChange(true);
+                      }}
+                    >
+                      Details
+                    </Button>
+                  </div>
+
                 </CardHeader>
               </Card>
             ))
@@ -248,6 +319,38 @@ export default function FreelancerProfile() {
           )}
         </div>
       )}
+
+      {/* MODAL */}
+      <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                {selectedProfile.username || "Profile Details"}
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  <strong>Skills:</strong>{" "}
+                  {Array.isArray(selectedProfile.skills)
+                    ? selectedProfile.skills.join(", ")
+                    : selectedProfile.skills || "N/A"}
+                </p>
+                <p>
+                  <strong>Bio:</strong>{" "}
+                  {selectedProfile.bio || "No bio available"}
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary">Hire</Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
