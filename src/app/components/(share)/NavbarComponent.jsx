@@ -36,7 +36,7 @@ const NavbarComponent = () => {
   
 
   return (
-    <Navbar isBordered className="bg-gradient-to-r from-green-400 to-blue-300">
+    <Navbar isBordered className="bg-[#AE7EDE]">
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4 ">
           <Link href="/" className="w-48 h-48 mb-12">
