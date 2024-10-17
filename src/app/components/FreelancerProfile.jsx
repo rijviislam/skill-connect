@@ -1,8 +1,5 @@
 "use client";
 
-
-import { Card, CardBody, CardHeader, Input, Select, SelectItem, Spinner } from "@nextui-org/react";
-
 import {
   Button,
   Card,
@@ -19,7 +16,6 @@ import {
   Spinner,
   useDisclosure,
 } from "@nextui-org/react";
-
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
@@ -51,31 +47,19 @@ export default function FreelancerProfile() {
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");
-
   const [dropdownVisible, setDropdownVisible] = useState({});
-  const [selectedReasons, setSelectedReasons] = useState({}); 
-
-
+  const [selectedReasons, setSelectedReasons] = useState({});
   const [selectedProfile, setSelectedProfile] = useState({});
-  console.log(selectedProfile);
 
   const fetchProfiles = async () => {
     setLoading(true);
     try {
       const response = await fetch("/api/profiles");
       const data = await response.json();
-      if (Array.isArray(data)) {
-        setProfiles(data);
-        setFilterData(data);
-      } else {
-        console.error("Expected an array but got:", data);
-        setProfiles([]);
-        setFilterData([]);
-      }
+      setProfiles(Array.isArray(data) ? data : []);
+      setFilterData(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error fetching profiles:", error);
-      setProfiles([]);
-      setFilterData([]);
     } finally {
       setLoading(false);
     }
@@ -85,13 +69,9 @@ export default function FreelancerProfile() {
     fetchProfiles();
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleSearchChange = (event) => setSearchTerm(event.target.value);
 
-  const handleFilter = (categoryKey) => {
-    setSelectedCategory(categoryKey);
-  };
+  const handleFilter = (categoryKey) => setSelectedCategory(categoryKey);
 
   useEffect(() => {
     let filtered = profiles;
@@ -114,7 +94,6 @@ export default function FreelancerProfile() {
     setFilterData(filtered);
   }, [searchTerm, selectedCategory, profiles]);
 
-
   const handleReportUser = (profileId) => {
     setDropdownVisible((prev) => ({
       ...prev,
@@ -132,36 +111,35 @@ export default function FreelancerProfile() {
   const submitReport = async (profileId) => {
     const reason = selectedReasons[profileId];
     if (!reason) {
-        alert("Please select a reason for reporting.");
-        return;
+      alert("Please select a reason for reporting.");
+      return;
     }
 
     try {
-        const response = await fetch("/api/report", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                userId: profileId, 
-                reason,
-            }),
-        });
+      const response = await fetch("/api/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: profileId,
+          reason,
+        }),
+      });
 
-        if (response.ok) {
-            alert("User reported successfully.");
-            setDropdownVisible((prev) => ({
-                ...prev,
-                [profileId]: false,
-            }));
-        } else {
-            alert("Error reporting user.");
-        }
+      if (response.ok) {
+        alert("User reported successfully.");
+        setDropdownVisible((prev) => ({
+          ...prev,
+          [profileId]: false,
+        }));
+      } else {
+        alert("Error reporting user.");
+      }
     } catch (error) {
-        console.error("Error reporting user:", error);
+      console.error("Error reporting user:", error);
     }
   };
-
 
   return (
     <div className="mx-10">
@@ -203,18 +181,13 @@ export default function FreelancerProfile() {
         </div>
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
-          {Array.isArray(filterData) && filterData.length > 0 ? (
+          {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-
                 className="py-4 w-full max-w-md min-w-[300px] h-auto"
                 key={profile._id}
-
-                className="py-4  lg:w-[450px] min-w-[350px] h-[350px] "
-                key={idx}
-
               >
-                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5 ">
+                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
                   <Image
                     alt="Profile avatar"
                     className="object-cover w-[100px] h-[100px] rounded-full"
@@ -228,26 +201,46 @@ export default function FreelancerProfile() {
                   />
 
                   <div className="mt-3">
-
                     <h4 className="text-sm font-semibold">{profile.username}</h4>
                     <h5 className="text-sm">{profile.role || "N/A"}</h5>
-                    <p><strong>Email:</strong> {profile.email || "N/A"}</p>
-                    <p><strong>Phone:</strong> {profile.phone || "N/A"}</p>
-                    <p><strong>Location:</strong> {profile.city}, {profile.country}</p>
+                    <p>
+                      <strong>Email:</strong> {profile.email || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {profile.phone || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {profile.city}, {profile.country}
+                    </p>
                   </div>
                 </CardBody>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                  <p><strong>Skills:</strong> {profile.skills ? profile.skills : "N/A"}</p>
-                  <p><strong>Bio:</strong> {profile.bio || "No bio available"}</p>
-                  <p><strong>LinkedIn:</strong> {profile.linkedin ? (
-                    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">View Profile</a>
-                  ) : "N/A"}</p>
+                  <p>
+                    <strong>Skills:</strong>{" "}
+                    {profile.skills || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Bio:</strong>{" "}
+                    {profile.bio || "No bio available"}
+                  </p>
+                  <p>
+                    <strong>LinkedIn:</strong>{" "}
+                    {profile.linkedin ? (
+                      <a href={profile.linkedin} target="_blank">
+                        View Profile
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
+                  </p>
 
                   {dropdownVisible[profile._id] && (
                     <Select
                       label="Select Report Reason"
                       placeholder="Select a reason"
-                      onChange={(event) => handleReasonChange(profile._id, event.target.value)}
+                      onChange={(event) =>
+                        handleReasonChange(profile._id, event.target.value)
+                      }
                       className="mt-2"
                     >
                       {reportReasons.map((item) => (
@@ -274,32 +267,6 @@ export default function FreelancerProfile() {
                     </button>
                   )}
 
-                    <h4 className="text-sm font-semibold">
-                      {profile.username}
-                    </h4>
-                    <h5 className="text-sm">{profile.role}</h5>
-                  </div>
-                </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                  <p>
-                    <strong>Email:</strong> {profile.email || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Phone:</strong> {profile.phone || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {profile.city}, {profile.country}
-                  </p>
-                  <p>
-                    <strong>LinkedIn:</strong>{" "}
-                    {profile.linkedin ? (
-                      <a href={profile.linkedin} target="_blank">
-                        View Profile
-                      </a>
-                    ) : (
-                      "N/A"
-                    )}
-                  </p>
                   <div className="flex justify-end items-end w-full">
                     <Button
                       onPress={() => {
@@ -310,45 +277,53 @@ export default function FreelancerProfile() {
                       Details
                     </Button>
                   </div>
-
                 </CardHeader>
               </Card>
             ))
           ) : (
-            <p>No profiles found.</p>
+            <div>No profiles found.</div>
           )}
         </div>
       )}
 
-      {/* MODAL */}
-      <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {selectedProfile.username || "Profile Details"}
-              </ModalHeader>
-              <ModalBody>
-                <p>
-                  <strong>Skills:</strong>{" "}
-                  {Array.isArray(selectedProfile.skills)
-                    ? selectedProfile.skills.join(", ")
-                    : selectedProfile.skills || "N/A"}
-                </p>
-                <p>
-                  <strong>Bio:</strong>{" "}
-                  {selectedProfile.bio || "No bio available"}
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                </p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary">Hire</Button>
-              </ModalFooter>
-            </>
-          )}
+          <ModalHeader className="flex flex-col gap-1">
+            Profile Details: {selectedProfile.username || "N/A"}
+          </ModalHeader>
+          <ModalBody>
+            <p>
+              <strong>Email:</strong> {selectedProfile.email || "N/A"}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedProfile.phone || "N/A"}
+            </p>
+            <p>
+              <strong>Location:</strong>{" "}
+              {selectedProfile.city}, {selectedProfile.country}
+            </p>
+            <p>
+              <strong>Skills:</strong> {selectedProfile.skills || "N/A"}
+            </p>
+            <p>
+              <strong>Bio:</strong> {selectedProfile.bio || "N/A"}
+            </p>
+            <p>
+              <strong>LinkedIn:</strong>{" "}
+              {selectedProfile.linkedin ? (
+                <a href={selectedProfile.linkedin} target="_blank">
+                  View Profile
+                </a>
+              ) : (
+                "N/A"
+              )}
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" variant="light" onPress={() => onOpenChange(false)}>
+              Close
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </div>
