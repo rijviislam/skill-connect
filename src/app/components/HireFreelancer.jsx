@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 // const getData = async () =>{
@@ -32,9 +31,7 @@ const HireFreelancer = ({ params }) => {
   } = useQuery({
     queryKey: ["jobPost", params.id],
     queryFn: async () => {
-      const result = await axios.get(
-        `/api/posted-job?email=${(userEmail)}`
-      );
+      const result = await axios.get(`/api/posted-job?email=${userEmail}`);
 
       if (result.status !== 200) {
         throw new Error("Network response was not ok");
@@ -46,19 +43,21 @@ const HireFreelancer = ({ params }) => {
   });
   const handleHire = async (email) => {
     const update = {
-        hired: true,
-        freelancer: email,
-        ongoingWork: 1,
+      hired: true,
+      freelancer: email,
+      ongoingWork: 1,
     };
-    const res = await axios.patch(`/dashboard/posted-job-client/api/${newData[0]._id}`, update);
-    if(res.data.message){
+    const res = await axios.patch(
+      `/dashboard/posted-job-client/api/${newData[0]._id}`,
+      update
+    );
+    if (res.data.message) {
       alert(res.data.message);
       refetch();
-      
     }
   };
-  const newData = jobPost.filter(i=> i._id == params.id);
-  console.log( newData);
+  const newData = jobPost.filter((i) => i._id == params.id);
+  console.log(newData);
   return (
     <div>
       <h1>Applied People here...</h1>
@@ -71,7 +70,7 @@ const HireFreelancer = ({ params }) => {
             <TableColumn>Action</TableColumn>
           </TableHeader>
           <TableBody>
-            {newData[0]?.appliedPeople.map((job, index) => (
+            {newData[0]?.appliedPeople?.map((job, index) => (
               <TableRow key={index}>
                 <TableCell>{job.email}</TableCell>
                 <TableCell>
