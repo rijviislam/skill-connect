@@ -62,7 +62,7 @@ export default function ClientProfile() {
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#ADD8E6] to-[#00008B] bg-clip-text text-transparent text-center">
-        Client Profile Page
+        Client Profiles
       </h2>
 
       {/* SEARCH BAR */}
