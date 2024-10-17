@@ -195,6 +195,16 @@ const DashboardSideBar = () => {
                 >
                   <FaAd className="mr-2" /> User Management
                 </Link>
+                <Link
+                  href="/dashboard/report"
+                  className={`flex items-center mb-4 text-lg ${
+                    isActive("/dashboard/report")
+                      ? "font-extrabold text-green-800"
+                      : ""
+                  }`}
+                >
+                  <FaAd className="mr-2" /> Reports
+                </Link>
               </li>
             </>
           )}

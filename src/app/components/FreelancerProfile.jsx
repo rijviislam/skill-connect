@@ -1,13 +1,20 @@
 "use client";
 
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Select,
   SelectItem,
   Spinner,
+  useDisclosure,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -26,31 +33,33 @@ export default function FreelancerProfile() {
     { key: "graphics designer", label: "Graphics Designer" },
   ];
 
+  const reportReasons = [
+    { key: "spam", label: "Spam or irrelevant content" },
+    { key: "harassment", label: "Harassment or bullying" },
+    { key: "fake_profile", label: "Fake profile" },
+    { key: "inappropriate", label: "Inappropriate content" },
+    { key: "other", label: "Other" },
+  ];
+
   const [profiles, setProfiles] = useState([]);
+  const { isOpen, onOpenChange } = useDisclosure();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [dropdownVisible, setDropdownVisible] = useState({});
+  const [selectedReasons, setSelectedReasons] = useState({});
+  const [selectedProfile, setSelectedProfile] = useState({});
 
-  // Fetch profiles from API
   const fetchProfiles = async () => {
     setLoading(true);
     try {
       const response = await fetch("/api/profiles");
       const data = await response.json();
-
-      if (Array.isArray(data)) {
-        setProfiles(data);
-        setFilterData(data);
-      } else {
-        console.error("Expected an array but got:", data);
-        setProfiles([]);
-        setFilterData([]);
-      }
+      setProfiles(Array.isArray(data) ? data : []);
+      setFilterData(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error fetching profiles:", error);
-      setProfiles([]);
-      setFilterData([]);
     } finally {
       setLoading(false);
     }
@@ -60,17 +69,10 @@ export default function FreelancerProfile() {
     fetchProfiles();
   }, []);
 
-  // Search term change handler
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleSearchChange = (event) => setSearchTerm(event.target.value);
 
-  // Category filter handler
-  const handleFilter = (categoryKey) => {
-    setSelectedCategory(categoryKey);
-  };
+  const handleFilter = (categoryKey) => setSelectedCategory(categoryKey);
 
-  // Filter logic based on search term and category
   useEffect(() => {
     let filtered = profiles;
 
@@ -91,15 +93,60 @@ export default function FreelancerProfile() {
 
     setFilterData(filtered);
   }, [searchTerm, selectedCategory, profiles]);
-  console.log(filterData);
+
+  const handleReportUser = (profileId) => {
+    setDropdownVisible((prev) => ({
+      ...prev,
+      [profileId]: !prev[profileId],
+    }));
+  };
+
+  const handleReasonChange = (profileId, reasonKey) => {
+    setSelectedReasons((prev) => ({
+      ...prev,
+      [profileId]: reasonKey,
+    }));
+  };
+
+  const submitReport = async (profileId) => {
+    const reason = selectedReasons[profileId];
+    if (!reason) {
+      alert("Please select a reason for reporting.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: profileId,
+          reason,
+        }),
+      });
+
+      if (response.ok) {
+        alert("User reported successfully.");
+        setDropdownVisible((prev) => ({
+          ...prev,
+          [profileId]: false,
+        }));
+      } else {
+        alert("Error reporting user.");
+      }
+    } catch (error) {
+      console.error("Error reporting user:", error);
+    }
+  };
 
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
-        Freelancer Profile Page
+        Freelancer Profiles
       </h2>
 
-      {/* SEARCH BAR */}
       <div className="flex justify-between items-center mt-10">
         <div className="lg:w-[400px] mt-5">
           <Input
@@ -114,7 +161,6 @@ export default function FreelancerProfile() {
           />
         </div>
 
-        {/* CATEGORY FILTER */}
         <Select
           label="Filter by Categories"
           placeholder="Select a category"
@@ -129,40 +175,34 @@ export default function FreelancerProfile() {
         </Select>
       </div>
 
-      {/* GRID CARD */}
       {loading ? (
         <div className="flex justify-center my-10">
           <Spinner size="lg" color="success" />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
-          {Array.isArray(filterData) && filterData.length > 0 ? (
-            filterData.map((profile, idx) => (
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
+          {filterData.length > 0 ? (
+            filterData.map((profile) => (
               <Card
-                className="py-4  lg:w-[450px] min-w-[350px] h-[350px]"
-                key={idx}
+                className="py-4 w-full max-w-md min-w-[300px] h-auto"
+                key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
                   <Image
                     alt="Profile avatar"
                     className="object-cover w-[100px] h-[100px] rounded-full"
                     src={
-                      profile.avatar?.url?.startsWith("http") ||
                       profile.profile?.avatarUrl?.startsWith("http")
-                        ? profile.avatar?.url || profile.profile?.avatarUrl
-                        : "/images/default-avatar.png"
+                        ? profile.profile?.avatarUrl
+                        : "https://i.postimg.cc/L56NR5qd/masi-mohammadi-Fg-GVblk-ZTy-A-unsplash.jpg"
                     }
                     width={100}
                     height={100}
                   />
 
                   <div className="mt-3">
-                    <h4 className="text-sm font-semibold">
-                      {profile.username}
-                    </h4>
-                    <h5 className="text-sm">
-                      {profile.profession || "Freelancer"}
-                    </h5>
+                    <h4 className="text-sm font-semibold">{profile.username}</h4>
+                    <h5 className="text-sm">{profile.role || "N/A"}</h5>
                     <p>
                       <strong>Email:</strong> {profile.email || "N/A"}
                     </p>
@@ -170,18 +210,18 @@ export default function FreelancerProfile() {
                       <strong>Phone:</strong> {profile.phone || "N/A"}
                     </p>
                     <p>
-                      <strong>Location:</strong> {profile.city},{" "}
-                      {profile.country}
+                      <strong>Location:</strong> {profile.city}, {profile.country}
                     </p>
                   </div>
                 </CardBody>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
                   <p>
                     <strong>Skills:</strong>{" "}
-                    {profile.skills ? profile.skills : "N/A"}
+                    {profile.skills || "N/A"}
                   </p>
                   <p>
-                    <strong>Bio:</strong> {profile.bio || "No bio available"}
+                    <strong>Bio:</strong>{" "}
+                    {profile.bio || "No bio available"}
                   </p>
                   <p>
                     <strong>LinkedIn:</strong>{" "}
@@ -193,14 +233,99 @@ export default function FreelancerProfile() {
                       "N/A"
                     )}
                   </p>
+
+                  {dropdownVisible[profile._id] && (
+                    <Select
+                      label="Select Report Reason"
+                      placeholder="Select a reason"
+                      onChange={(event) =>
+                        handleReasonChange(profile._id, event.target.value)
+                      }
+                      className="mt-2"
+                    >
+                      {reportReasons.map((item) => (
+                        <SelectItem key={item.key} value={item.key}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  )}
+
+                  <button
+                    className="text-sm text-red-500 mt-3 hover:underline"
+                    onClick={() => handleReportUser(profile._id)}
+                  >
+                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
+                  </button>
+
+                  {dropdownVisible[profile._id] && (
+                    <button
+                      className="text-sm text-blue-500 mt-2 hover:underline"
+                      onClick={() => submitReport(profile._id)}
+                    >
+                      Submit Report
+                    </button>
+                  )}
+
+                  <div className="flex justify-end items-end w-full">
+                    <Button
+                      onPress={() => {
+                        setSelectedProfile(profile);
+                        onOpenChange(true);
+                      }}
+                    >
+                      Details
+                    </Button>
+                  </div>
                 </CardHeader>
               </Card>
             ))
           ) : (
-            <p>No freelancers found</p>
+            <div>No profiles found.</div>
           )}
         </div>
       )}
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">
+            Profile Details: {selectedProfile.username || "N/A"}
+          </ModalHeader>
+          <ModalBody>
+            <p>
+              <strong>Email:</strong> {selectedProfile.email || "N/A"}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedProfile.phone || "N/A"}
+            </p>
+            <p>
+              <strong>Location:</strong>{" "}
+              {selectedProfile.city}, {selectedProfile.country}
+            </p>
+            <p>
+              <strong>Skills:</strong> {selectedProfile.skills || "N/A"}
+            </p>
+            <p>
+              <strong>Bio:</strong> {selectedProfile.bio || "N/A"}
+            </p>
+            <p>
+              <strong>LinkedIn:</strong>{" "}
+              {selectedProfile.linkedin ? (
+                <a href={selectedProfile.linkedin} target="_blank">
+                  View Profile
+                </a>
+              ) : (
+                "N/A"
+              )}
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" variant="light" onPress={() => onOpenChange(false)}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
