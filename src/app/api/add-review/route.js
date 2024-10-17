@@ -8,6 +8,7 @@ export const PATCH = async (request) => {
 
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
+
     if (!id) {
       return new Response(JSON.stringify({ message: "ID is required" }), {
         status: 400,
@@ -23,11 +24,19 @@ export const PATCH = async (request) => {
     const updatedData = await request.json();
     console.log("Received Data:", updatedData);
 
-    const { _id, ...updateFields } = updatedData;
-
     const result = await userCollection.updateOne(
       { _id: new ObjectId(id) },
-      { $set: updateFields }
+      {
+        $push: {
+          reviewCollection: {
+            reviewerName: updatedData.reviewCollection[0].reviewerName,
+            reviewerImage: updatedData.reviewCollection[0].reviewerImage,
+            description: updatedData.reviewCollection[0].description,
+            rating: updatedData.reviewCollection[0].rating,
+            createdAt: new Date(),
+          },
+        },
+      }
     );
 
     if (result.modifiedCount === 0) {

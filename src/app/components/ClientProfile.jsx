@@ -1,8 +1,26 @@
 "use client";
 
-import { Card, CardBody, CardHeader, Input, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Spinner,
+  useDisclosure,
+} from "@nextui-org/react";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { SearchIcon } from "./SearchIcon";
 
 export default function ClientProfile() {
@@ -10,8 +28,15 @@ export default function ClientProfile() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { isOpen, onOpenChange } = useDisclosure();
+  const [selectedProfile, setSelectedProfile] = useState({});
+  const { data: session } = useSession();
+  const [review, setReview] = useState(0);
+  const [currUser, setCurrUser] = useState([]);
+  const currUserEmail = session?.user?.email;
+  const userEmail = session?.user?.email;
   // Fetch profiles from API
+
   const fetchProfiles = async () => {
     setLoading(true);
     try {
@@ -45,6 +70,7 @@ export default function ClientProfile() {
   };
 
   // Search logic based on search term
+
   useEffect(() => {
     let filtered = profiles;
 
@@ -58,6 +84,67 @@ export default function ClientProfile() {
 
     setFilterData(filtered);
   }, [searchTerm, profiles]);
+
+  // Fetch profiles from API by email
+
+  const fetchUserByEmail = async () => {
+    try {
+      const response = await fetch(`/api/get-user?email=${userEmail}`);
+      if (response.ok) {
+        const data = await response.json();
+        setCurrUser(data); // Update the user state with new data
+      } else {
+        console.error("Failed to fetch user:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserByEmail();
+  }, [userEmail]);
+
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (data) => {
+    reset();
+
+    const newReview = {
+      reviewerName: currUser?.username,
+      reviewerImage: currUser?.profile?.avatarUrl,
+      description: data.description,
+      rating: review,
+      createdAt: new Date().toISOString(),
+    };
+
+    const existingReviews = selectedProfile.reviewCollection || [];
+
+    const updatedReviewCollection = [...existingReviews, newReview];
+
+    const formData = {
+      ...data,
+      reviewCollection: updatedReviewCollection,
+    };
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("Review submitted successfully");
+
+        setSelectedProfile((prev) => ({
+          ...prev,
+          reviewCollection: updatedReviewCollection,
+        }));
+      } else {
+        console.error("Error submitting review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
 
   return (
     <div className="mx-10">
@@ -135,21 +222,6 @@ export default function ClientProfile() {
                       : "No services listed"}
                   </p>
                   <p>
-                    <strong>Ratings:</strong>{" "}
-                    {profile.ratings.averageRating || "0"} ⭐ (
-                    {profile.ratings.totalRatings} reviews)
-                  </p>
-                  <p>
-                    <strong>Payment Info:</strong>{" "}
-                    {profile.paymentInfo.bankDetails || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Skills:</strong>{" "}
-                    {profile.profile?.skills.length > 0
-                      ? profile.profile?.skills.join(", ")
-                      : "N/A"}
-                  </p>
-                  <p>
                     <strong>LinkedIn:</strong>{" "}
                     {profile.profile?.socialLinks?.linkedin ? (
                       <a
@@ -163,6 +235,16 @@ export default function ClientProfile() {
                       "N/A"
                     )}
                   </p>
+                  <div className="flex justify-end items-end w-full">
+                    <Button
+                      onPress={() => {
+                        setSelectedProfile(profile);
+                        onOpenChange(true);
+                      }}
+                    >
+                      Details
+                    </Button>
+                  </div>
                 </CardHeader>
               </Card>
             ))
@@ -171,6 +253,72 @@ export default function ClientProfile() {
           )}
         </div>
       )}
+
+      {/* MODAL */}
+      <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                {selectedProfile.username || "Profile Details"}
+              </ModalHeader>
+              <ModalBody>
+                <div>
+                  <p>
+                    <strong>Email: </strong>
+                    {selectedProfile.email}
+                  </p>
+                  <p>
+                    <strong>Phone: </strong>
+                    {selectedProfile.phone}
+                  </p>
+                  <p>
+                    <strong>Location: </strong>
+                    {selectedProfile.profile?.address?.city},{" "}
+                    {selectedProfile?.address?.country || "N/A"}
+                  </p>
+                </div>
+                <p>
+                  <strong>Ratings:</strong>{" "}
+                  {selectedProfile.ratings.averageRating || "0"} ⭐ (
+                  {selectedProfile.ratings.totalRatings} reviews)
+                </p>
+                <p>
+                  <strong>Bio:</strong>{" "}
+                  {selectedProfile.bio || "No bio available"}
+                </p>
+                <div className="my-5 border-2 border-red-700"></div>
+                {selectedProfile?.hiredFreelancers?.includes(currUserEmail) && (
+                  <form
+                    className="flex w-[360px] md:w-[500px] lg:w-full flex-col"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <input
+                      className="my-2 bg-transparent border-b outline-none border-[#9353D3] w-full h-[50px] p-2 rounded-lg"
+                      placeholder="description"
+                      type="text"
+                      {...register("description", { required: true })}
+                    />
+                    <Rating
+                      style={{ maxWidth: 150 }}
+                      value={review}
+                      onChange={(value) => setReview(value)}
+                    />
+                    <input
+                      type="submit"
+                      placeholder="Add Review"
+                      className="bg-[#9353D3] text-white p-3 font-semibold rounded-xl cursor-pointer mt-3 w-[100px] h-12"
+                    />
+                  </form>
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button className="bg-[#6020A0] text-white">Hire</Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
