@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Card } from "@nextui-org/react";
-import Image from 'next/image';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User } from "@nextui-org/react";
 
 export default function ReportsList() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const fetchReports = async () => {
     setLoading(true);
     try {
@@ -32,28 +31,39 @@ export default function ReportsList() {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-6">Reported Users</h2>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
-        {reports.map((report) => (
-          <Card key={report._id}  className="p-6 shadow-lg rounded-lg transition-transform transform hover:scale-105 bg-gradient-to-r from-green-300 to-blue-100">
-            <div className="flex items-center mb-4">
-              <Image 
-                src={report.avatarUrl} 
-                alt={report.username} 
-                className="w-16 h-16 rounded-full border-2 border-gray-300"
-                width={64} 
-                height={64} 
-              />
-              <div className="ml-4">
-                <h3 className="font-semibold text-lg text-white">{report.username}</h3>
-                <p className="text-white"><strong>Email:</strong> {report.email}</p>
-                <p className="text-white"><strong>Role:</strong> {report.role}</p>
-              </div>
-            </div>
-            <p className="mb-4 text-white"><strong>Reason:</strong> {report.reason}</p>
-            <p className="text-white"><strong>Reported At:</strong> {new Date(report.createdAt).toLocaleString()}</p>
-          </Card>
-        ))}
-      </div>
+      <Table aria-label="Reported Users Table">
+        <TableHeader columns={[
+          { uid: "avatar", name: "Avatar" },
+          { uid: "username", name: "Username" },
+          { uid: "email", name: "Email" },
+          { uid: "role", name: "Role" },
+          { uid: "reason", name: "Reason" },
+          { uid: "createdAt", name: "Reported At" },
+        ]}>
+          {(column) => (
+            <TableColumn key={column.uid}>
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={reports}>
+          {(item) => (
+            <TableRow key={item._id}>
+              <TableCell>
+                <User 
+                  avatarProps={{ src: item.avatarUrl, radius: 'lg' }} 
+                  name={item.username} 
+                />
+              </TableCell>
+              <TableCell>{item.username}</TableCell>
+              <TableCell>{item.email}</TableCell>
+              <TableCell>{item.role}</TableCell>
+              <TableCell>{item.reason}</TableCell>
+              <TableCell>{new Date(item.createdAt).toLocaleString()}</TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }
