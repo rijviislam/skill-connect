@@ -34,7 +34,7 @@ export default function ReportsList() {
       <h2 className="text-2xl font-bold mb-6">Reported Users</h2>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
         {reports.map((report) => (
-          <Card key={report._id} className="p-6 shadow-lg rounded-lg transition-transform transform hover:scale-105 bg-gradient-to-r from-green-300 to-blue-400">
+          <Card key={report._id}  className="p-6 shadow-lg rounded-lg transition-transform transform hover:scale-105 bg-gradient-to-r from-green-300 to-blue-100">
             <div className="flex items-center mb-4">
               <Image 
                 src={report.avatarUrl} 
