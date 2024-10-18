@@ -39,7 +39,7 @@ export default function Jobs() {
       } catch (error) {
         console.error("Error fetching job posts:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Stop loading
       }
     };
 
@@ -116,14 +116,12 @@ export default function Jobs() {
       <h1 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center mt-5">
         Jobs
       </h1>
-      <div className="my-5 mb-60 h-[500px]">
-
+      <div className="my-5 h-[500px]">
         {isLoading ? (
           <div className="flex justify-center my-10">
             <Spinner size="lg" color="success" />
           </div>
         ) : (
-
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3 mx-5">
             {jobs?.map(
               (job) =>
@@ -144,25 +142,6 @@ export default function Jobs() {
                       <small>
                         <strong>Price:</strong> {job.budget}
                       </small>
-
-          <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3 mx-5">
-            {jobs?.map((job) => (
-              !job.hired && <Card
-              className="py-4  bg-gradient-to-r from-green-400 to-blue-500 shadow-md rounded-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-lg animate__animated animate__fadeIn"
-              key={job._id}
-            >
-              <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-                <h5 className="text-xl font-semibold">{job.title}</h5>
-              </CardBody>
-              <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                <div className="flex flex-col">
-                  <small>
-                    <strong> Timeline:</strong> {job.timeline}
-                  </small>
-                </div>
-                <small>
-                  <strong>Price:</strong> {job.budget}
-                </small>
 
                       <small className="text-xs flex items-center">
                         <strong>Skills:</strong>

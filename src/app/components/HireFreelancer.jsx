@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import Swal from "sweetalert2";
+
 import {
   Table,
   TableBody,
@@ -13,7 +13,11 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 
-import { FaBriefcase, FaDollarSign, FaClock, FaTools, FaUser } from "react-icons/fa"; // Importing icons from react-icons
+// const getData = async () =>{
+//     const result = await axios.get(
+//         `/api/posted-job?email=${encodeURIComponent(userEmail)}`
+//       );
+// }
 
 const HireFreelancer = ({ params }) => {
   const { data: session } = useSession();
@@ -37,7 +41,6 @@ const HireFreelancer = ({ params }) => {
     },
     enabled: !!userEmail, // Ensure the query runs only when userEmail is available
   });
-
   const handleHire = async (email) => {
     const update = {
       hired: true,
@@ -55,72 +58,19 @@ const HireFreelancer = ({ params }) => {
   };
   const newData = jobPost.filter((i) => i._id == params.id);
   console.log(newData);
-    try {
-      const res = await axios.patch(`/dashboard/posted-job-client/api/${newData[0]._id}`, update);
-      if (res.data.message) {
-        Swal.fire({
-          title: "Success!",
-          text: res.data.message,
-          icon: "success",
-          confirmButtonText: "OK",
-        }).then(() => {
-          refetch(); // Refresh the data after hiring
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "There was an issue hiring the freelancer.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
-  };
-
-  const newData = jobPost.filter((i) => i._id == params.id);
-
   return (
-    <div className="p-6 bg-gradient-to-r from-green-50 via-gree-200 to-green-300 border-2 border-green-400 shadow-lg rounded-lg">
-
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Job Information</h1>
-
-      {/* Job Information */}
-      <div className="mb-6">
-        <p className="text-xl font-semibold text-gray-700 mb-2 flex items-center">
-          <FaBriefcase className="mr-2 text-blue-600" /> 
-          Title: <span className="ml-2 font-normal">{newData[0]?.title}</span>
-        </p>
-        <p className="text-xl font-semibold text-gray-700 mb-2 flex items-center">
-          <FaTools className="mr-2 text-purple-600" />
-          Skills Required: <span className="ml-2 font-normal">{newData[0]?.skills?.join(', ')}</span>
-        </p>
-        
-      </div>
-
-      {/* Applied People */}
-      <h2 className="text-2xl font-bold mt-6 text-gray-800">Applied People</h2>
-
+    <div>
+      <h1>Applied People here...</h1>
       {newData[0]?.hired ? (
-        <div className="mt-4 p-4 border-2 border-green-500 rounded-lg bg-green-50">
-          <p className="mb-4 text-lg font-semibold text-green-700">
-            You have already hired <span className="font-bold">{newData[0]?.freelancer}</span>. Proceed to management.
-          </p>
-          <Button 
-            onClick={() => router.push('/dashboard/manageJobs')}
-            color="primary"
-            auto
-          >
-            Go to Manage jobs
-          </Button>
-        </div>
+        <p>go to management route</p>
       ) : (
-        <Table aria-label="Applicants" css={{ mt: "$10" }}>
+        <Table aria-label="Example static collection table">
           <TableHeader className="text-center">
-            <TableColumn>Freelancer Email</TableColumn>
+            <TableColumn>Profile</TableColumn>
             <TableColumn>Action</TableColumn>
           </TableHeader>
           <TableBody>
-            {newData[0]?.appliedPeople?.map((job, index) => (
+            {newData[0]?.appliedPeople.map((job, index) => (
               <TableRow key={index}>
                 <TableCell>{job.email}</TableCell>
                 <TableCell>
