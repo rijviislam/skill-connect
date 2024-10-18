@@ -222,6 +222,41 @@ export default function ClientProfile() {
   };
   console.log(selectedProfile);
 
+  const onSubmit = async (data) => {
+    reset();
+    const newReview = {
+      reviewerName: currUser?.username,
+      reviewerImage: currUser?.profile?.avatarUrl,
+      description: data.description,
+      rating: review,
+      createdAt: new Date().toISOString(),
+    };
+    const existingReviews = selectedProfile.reviewCollection || [];
+    const updatedReviewCollection = [...existingReviews, newReview];
+    const formData = {
+      ...data,
+      reviewCollection: updatedReviewCollection,
+    };
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("Review submitted successfully");
+        setSelectedProfile((prev) => ({
+          ...prev,
+          reviewCollection: updatedReviewCollection,
+        }));
+      } else {
+        console.error("Error submitting review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+  console.log(selectedProfile);
+
   return (
     <div className="mx-10">
       <h2 className="text-4xl font-bold bg-gradient-to-l from-[#ADD8E6] to-[#00008B] bg-clip-text text-transparent text-center">
