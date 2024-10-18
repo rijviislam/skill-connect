@@ -24,6 +24,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SearchIcon } from "./SearchIcon";
+import Swal from "sweetalert2";
 
 export default function ClientProfile() {
   const { isOpen, onOpenChange } = useDisclosure();
@@ -133,10 +134,14 @@ export default function ClientProfile() {
   const submitReport = async (profileId) => {
     const reason = selectedReasons[profileId];
     if (!reason) {
-      alert("Please select a reason for reporting.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Warning!',
+        text: 'Please select a reason for reporting.',
+      });
       return;
     }
-
+  
     try {
       const response = await fetch("/api/report", {
         method: "POST",
@@ -148,20 +153,74 @@ export default function ClientProfile() {
           reason,
         }),
       });
-
+  
       if (response.ok) {
-        alert("User reported successfully.");
+       
+        Swal.fire({
+          icon: 'success',
+          title: 'Reported!',
+          text: 'User reported successfully.',
+        });
+  
         setDropdownVisible((prev) => ({
           ...prev,
           [profileId]: false,
         }));
       } else {
-        alert("Error reporting user.");
+       
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Error reporting user.',
+        });
       }
     } catch (error) {
       console.error("Error reporting user:", error);
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Error reporting user.',
+      });
     }
   };
+  
+
+
+  const onSubmit = async (data) => {
+    reset();
+    const newReview = {
+      reviewerName: currUser?.username,
+      reviewerImage: currUser?.profile?.avatarUrl,
+      description: data.description,
+      rating: review,
+      createdAt: new Date().toISOString(),
+    };
+    const existingReviews = selectedProfile.reviewCollection || [];
+    const updatedReviewCollection = [...existingReviews, newReview];
+    const formData = {
+      ...data,
+      reviewCollection: updatedReviewCollection,
+    };
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        formData
+      );
+      if (response.status === 200) {
+        console.log("Review submitted successfully");
+        setSelectedProfile((prev) => ({
+          ...prev,
+          reviewCollection: updatedReviewCollection,
+        }));
+      } else {
+        console.error("Error submitting review:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+  console.log(selectedProfile);
 
   const onSubmit = async (data) => {
     reset();

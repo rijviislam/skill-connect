@@ -9,15 +9,14 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Link,
-  Image,
   Button,
+  Progress,
 } from "@nextui-org/react";
-import { Progress } from "@nextui-org/react";
 
 const ClientJobMange = () => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
+
   const {
     data: jobPost = [],
     isLoading,
@@ -38,14 +37,16 @@ const ClientJobMange = () => {
     },
     enabled: !!userEmail, // Ensure the query runs only when userEmail is available
   });
+
   console.log(jobPost, "fooomm  ");
+
   return (
-    <div>
+    <div className=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       {jobPost &&
         jobPost.map(
           (job, index) =>
             job.hired && (
-              <Card key={index} className="max-w-[400px]">
+              <Card key={index} className="max-w-[400px] border-2 border-green-500 bg-slate-100 shadow-xl">
                 <CardHeader className="flex gap-3">
                   <div className="flex flex-col">
                     <p className="text-md">{job.title}</p>
@@ -73,11 +74,15 @@ const ClientJobMange = () => {
                   />
                 </CardBody>
                 <Divider />
-                <CardFooter>
-                    <Button color="success">Message</Button>
-                    {
-                        job.ongoingWork == 100 ? <Button  color="success">Make Payment</Button> : <Button  color="success"disabled >Make Payment</Button>
-                    }
+                <CardFooter className=" gap-2">
+                  <Button color="success">Message</Button>
+                  {job.ongoingWork === 100 ? (
+                    <Button color="success">Make Payment</Button>
+                  ) : (
+                    <Button color="success" disabled>
+                      Make Payment
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             )
