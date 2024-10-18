@@ -87,7 +87,9 @@ export default function RootLayout({ children }) {
         
             </ServicesContext>
             </QueryProvider>
+           
             <Footer />
+           
           </Providers>
         </body>
       </AuthProvider>

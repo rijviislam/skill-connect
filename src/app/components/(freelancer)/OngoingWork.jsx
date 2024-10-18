@@ -37,9 +37,9 @@ const OngoingWork = () => {
     }
   }
   return (
-    <div>
+    <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
       {ongoing.map((project, index) => (
-        <Card key={index} className="py-4">
+        <Card key={index} className="py-4 bg-green-100">
           <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
             <h5 className="text-sm font-semibold">{project.title}</h5>
           </CardBody>
