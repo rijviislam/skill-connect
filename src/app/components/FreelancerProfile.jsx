@@ -22,9 +22,10 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
-import { SearchIcon } from "./SearchIcon";
 import Swal from "sweetalert2";
+import { SearchIcon } from "./SearchIcon";
 
 export default function FreelancerProfile() {
   const categories = [
@@ -141,13 +142,13 @@ export default function FreelancerProfile() {
     const reason = selectedReasons[profileId];
     if (!reason) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Warning!',
-        text: 'Please select a reason for reporting.',
+        icon: "warning",
+        title: "Warning!",
+        text: "Please select a reason for reporting.",
       });
       return;
     }
-  
+
     try {
       const response = await fetch("/api/report", {
         method: "POST",
@@ -159,74 +160,35 @@ export default function FreelancerProfile() {
           reason,
         }),
       });
-  
+
       if (response.ok) {
-       
         Swal.fire({
-          icon: 'success',
-          title: 'Reported!',
-          text: 'User reported successfully.',
+          icon: "success",
+          title: "Reported!",
+          text: "User reported successfully.",
         });
-  
+
         setDropdownVisible((prev) => ({
           ...prev,
           [profileId]: false,
         }));
       } else {
-       
         Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'Error reporting user.',
+          icon: "error",
+          title: "Error!",
+          text: "Error reporting user.",
         });
       }
     } catch (error) {
       console.error("Error reporting user:", error);
-      
+
       Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Error reporting user.',
+        icon: "error",
+        title: "Error!",
+        text: "Error reporting user.",
       });
     }
   };
-  
-
-  const onSubmit = async (data) => {
-    reset();
-    const newReview = {
-      reviewerName: currUser?.username,
-      reviewerImage: currUser?.profile?.avatarUrl,
-      description: data.description,
-      rating: review,
-      createdAt: new Date().toISOString(),
-    };
-    const existingReviews = selectedProfile.reviewCollection || [];
-    const updatedReviewCollection = [...existingReviews, newReview];
-    const formData = {
-      ...data,
-      reviewCollection: updatedReviewCollection,
-    };
-    try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
-        formData
-      );
-      if (response.status === 200) {
-        console.log("Review submitted successfully");
-        setSelectedProfile((prev) => ({
-          ...prev,
-          reviewCollection: updatedReviewCollection,
-        }));
-      } else {
-        console.error("Error submitting review:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-  console.log("CurrentUser", currUser);
-  console.log("Current Profile", selectedProfile);
 
   const onSubmit = async (data) => {
     reset();
@@ -443,6 +405,26 @@ export default function FreelancerProfile() {
                 "N/A"
               )}
             </p>
+            <div className="b h-[100px]">
+              <Marquee pauseOnHover={true} className="flex gap-5">
+                {selectedProfile?.reviewCollection?.map((rev) => (
+                  <div
+                    key={rev._id}
+                    className="w-[250px] mx-5 flex flex-col items-center"
+                  >
+                    <Image
+                      src={rev.reviewerImage}
+                      alt="Reviewer Image"
+                      width={50}
+                      height={50}
+                      className="w-10 h-10  rounded-full"
+                    />
+                    <strong>{rev.reviewerName}</strong>
+                    <p>{rev.description}</p>
+                  </div>
+                ))}
+              </Marquee>
+            </div>
 
             {selectedProfile?.hiredClients?.includes(currUserEmail) && (
               <form
