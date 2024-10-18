@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "./SearchIcon";
+import Swal from "sweetalert2";
 
 export default function FreelancerProfile() {
   const categories = [
@@ -111,10 +112,14 @@ export default function FreelancerProfile() {
   const submitReport = async (profileId) => {
     const reason = selectedReasons[profileId];
     if (!reason) {
-      alert("Please select a reason for reporting.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Warning!',
+        text: 'Please select a reason for reporting.',
+      });
       return;
     }
-
+  
     try {
       const response = await fetch("/api/report", {
         method: "POST",
@@ -126,20 +131,38 @@ export default function FreelancerProfile() {
           reason,
         }),
       });
-
+  
       if (response.ok) {
-        alert("User reported successfully.");
+       
+        Swal.fire({
+          icon: 'success',
+          title: 'Reported!',
+          text: 'User reported successfully.',
+        });
+  
         setDropdownVisible((prev) => ({
           ...prev,
           [profileId]: false,
         }));
       } else {
-        alert("Error reporting user.");
+       
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Error reporting user.',
+        });
       }
     } catch (error) {
       console.error("Error reporting user:", error);
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Error reporting user.',
+      });
     }
   };
+  
 
   return (
     <div className="mx-10">

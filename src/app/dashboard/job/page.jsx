@@ -1,11 +1,14 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import Swal from "sweetalert2";
 
 const JobPostingForm = () => {
   const { data: session } = useSession();
-  console.log(session?.user?.email);
+  const router = useRouter();
   const userEmail = session?.user?.email;
 
   const [title, setTitle] = useState("");
@@ -80,7 +83,18 @@ const JobPostingForm = () => {
       const result = await response.json();
       console.log("Job posted successfully:", result);
 
-      // Clear the form
+     
+      Swal.fire({
+        icon: "success",
+        title: "Job Posted!",
+        text: "Your job has been posted successfully.",
+        confirmButtonText: "Go to posted jobs",
+      }).then(() => {
+    
+        router.push("/dashboard/posted-job-client");
+      });
+
+     
       setTitle("");
       setDescription("");
       setBudget("");
@@ -88,6 +102,11 @@ const JobPostingForm = () => {
       setSkills([]);
     } catch (error) {
       console.error("Error posting job:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while posting the job. Please try again.",
+      });
     }
   };
 
@@ -187,7 +206,7 @@ const JobPostingForm = () => {
               required
               className="mt-1 block w-full bg-green-200 text-lg py-3 px-4 rounded-md shadow-sm focus:ring focus:ring-green-300 overflow-y-auto"
               rows="4"
-              style={{ maxHeight: "150px" }} // Scrollbar appears when content exceeds height
+              style={{ maxHeight: "150px" }} 
             ></textarea>
           </div>
         </div>
