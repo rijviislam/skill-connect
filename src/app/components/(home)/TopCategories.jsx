@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, CardFooter, Image } from "@nextui-org/react";
-import Link from "next/link";
+import Link from "next/link"; // Import Next.js Link component
 import {
   FaArrowRight,
   FaCamera,
@@ -15,7 +15,7 @@ import {
 const TopCategories = () => {
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-left text-4xl font-medium text-[#9353D3] mb-7 mt-8 flex items-center">
+      <h2 className="text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center">
         Most Popular Categories
         <FaArrowRight className="ml-2" />
       </h2>
@@ -26,7 +26,7 @@ const TopCategories = () => {
         <Card
           isFooterBlurred
           radius="lg"
-          className="border-4 border-transparent hover:border-[#9353D3] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
         >
           <Image
             alt="Graphic Design"
@@ -35,12 +35,12 @@ const TopCategories = () => {
             src="https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg"
             width="100%"
           />
-          <CardFooter className="justify-between before:bg-white/55  overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
             <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-[#9353D3]">
+              <div className="text-3xl text-green-500">
                 <FaDesktop size={24} />
               </div>
-              <div className="text-lg font-bold text-[#9353D3]">
+              <div className="text-lg font-bold text-green-400">
                 Graphic Design
               </div>
             </div>
@@ -64,7 +64,7 @@ const TopCategories = () => {
         <Card
           isFooterBlurred
           radius="lg"
-          className="border-4 border-transparent hover:border-[#9353D3] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
         >
           <Image
             alt="Web Development"
@@ -73,12 +73,12 @@ const TopCategories = () => {
             src="https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg"
             width="100%"
           />
-          <CardFooter className="justify-between before:bg-white/55  overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
             <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-[#9353D3]">
+              <div className="text-3xl text-green-500">
                 <FaCode size={24} />
               </div>
-              <div className="text-lg font-bold text-[#9353D3]">
+              <div className="text-lg font-bold text-green-400">
                 Web Development
               </div>
             </div>
