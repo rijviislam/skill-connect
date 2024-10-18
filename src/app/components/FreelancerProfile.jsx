@@ -22,6 +22,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
 import { SearchIcon } from "./SearchIcon";
 
@@ -384,6 +385,26 @@ export default function FreelancerProfile() {
                 "N/A"
               )}
             </p>
+            <div className="b h-[100px]">
+              <Marquee pauseOnHover={true} className="flex gap-5">
+                {selectedProfile?.reviewCollection?.map((rev) => (
+                  <div
+                    key={rev._id}
+                    className="w-[250px] mx-5 flex flex-col items-center"
+                  >
+                    <Image
+                      src={rev.reviewerImage}
+                      alt="Reviewer Image"
+                      width={50}
+                      height={50}
+                      className="w-10 h-10  rounded-full"
+                    />
+                    <strong>{rev.reviewerName}</strong>
+                    <p>{rev.description}</p>
+                  </div>
+                ))}
+              </Marquee>
+            </div>
 
             {selectedProfile?.hiredClients?.includes(currUserEmail) && (
               <form
