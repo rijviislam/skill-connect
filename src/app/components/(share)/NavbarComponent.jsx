@@ -15,7 +15,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import logo from "../../../Image/C-removebg-preview.png";
+import logo from "../../../Image/Skill-removebg-preview.png";
 
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
@@ -34,10 +34,15 @@ const NavbarComponent = () => {
   const userEmail = session?.user?.email;
 
   return (
-    <Navbar isBordered className="bg-gradient-to-l from-[#90EE90] to-[#2E8B57]">
+
+
+    <Navbar isBordered className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]">
+
+
+
       <NavbarContent justify="start">
         <NavbarBrand className="mr-4 ">
-          <Link href="/" className="w-48 h-48 mb-12">
+          <Link href="/" className="w-80 h-56 -ml-28 lg:-ml-44 ">
             <Image src={logo} alt="Digital Web Design" className="" />
           </Link>
         </NavbarBrand>

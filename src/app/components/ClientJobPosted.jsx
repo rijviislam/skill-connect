@@ -166,7 +166,7 @@ export default function ClientJobPosted() {
                 key={post._id}
                 href={`/dashboard/posted-job-client/${post._id}`}
               >
-                <Card className="py-4 border-2 border-green-600 bg-gray-200">
+                <Card className="py-4 border-2 border-violet-600 bg-violet-50">
                   <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5  ">
                     <h5 className="text-sm font-semibold">{post.title}</h5>
                   </CardBody>
