@@ -33,11 +33,11 @@ const NavbarComponent = () => {
   const userType = session?.user?.role;
   const userEmail = session?.user?.email;
 
-  
-
   return (
 
+
     <Navbar isBordered className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]">
+
 
 
       <NavbarContent justify="start">

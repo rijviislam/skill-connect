@@ -22,9 +22,10 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
-import { SearchIcon } from "./SearchIcon";
 import Swal from "sweetalert2";
+import { SearchIcon } from "./SearchIcon";
 
 export default function ClientProfile() {
   const { isOpen, onOpenChange } = useDisclosure();
@@ -135,13 +136,13 @@ export default function ClientProfile() {
     const reason = selectedReasons[profileId];
     if (!reason) {
       Swal.fire({
-        icon: 'warning',
-        title: 'Warning!',
-        text: 'Please select a reason for reporting.',
+        icon: "warning",
+        title: "Warning!",
+        text: "Please select a reason for reporting.",
       });
       return;
     }
-  
+
     try {
       const response = await fetch("/api/report", {
         method: "POST",
@@ -153,39 +154,35 @@ export default function ClientProfile() {
           reason,
         }),
       });
-  
+
       if (response.ok) {
-       
         Swal.fire({
-          icon: 'success',
-          title: 'Reported!',
-          text: 'User reported successfully.',
+          icon: "success",
+          title: "Reported!",
+          text: "User reported successfully.",
         });
-  
+
         setDropdownVisible((prev) => ({
           ...prev,
           [profileId]: false,
         }));
       } else {
-       
         Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'Error reporting user.',
+          icon: "error",
+          title: "Error!",
+          text: "Error reporting user.",
         });
       }
     } catch (error) {
       console.error("Error reporting user:", error);
-      
+
       Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Error reporting user.',
+        icon: "error",
+        title: "Error!",
+        text: "Error reporting user.",
       });
     }
   };
-  
-
 
   const onSubmit = async (data) => {
     reset();
@@ -224,7 +221,9 @@ export default function ClientProfile() {
 
   return (
     <div className="mx-10">
+
       <h2 className="text-4xl font-bold bg-violet-500 bg-clip-text text-transparent text-center">
+
         Client Profiles
       </h2>
 
@@ -412,6 +411,28 @@ export default function ClientProfile() {
                   <strong>Bio:</strong>{" "}
                   {selectedProfile.bio || "No bio available"}
                 </p>
+
+                <div className="b h-[100px]">
+                  <Marquee pauseOnHover={true} className="flex gap-5">
+                    {selectedProfile?.reviewCollection?.map((rev) => (
+                      <div
+                        key={rev._id}
+                        className="w-[250px] mx-5 flex flex-col items-center"
+                      >
+                        <Image
+                          src={rev.reviewerImage}
+                          alt="Reviewer Image"
+                          width={50}
+                          height={50}
+                          className="w-10 h-10  rounded-full"
+                        />
+                        <strong>{rev.reviewerName}</strong>
+                        <p>{rev.description}</p>
+                      </div>
+                    ))}
+                  </Marquee>
+                </div>
+
                 {selectedProfile?.hiredFreelancers?.includes(currUserEmail) && (
                   <form
                     className="flex w-[360px] md:w-[500px] lg:w-full flex-col"

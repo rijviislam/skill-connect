@@ -110,18 +110,19 @@ export default function Jobs() {
       });
     }
   };
-console.log(jobs)
+  console.log(jobs);
   return (
     <div>
       <h1 className="text-4xl font-bold bg-violet-500 bg-clip-text text-transparent text-center mt-5">
         Jobs
       </h1>
-      <div className="my-5 h-[500px] mb-60">
+      <div className="my-5 h-[500px]">
         {isLoading ? (
           <div className="flex justify-center my-10">
             <Spinner size="lg" color="success" />
           </div>
         ) : (
+
           <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-5 gap-3 mx-5">
             {jobs?.map((job) => (
               !job.hired && <Card
@@ -141,36 +142,39 @@ console.log(jobs)
                   <strong>Price:</strong> {job.budget}
                 </small>
 
-                <small className="text-xs flex items-center">
-                  <strong>Skills:</strong>
-                  <div className="pl-1 flex gap-1">
-                    <p className="text-xs">{job.skills.join(", ")}</p>
-                  </div>
-                </small>
-                <p className="text-xs">
-                  <strong>Description:</strong> {job.description}
-                </p>
-                <p className="text-sm">
-                  <strong>Applied People : </strong>
-                  {job?.appliedPeople?.length || 0}
-                </p>
-                <div className="mt-5 w-full flex justify-between">
-                  {currUser?.role === "freelancer" && (
-                    <Button
-                      size="md"
-                      className="bg-blue-500 text-white hover:bg-[#90EE90] hover:text-black"
-                      onPress={() => {
-                        setSelectedJobId(job._id);
-                        onOpenChange(true);
-                      }}
-                    >
-                      Apply
-                    </Button>
-                  )}
-                </div>
-              </CardHeader>
-            </Card>
-            ))}
+         
+
+                      <small className="text-xs flex items-center">
+                        <strong>Skills:</strong>
+                        <div className="pl-1 flex gap-1">
+                          <p className="text-xs">{job.skills.join(", ")}</p>
+                        </div>
+                      </small>
+                      <p className="text-xs">
+                        <strong>Description:</strong> {job.description}
+                      </p>
+                      <p className="text-sm">
+                        <strong>Applied People : </strong>
+                        {job?.appliedPeople?.length || 0}
+                      </p>
+                      <div className="mt-5 w-full flex justify-between">
+                        {currUser?.role === "freelancer" && (
+                          <Button
+                            size="md"
+                            className="bg-blue-500 text-white hover:bg-[#90EE90] hover:text-black"
+                            onPress={() => {
+                              setSelectedJobId(job._id);
+                              onOpenChange(true);
+                            }}
+                          >
+                            Apply
+                          </Button>
+                        )}
+                      </div>
+                    </CardHeader>
+                  </Card>
+                )
+            )}
           </div>
         )}
       </div>

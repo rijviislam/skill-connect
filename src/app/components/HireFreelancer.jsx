@@ -1,9 +1,6 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
-import Swal from "sweetalert2";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -11,8 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { FaBriefcase, FaDollarSign, FaClock, FaTools, FaUser } from "react-icons/fa"; // Importing icons from react-icons
+import { useSession } from "next-auth/react";
+import { FaBriefcase, FaTools } from "react-icons/fa"; // Importing icons from react-icons
+import Swal from "sweetalert2";
 
 const HireFreelancer = ({ params }) => {
   const { data: session } = useSession();
@@ -44,7 +44,10 @@ const HireFreelancer = ({ params }) => {
       ongoingWork: 1,
     };
     try {
-      const res = await axios.patch(`/dashboard/posted-job-client/api/${newData[0]._id}`, update);
+      const res = await axios.patch(
+        `/dashboard/posted-job-client/api/${newData[0]._id}`,
+        update
+      );
       if (res.data.message) {
         Swal.fire({
           title: "Success!",
@@ -68,33 +71,39 @@ const HireFreelancer = ({ params }) => {
   const newData = jobPost.filter((i) => i._id == params.id);
 
   return (
+
     <div className="p-6 bg-gradient-to-r from-violet-50 via-gree-200 to-violet-300 border-2 border-violet-400 shadow-lg rounded-lg">
+
 
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Job Information</h1>
 
       {/* Job Information */}
       <div className="mb-6">
         <p className="text-xl font-semibold text-gray-700 mb-2 flex items-center">
-          <FaBriefcase className="mr-2 text-blue-600" /> 
+          <FaBriefcase className="mr-2 text-blue-600" />
           Title: <span className="ml-2 font-normal">{newData[0]?.title}</span>
         </p>
         <p className="text-xl font-semibold text-gray-700 mb-2 flex items-center">
           <FaTools className="mr-2 text-purple-600" />
-          Skills Required: <span className="ml-2 font-normal">{newData[0]?.skills?.join(', ')}</span>
+          Skills Required:{" "}
+          <span className="ml-2 font-normal">
+            {newData[0]?.skills?.join(", ")}
+          </span>
         </p>
-        
       </div>
 
       {/* Applied People */}
       <h2 className="text-2xl font-bold mt-6 text-gray-800">Applied People</h2>
 
       {newData[0]?.hired ? (
+
         <div className="mt-4 p-4 border-2 border-violet-500 rounded-lg bg-violet-50">
           <p className="mb-4 text-lg font-semibold text-violet-700">
             You have already hired <span className="font-bold">{newData[0]?.freelancer}</span>. Proceed to management.
+
           </p>
-          <Button 
-            onClick={() => router.push('/dashboard/manageJobs')}
+          <Button
+            onClick={() => router.push("/dashboard/manageJobs")}
             color="primary"
             auto
           >

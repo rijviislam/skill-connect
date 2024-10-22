@@ -1,5 +1,6 @@
 "use client";
 
+
 import React from 'react';
 import { Card, CardFooter, Image, Button } from '@nextui-org/react';
 import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaMobileAlt, FaArrowRight } from 'react-icons/fa';
@@ -12,6 +13,7 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
+
 const TopCategories = () => {
   return (
     <div className="container mx-auto p-6">
@@ -22,6 +24,7 @@ const TopCategories = () => {
 
       {/* First row: 3 cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
         {/* Card components with motion */}
         {[
           {
@@ -174,6 +177,7 @@ const TopCategories = () => {
             </Card>
           </motion.div>
         ))}
+
       </div>
     </div>
   );
