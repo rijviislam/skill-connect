@@ -1,27 +1,27 @@
 import Image from "next/image";
-import logo from "../../../Image/C-removebg-preview.png";
+import logo from "../../../Image/Skill-removebg-preview.png";
 export default function Footer() {
   return (
-    <footer className="px-4  divide-y drop-shadow-2xl border-t border-[#2e8b57]">
+    <footer className="px-4 bg-violet-100 divide-y drop-shadow-2xl border-t border-[#8a2be2]">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
-        <div className="lg:w-1/3  ">
+        <div className="lg:w-1/3">
           <a rel="noopener noreferrer" href="#" className="flex items-start">
-            <span className="self-start text-2xl font-bold text-[#2e8b57]  flex items-start justify-start">
+            <span className="self-start text-2xl font-bold text-[#8a2be2] flex items-start justify-start">
               <Image
                 src={logo}
                 alt="Digital Web Design"
-                className="w-56 h-56 "
+                className="w-96 h-96 "
               />
             </span>
           </a>
         </div>
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
           <div className="space-y-3">
-            <h3 className="uppercase text-[#2e8b57] font-semibold">Product</h3>
-            <ul className="space-y-1 text-[#2e8b57] font-medium">
+            <h3 className="uppercase text-[#8a2be2] font-semibold">Product</h3>
+            <ul className="space-y-1 text-[#8a2be2] font-medium">
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -30,7 +30,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -39,7 +39,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -48,7 +48,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -58,11 +58,11 @@ export default function Footer() {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="uppercase text-[#2e8b57] font-semibold">Company</h3>
-            <ul className="space-y-1 text-[#2e8b57] font-medium">
+            <h3 className="uppercase text-[#8a2be2] font-semibold">Company</h3>
+            <ul className="space-y-1 text-[#8a2be2] font-medium">
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -81,13 +81,13 @@ export default function Footer() {
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="uppercase text-[#2e8b57] font-semibold">
+            <h3 className="uppercase text-[#8a2be2] font-semibold">
               Developers
             </h3>
-            <ul className="space-y-1 text-[#2e8b57] font-medium">
+            <ul className="space-y-1 text-[#8a2be2] font-medium">
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -96,7 +96,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -105,7 +105,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  className="hover:text-[#90EE90] transition ease-in-out delay-150"
+                  className="hover:text-[#dda0dd] transition ease-in-out delay-150"
                   rel="noopener noreferrer"
                   href="#"
                 >
@@ -115,7 +115,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="space-y-3">
-            <div className="uppercase text-[#2e8b57] font-semibold">
+            <div className="uppercase text-[#8a2be2] font-semibold">
               Social media
             </div>
             <div className="flex justify-start space-x-3">
@@ -123,7 +123,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="Email"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#8a2be2] dark:text-gray-50 hover:bg-[#dda0dd] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +139,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="Twitter"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#8a2be2] dark:text-gray-50 hover:bg-[#dda0dd] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -154,23 +154,23 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 href="#"
                 title="GitHub"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#2e8b57] dark:text-gray-50 hover:bg-[#90EE90] transition ease-in-out delay-150"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#8a2be2] dark:text-gray-50 hover:bg-[#dda0dd] transition ease-in-out delay-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
                   fill="currentColor"
-                  viewBox="0 0 24 24"
                   className="w-5 h-5"
                 >
-                  <path d="M10.9,2.1c-4.6,0.5-8.3,4.2-8.8,8.7c-0.5,4.7,2.2,8.9,6.3,10.5C8.7,21.4,9,21.2,9,20.8v-1.6c0,0-0.4,0.1-0.9,0.1 c-1.4,0-2-1.2-2.1-1.9c-0.1-0.4-0.3-0.7-0.6-1C5.1,16.3,5,16.3,5,16.2C5,16,5.3,16,5.4,16c0.6,0,1.1,0.7,1.3,1c0.5,0.8,1.1,1,1.4,1 c0.4,0,0.7-0.1,0.9-0.2c0.1-0.7,0.4-1.4,1-1.8c-2.3-0.5-4-1.8-4-4c0-1.1,0.5-2.2,1.2-3C7.1,8.8,7,8.3,7,7.6C7,7.2,7,6.6,7.3,6 c0,0,1.4,0,2.8,1.3C10.6,7.1,11.3,7,12,7s1.4,0.1,2,0.3C15.3,6,16.8,6,16.8,6C17,6.6,17,7.2,17,7.6c0,0.8-0.1,1.2-0.2,1.4 c0.7,0.8,1.2,1.8,1.2,3c0,2.2-1.7,3.5-4,4c0.6,0.5,1,1.4,1,2.3v2.6c0,0.3,0.3,0.6,0.7,0.5c3.7-1.5,6.3-5.1,6.3-9.3 C22,6.1,16.9,1.4,10.9,2.1z"></path>
+                  <path d="M16 0.396484C7.16406 0.396484 0 7.55469 0 16.3965C0 23.3242 4.58203 29.124 10.9375 31.3203C11.75 31.4648 12.0391 30.9688 12.0391 30.542V27.6211C7.57812 28.5117 6.74219 25.4648 6.74219 25.4648C6.01562 23.5508 5.01172 23.0586 5.01172 23.0586C3.57422 22.0898 5.12891 22.1133 5.12891 22.1133C6.71484 22.2266 7.55859 23.7695 7.55859 23.7695C8.95703 26.2227 11.3086 25.4922 12.2734 25.0469C12.4023 24.0547 12.8203 23.3945 13.2812 23.0117C9.66406 22.6289 5.875 21.2734 5.875 15.6758C5.875 13.957 6.48828 12.5508 7.49609 11.4375C7.32422 11.0547 6.78516 9.39453 7.66406 7.19922C7.66406 7.19922 9.01172 6.79297 11.9922 8.69141C13.2812 8.33594 14.6641 8.15625 16.0469 8.14844C17.4297 8.15625 18.8125 8.33594 20.1055 8.69141C23.0781 6.78516 24.4219 7.19922 24.4219 7.19922C25.3008 9.39453 24.7617 11.0547 24.5938 11.4375C25.6055 12.5508 26.2188 13.957 26.2188 15.6758C26.2188 21.2852 22.4219 22.625 18.7969 23.0039C19.3555 23.4648 19.832 24.3242 19.832 25.5898V30.542C19.832 30.9727 20.1172 31.4688 20.9414 31.3203C27.292 29.1211 31.875 23.3242 31.875 16.3965C31.875 7.55469 24.707 0.396484 16 0.396484Z"></path>
                 </svg>
               </a>
             </div>
           </div>
         </div>
       </div>
-      <div className="py-6 text-sm text-center text-[#2e8b57]">
-        © Skill Connect. All rights reserved.
+      <div className="py-6 text-sm text-center text-[#8a2be2] font-semibold">
+        © 2024 Skill Connect. All rights reserved.
       </div>
     </footer>
   );

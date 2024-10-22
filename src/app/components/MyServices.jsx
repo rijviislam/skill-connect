@@ -134,7 +134,7 @@ export default function MyServices() {
   if (isError) return <h1>Error Occer...</h1>;
   return (
     <div>
-      <Button color="success" onPress={() => onOpenChange(true)}>
+      <Button className="bg-violet-500" onPress={() => onOpenChange(true)}>
         Create a Service <IoIosCreate />
       </Button>
       {/* GRID */}

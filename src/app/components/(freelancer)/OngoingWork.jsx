@@ -39,7 +39,7 @@ const OngoingWork = () => {
   return (
     <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
       {ongoing.map((project, index) => (
-        <Card key={index} className="py-4 bg-green-100">
+        <Card key={index} className="py-4 bg-violet-100">
           <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
             <h5 className="text-sm font-semibold">{project.title}</h5>
           </CardBody>
@@ -58,7 +58,7 @@ const OngoingWork = () => {
                     size="sm"
                     radius="sm"
                     classNames={{
-                      base: "max-w-md",
+                      base: "max-w-md ",
                       track: "drop-shadow-md border border-default",
                       indicator: "bg-gradient-to-r from-pink-500 to-yellow-500",
                       label: "tracking-wider font-medium text-default-600",
@@ -72,7 +72,7 @@ const OngoingWork = () => {
               <Button
               onClick={()=>handleUpdateProgress(project._id)}
                 size="md"
-                className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                className="bg-[#8350d5] text-white hover:bg-[#663ba6] hover:text-black"
               >
                 Update work 10%
               </Button>

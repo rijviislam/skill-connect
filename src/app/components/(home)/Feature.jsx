@@ -1,55 +1,54 @@
 import React from 'react';
-import Image from 'next/image';
-import Img9 from '../../../Image/Artificial intelligence-cuate.png';
-import Img10 from '../../../Image/Resume-amico.png';
-import Img11 from '../../../Image/Payment Information-bro.png';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle, FaClipboardList, FaLock, FaHandsHelping, FaStar, FaUserCircle } from 'react-icons/fa';
 
 const Feature = () => {
     return (
-        <section className="py-12 ">
-            <div className="container mx-auto px-4">
-            <h2 className="text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center ">
-            Features 
-  <FaArrowRight className="ml-2" />
-</h2>
-               
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* Card 1 */}
-                    <div className="bg-green-50 p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-green-100 hover:shadow-xl ">
-                        <div className="flex items-center justify-center mb-4">
-                            <Image className="w-32 h-32 rounded-full" src={Img9} alt="AI-Powered Job Matching" />
+        <section className="py-6">
+            <div className="container mx-auto px-2">
+                <h2 className="text-left text-2xl font-medium text-[#8A2BE2] mb-5 mt-6 flex items-center">
+                    Features 
+                    <FaArrowRight className="ml-2" />
+                </h2>
+                <div className="bg-violet-100 dark:bg-gray-900">
+                    <div className="container px-2 py-6 mx-auto">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                            {/* Card 1 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaUserCircle className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">User Profiles</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Create and manage detailed profiles showcasing skills, portfolios, and client reviews.</p>
+                            </div>
+                            {/* Card 2 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaClipboardList className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">Job Posting & Bidding</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Clients can post jobs with specific requirements, and freelancers can bid on projects.</p>
+                            </div>
+                            {/* Card 3 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaLock className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">Secure Payment System</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Integrated payment gateway ensures secure transactions between clients and freelancers.</p>
+                            </div>
+                            {/* Card 4 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaCheckCircle className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">Skill Verification</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Freelancers can verify their skills, boosting credibility and trust with clients.</p>
+                            </div>
+                            {/* Card 5 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaHandsHelping className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">Dispute Resolution</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Dedicated support for resolving disputes between freelancers and clients.</p>
+                            </div>
+                            {/* Card 6 */}
+                            <div className="flex flex-col items-center p-3 bg-white rounded-md shadow-sm">
+                                <FaStar className="w-5 h-5 text-violet-600" />
+                                <h1 className="mt-2 text-base font-semibold text-gray-800 dark:text-white">Ratings & Reviews</h1>
+                                <p className="mt-1 text-center text-xs text-gray-500 dark:text-gray-400">Clients can leave feedback on completed projects, helping others make informed decisions.</p>
+                            </div>
                         </div>
-                        <h3 className="text-xl font-semibold mb-2 text-[#2e8b57]">
-                            AI-Powered Job Matching
-                        </h3>
-                        <p className="text-gray-700">
-                            Leverage advanced AI algorithms to find the best job matches based on your skills and preferences.
-                        </p>
-                    </div>
-                    {/* Card 2 */}
-                    <div className="bg-gray-100 p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-xl ">
-                        <div className="flex items-center justify-center mb-4">
-                            <Image className="w-32 h-32 rounded-full" src={Img10} alt="Verified Skills" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2 text-[#2e8b57]">
-                            Verified Skills
-                        </h3>
-                        <p className="text-gray-700">
-                            Ensure that the skills and qualifications listed by freelancers are verified for credibility and accuracy.
-                        </p>
-                    </div>
-                    {/* Card 3 */}
-                    <div className="bg-green-50 p-6 rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-green-100 hover:shadow-xl ">
-                        <div className="flex items-center justify-center mb-4">
-                            <Image className="w-32 h-32 rounded-full" src={Img11} alt="Secure Payments" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2 text-[#2e8b57]">
-                            Secure Payments
-                        </h3>
-                        <p className="text-gray-700">
-                            Enjoy secure and reliable payment transactions with our integrated payment gateway.
-                        </p>
                     </div>
                 </div>
             </div>

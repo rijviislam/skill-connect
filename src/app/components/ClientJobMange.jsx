@@ -46,7 +46,7 @@ const ClientJobMange = () => {
         jobPost.map(
           (job, index) =>
             job.hired && (
-              <Card key={index} className="max-w-[400px] border-2 border-green-500 bg-slate-100 shadow-xl">
+              <Card key={index} className="max-w-[400px] border-2 border-violet-500 bg-slate-100 shadow-xl">
                 <CardHeader className="flex gap-3">
                   <div className="flex flex-col">
                     <p className="text-md">{job.title}</p>

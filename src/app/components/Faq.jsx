@@ -38,12 +38,12 @@ const Faq = () => {
     return (
         <div className="min-h-screen py-12">
             <div className="container mx-auto px-4 md:px-10">
-                <h1 className="text-4xl font-bold text-center text-green-800 mb-8">Frequently Asked Questions</h1>
+                <h1 className="text-4xl font-bold text-center text-violet-800 mb-8">Frequently Asked Questions</h1>
                 <div className="bg-white shadow-2xl rounded-lg p-6 md:p-10">
                     {faqData.map((faq, index) => (
                         <div key={index} className="border-b border-gray-200">
                             <button
-                                className="w-full text-left py-4 flex justify-between items-center text-gray-800 hover:bg-green-100 transition duration-200 ease-in-out"
+                                className="w-full text-left py-4 flex justify-between items-center text-gray-800 hover:bg-violet-100 transition duration-200 ease-in-out"
                                 onClick={toggleFAQ}
                             >
                                 <span className="text-xl font-bold">{faq.question}</span>

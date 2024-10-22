@@ -1,38 +1,71 @@
 "use client";
-import { useSession } from "next-auth/react";
+
 import Image from "next/image";
-import Link from "next/link";
-import banner from "../../../Image/Working remotely-cuate.png";
+import { motion } from "framer-motion"; // Import motion
+import banner from "../../../Image/Telecommuting-rafiki.png";
+import background from "../../../Image/Banner11.png"; // Add your background image here
 
 const BannerSlider = () => {
-  const { data: session, status } = useSession();
-  const isAuthenticated = status === "authenticated";
+  const oscillateY = {
+    hidden: { y: 0 },
+    visible: {
+      y: [0, -20, 0],
+      transition: {
+        duration: 2,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "loop",
+      },
+    },
+  };
+  
+  const slideIn = {
+    hidden: { x: '-50%', opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1.5 } },
+  };
+
   return (
     <div>
-      <div className="h-[500px] md:h-[800px] lg:h-[400px] xl:h-[400px] bg-gradient-to-r from-green-400 to-blue-300">
+      <div
+        className="h-[600px] bg-cover bg-center flex items-center"
+        style={{
+          backgroundImage: `url(${background.src})`, // Set background image
+        }}
+      >
         <div className="container mx-auto flex flex-col lg:flex-row-reverse items-center justify-center py-5 px-4 h-full">
-          <Image
-            src={banner}
-            alt="Digital Web Design"
-            className="max-w-full lg:max-w-2xl rounded-lg h-auto"
-            layout="responsive"
-            objectFit="cover"
-          />
-          <div className="text-center lg:text-left mb-10 md:mb-56 lg:mb-1 lg:mr-10">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold text-gray-800">
-              FIND THE RIGHT FREELANCER
+          
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={oscillateY}
+            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6" // Reduced margin bottom for mobile
+          >
+            <Image
+              src={banner}
+              alt="Digital Web Design"
+              layout="responsive"
+              width={400} // Reduced width for smaller size
+              height={300} // Reduced height for smaller size
+              objectFit="cover"
+              className="rounded-lg" 
+            />
+          </motion.div>
+          
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={slideIn}
+            className="text-center lg:text-left lg:mb-0 mb-6 lg:mr-10"
+          >
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800">
+              FIND THE 
+              <br/>
+              RIGHT <span className="text-white">FREELANCER</span>
             </h1>
-            <p className="py-2 text-lg sm:text-xl md:text-xl text-gray-100">
+            <p className="py-2 text-lg sm:text-xl md:text-xl text-violet-800">
               FOR YOUR NEXT PROJECT
             </p>
-            {!isAuthenticated && (
-              <Link href="/api/auth/signup">
-                <button className="bg-transparent border-2 border-green-900 hover:bg-green-500 hover:text-white text-green-800 font-semibold py-2 px-6 transition duration-300 w-28 rounded-xl">
-                  Sign Up
-                </button>
-              </Link>
-            )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

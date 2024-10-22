@@ -230,7 +230,7 @@ export default function FreelancerProfile() {
 
   return (
     <div className="mx-10">
-      <h2 className="text-4xl font-bold bg-gradient-to-l from-[#90EE90] to-[#2E8B57] bg-clip-text text-transparent text-center">
+      <h2 className="text-4xl font-bold bg-violet-500 bg-clip-text text-transparent text-center">
         Freelancer Profiles
       </h2>
 
