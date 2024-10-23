@@ -12,6 +12,7 @@ import {
   Button,
   Progress,
 } from "@nextui-org/react";
+import Link from "next/link";
 
 const ClientJobMange = () => {
   const { data: session } = useSession();
@@ -75,7 +76,7 @@ const ClientJobMange = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter className=" gap-2">
-                  <Button color="success">Message</Button>
+                  <Link href={`/dashboard/manageJobs/${job._id}`}><Button color="success">Message</Button></Link>
                   {job.ongoingWork === 100 ? (
                     <Button color="success">Make Payment</Button>
                   ) : (
