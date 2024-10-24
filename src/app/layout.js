@@ -54,6 +54,7 @@ import "./globals.css";
 import NavbarWrapper from "./NavbarWrapper.jsx";
 import { Providers } from "./providers";
 import AuthProvider from "./services/AuthProvider";
+import FooterWrapper from "./FooterWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -88,7 +89,7 @@ export default function RootLayout({ children }) {
             </ServicesContext>
             </QueryProvider>
            
-            <Footer />
+           <FooterWrapper/>
            
           </Providers>
         </body>

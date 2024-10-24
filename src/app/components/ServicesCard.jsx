@@ -20,6 +20,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Loading from "../loading";
 
 export default function ServicesCard({ handleDelete }) {
   const { services, refetch, isLoading, isError } = useContext(CardContext);
@@ -86,7 +87,7 @@ export default function ServicesCard({ handleDelete }) {
       alert("Failed to update service");
     }
   };
-  if (isLoading) return <h1>Loading....</h1>;
+  if (isLoading) return <h1><Loading/></h1>;
   if (isError) return <h1>Error...</h1>;
 
   return (

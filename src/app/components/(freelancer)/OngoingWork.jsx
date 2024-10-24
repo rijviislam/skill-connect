@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { Button, Card, CardBody, CardHeader, Progress } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -32,7 +33,7 @@ const OngoingWork = () => {
     const update = {id};
     console.log(update)
     const res = await axios.patch(`/dashboard/ongoing/updateProgress`,update);
-    if(isLoading) return 'loading.....'
+    if(isLoading) return <Loading/>
     if(res.data.status){
         refetch();
     }

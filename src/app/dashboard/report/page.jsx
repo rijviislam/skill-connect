@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User } from "@nextui-org/react";
+import Loading from '@/app/loading';
 
 export default function ReportsList() {
   const [reports, setReports] = useState([]);
@@ -25,7 +26,7 @@ export default function ReportsList() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   return (
