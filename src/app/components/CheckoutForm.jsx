@@ -1,8 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-export default function CheckoutForm({ stripePromise }) {
+export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState(null);
@@ -13,9 +14,6 @@ export default function CheckoutForm({ stripePromise }) {
   const amount = 49.99;
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-  console.log(session?.user);
-
-  const [paymentIntent, setPaymentIntent] = useState("");
 
   // Fetch the PaymentIntent clientSecret from the backend
   useEffect(() => {
@@ -55,6 +53,20 @@ export default function CheckoutForm({ stripePromise }) {
     fetchUserByEmail();
   }, [userEmail]);
   console.log("user", currUser);
+
+  // const { mutateAsync } = useMutation({
+  //   mutationFn: async (paymentMethod) => {
+  //     if (currUser) {
+  //       const result = await axios.patch(
+  //         `/api/payment-info-update/${userEmail}`,
+  //         {
+  //           paymentMethod, // Pass the paymentMethod here
+  //         }
+  //       );
+  //       return result.data;
+  //     }
+  //   },
+  // });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -166,7 +178,6 @@ export default function CheckoutForm({ stripePromise }) {
            `,
           },
         });
-        console.log("Payyyyyy", paymentIntent);
         Swal.fire({
           title: "Payment Successfully Done!",
           showClass: {
@@ -184,6 +195,14 @@ export default function CheckoutForm({ stripePromise }) {
              `,
           },
         });
+
+        // try {
+        //   await mutateAsync(paymentMethod);
+        //   console.log("pay", paymentIntent.status);
+        //   console.log("intent", paymentIntent);
+        // } catch (error) {
+        //   console.log(error);
+        // }
       }
     }
   };
