@@ -9,39 +9,10 @@ export const authOptions = {
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
     session: {
         strategy: "jwt",      
-        maxAge: 30 * 24 * 60 * 60, // 30 days
+        maxAge: 30 * 24 * 60 * 60,
       },
       providers: [
-        // CredentialsProvider({
-        //     credentials: {
-        //         email : { },
-        //         password : { }
-        //     },
-
-        //     async authorize(credentials) {
-        //         const { email, password } = credentials;
-
-        //         if(!credentials){
-        //             return null
-        //         }
-                
-        //         if(email){
-        //             const db =await connectDB()
-        //             const currentUser = await db.collection("users").findOne({email: email})
-        //             console.log(currentUser)
-
-        //             if(currentUser){
-
-        //                 if(currentUser && currentUser.password === password){
-        //                     return currentUser;
-        //                 }
-        //             }
-        //         }
-        //         return null
-        //     }
-        // }),
-        
-         // Credentials provider
+       
     CredentialsProvider({
         credentials: {
           email: {},
@@ -60,7 +31,6 @@ export const authOptions = {
             return null;
           }
   
-          // Compare passwords (async version)
           const passwordMatched = await bcrypt.compare(
             passwordHash,
             currentUser.passwordHash
@@ -110,30 +80,6 @@ export const authOptions = {
     async signIn({ user, account }) {
         console.log("User Info:", user);
         console.log("Account Info:", account);
-    
-        // if (account.provider === "google" || account.provider === "github") {
-        //     const { name, email, image } = user;
-    
-        //     try {
-        //         const db = await connectDB();
-        //         const userCollection = db.collection("users");
-        //         const userExist = await userCollection.findOne({ email });
-    
-        //         if (!userExist) {
-        //             const newUser = { name, email, image };
-        //             const result = await userCollection.insertOne(newUser);
-        //             console.log("User Created:", result);
-        //         } else {
-        //             console.log("User already exists:", userExist);
-        //         }
-        //         return user; // Return the user object
-        //     } catch (error) {
-        //         console.error("Error during signIn:", error);
-        //         return null; // Return null to indicate failure
-        //     }
-        // } else {
-        //     return user; // Return user for credentials provider
-        // }
     },    
 
     pages: {

@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from '@/app/loading';
 import { Button, Input, Textarea } from '@nextui-org/react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -90,7 +91,7 @@ const ProfilePage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   return (

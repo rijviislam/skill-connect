@@ -1,27 +1,27 @@
 "use client";
 
 import {
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Button,
+  CardHeader,
   Modal,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
 } from "@nextui-org/react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import {
   FaArrowRight,
   FaClipboardList,
-  FaDollarSign,
   FaClock,
+  FaDollarSign,
   FaTools,
 } from "react-icons/fa";
 import Loader from "../../../app/loading";
-import { motion } from "framer-motion";
 
 const JobPosts = () => {
   const [jobPosts, setJobPosts] = useState([]);
@@ -91,7 +91,6 @@ const JobPosts = () => {
         <FaArrowRight className="ml-2 text-[#8A2BE2]" />
       </h2>
 
-      
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentPosts.length > 0 ? (
           currentPosts.map((job) => {
@@ -105,7 +104,7 @@ const JobPosts = () => {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <Card className="bg-violet-50 shadow-md p-5 border-violet-500 border-2 hover:bg-violet-100 transition-all duration-300 h-[300px]"> 
+                <Card className="bg-violet-50 shadow-md p-5 border-violet-500 border-2 hover:bg-violet-100 transition-all duration-300 h-[300px]">
                   <CardHeader className="justify-between">
                     <div className="flex gap-5">
                       <div className="flex flex-col gap-1 items-start justify-center">
@@ -119,24 +118,32 @@ const JobPosts = () => {
                     <div>
                       <p className="mb-2 flex items-center">
                         <FaDollarSign className="mr-2 text-green-600" />
-                        <strong className="font-bold text-black">Budget:</strong>{" "}
+                        <strong className="font-bold text-black">
+                          Budget:
+                        </strong>{" "}
                         {job.budget}
                       </p>
                       <p className="mb-2 flex items-center">
                         <FaClock className="mr-2 text-orange-600" />
-                        <strong className="font-bold text-black">Timeline:</strong>{" "}
+                        <strong className="font-bold text-black">
+                          Timeline:
+                        </strong>{" "}
                         {job.timeline}
                       </p>
                       <p className="mb-2 flex items-center">
                         <FaTools className="mr-2 text-purple-600" />
-                        <strong className="font-bold text-black">Skills:</strong>{" "}
+                        <strong className="font-bold text-black">
+                          Skills:
+                        </strong>{" "}
                         {job.skills.join(", ")}
                       </p>
-                      <p className="mb-2 flex items-center">
+                      <p className="mb-2 flex items-start">
                         <FaClipboardList className="mr-2 text-violet-600" />
-                        <strong className="font-bold text-black">Description:</strong>{" "}
+                        <strong className="font-bold text-black mr-1">
+                          Description:
+                        </strong>{" "}
                         {truncated}
-                        {full !== truncated && (
+                        {/* {full !== truncated && (
                           <span
                             className="text-blue-500 cursor-pointer"
                             onClick={() => {
@@ -147,7 +154,7 @@ const JobPosts = () => {
                             {" "}
                             See More
                           </span>
-                        )}
+                        )} */}
                       </p>
                     </div>
                     <hr className="my-2" />

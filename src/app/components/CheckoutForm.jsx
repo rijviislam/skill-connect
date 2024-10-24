@@ -1,4 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -7,10 +9,9 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
-  const [currUser, setCurrUser] = useState([]);
+  const [currUser, setCurrUser] = useState(null);
   const amount = 49.99;
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
@@ -52,36 +53,34 @@ export default function CheckoutForm() {
   useEffect(() => {
     fetchUserByEmail();
   }, [userEmail]);
-  console.log("user", currUser);
 
-  // const { mutateAsync } = useMutation({
-  //   mutationFn: async (paymentMethod) => {
-  //     if (currUser) {
-  //       const result = await axios.patch(
-  //         `/api/payment-info-update/${userEmail}`,
-  //         {
-  //           paymentMethod, // Pass the paymentMethod here
-  //         }
-  //       );
-  //       return result.data;
-  //     }
-  //   },
-  // });
+  const { mutateAsync } = useMutation({
+    mutationFn: async (paymentIntent) => {
+      if (currUser) {
+        const result = await axios.patch(
+          `/api/payment-update/${currUser._id}`,
+          { paymentIntent }
+        );
+        return result.data;
+      }
+    },
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
 
-    // Ensure stripe and elements are loaded
     if (!stripe || !elements) {
-      setErrorMessage("Stripe or elements not ready.");
+      setErr("Stripe or elements not ready.");
       setLoading(false);
       return;
     }
+
     const card = elements.getElement(CardElement);
     if (card === null) {
       return;
     }
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -89,46 +88,13 @@ export default function CheckoutForm() {
 
     if (error) {
       setErr(error.message);
-      Swal.fire({
-        title: { error },
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `,
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `,
-        },
-      });
+      Swal.fire({ title: error.message });
+      setLoading(false);
+      return;
     } else {
-      console.log("Payment Method", paymentMethod);
       setErr("");
-      Swal.fire({
-        title: "Payment Successfull",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `,
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `,
-        },
-      });
     }
 
-    // COMFIRM PAYMENT //
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -139,90 +105,29 @@ export default function CheckoutForm() {
           },
         },
       });
-    if (confirmError) {
-      Swal.fire({
-        title: "confirm error",
-        showClass: {
-          popup: `
-           animate__animated
-           animate__fadeInUp
-           animate__faster
-         `,
-        },
-        hideClass: {
-          popup: `
-           animate__animated
-           animate__fadeOutDown
-           animate__faster
-         `,
-        },
-      });
-    } else {
-      console.log("Payment Intent", paymentIntent);
-      if (paymentIntent.status === "succeeded") {
-        // TO DO  CHANGE THE USER STATUS IS VERIFY
-        Swal.fire({
-          title: "Transaction Done!",
-          showClass: {
-            popup: `
-             animate__animated
-             animate__fadeInUp
-             animate__faster
-           `,
-          },
-          hideClass: {
-            popup: `
-             animate__animated
-             animate__fadeOutDown
-             animate__faster
-           `,
-          },
-        });
-        Swal.fire({
-          title: "Payment Successfully Done!",
-          showClass: {
-            popup: `
-               animate__animated
-               animate__fadeInUp
-               animate__faster
-             `,
-          },
-          hideClass: {
-            popup: `
-               animate__animated
-               animate__fadeOutDown
-               animate__faster
-             `,
-          },
-        });
 
-        // try {
-        //   await mutateAsync(paymentMethod);
-        //   console.log("pay", paymentIntent.status);
-        //   console.log("intent", paymentIntent);
-        // } catch (error) {
-        //   console.log(error);
-        // }
+    if (confirmError) {
+      Swal.fire({ title: confirmError.message });
+      setLoading(false);
+      return;
+    } else {
+      if (paymentIntent.status === "succeeded") {
+        Swal.fire({ title: "Payment Successful" });
+        try {
+          await mutateAsync(paymentIntent);
+        } catch (error) {
+          console.error("Error updating payment info:", error);
+        }
       }
     }
+    setLoading(false);
   };
 
   return (
     <div>
       {clientSecret ? (
-        // <form onSubmit={handleSubmit} className="bg-white p-2 rounded-md">
-        //   {/* Ensure that PaymentElement is only rendered when clientSecret is set */}
-        //   <PaymentElement />
-        //   {errorMessage && <div>{errorMessage}</div>}
-        //   <button
-        //     disabled={!stripe || loading}
-        //     className="text-white w-full p-5 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
-        //   >
-        //     {!loading ? `Pay $${amount}` : "Processing..."}
-        //   </button>
-        // </form>
         <form
-          className=" rounded-lg  mt-5 p-5 mx-5 bg-purple-400 shadow-md"
+          className="rounded-lg mt-5 p-5 mx-5 bg-purple-400 shadow-md"
           onSubmit={handleSubmit}
         >
           <CardElement
@@ -232,22 +137,18 @@ export default function CheckoutForm() {
                 base: {
                   fontSize: "20px",
                   color: "#424770",
-                  "::placeholder": {
-                    color: "#aab7c4",
-                  },
+                  "::placeholder": { color: "#aab7c4" },
                 },
-                invalid: {
-                  color: "#9e2146",
-                },
+                invalid: { color: "#9e2146" },
               },
             }}
           />
           <button
-            className=" my-5 py-2 px-7 text-white font-medium text-lg rounded-lg hover:bg-purple-500 transition duration-500 bg-purple-600"
+            className="my-5 py-2 px-7 text-white font-medium text-lg rounded-lg hover:bg-purple-500 transition duration-500 bg-purple-600"
             type="submit"
-            disabled={!stripe || !clientSecret}
+            disabled={!stripe || !clientSecret || loading}
           >
-            Pay
+            {loading ? "Processing..." : `Pay $${amount}`}
           </button>
           <p className="text-red-500">{err}</p>
         </form>
