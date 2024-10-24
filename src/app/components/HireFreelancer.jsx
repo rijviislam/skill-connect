@@ -71,7 +71,10 @@ const HireFreelancer = ({ params }) => {
   const newData = jobPost.filter((i) => i._id == params.id);
 
   return (
-    <div className="p-6 bg-gradient-to-r from-green-50 via-gree-200 to-green-300 border-2 border-green-400 shadow-lg rounded-lg">
+
+    <div className="p-6 bg-gradient-to-r from-violet-50 via-gree-200 to-violet-300 border-2 border-violet-400 shadow-lg rounded-lg">
+
+
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Job Information</h1>
 
       {/* Job Information */}
@@ -93,11 +96,11 @@ const HireFreelancer = ({ params }) => {
       <h2 className="text-2xl font-bold mt-6 text-gray-800">Applied People</h2>
 
       {newData[0]?.hired ? (
-        <div className="mt-4 p-4 border-2 border-green-500 rounded-lg bg-green-50">
-          <p className="mb-4 text-lg font-semibold text-green-700">
-            You have already hired{" "}
-            <span className="font-bold">{newData[0]?.freelancer}</span>. Proceed
-            to management.
+
+        <div className="mt-4 p-4 border-2 border-violet-500 rounded-lg bg-violet-50">
+          <p className="mb-4 text-lg font-semibold text-violet-700">
+            You have already hired <span className="font-bold">{newData[0]?.freelancer}</span>. Proceed to management.
+
           </p>
           <Button
             onClick={() => router.push("/dashboard/manageJobs")}

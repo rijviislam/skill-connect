@@ -79,13 +79,13 @@ export default function SignUpPage() {
       <div className="flex-shrink-0">
         <Image
           isBlurred
-          src="https://i.ibb.co/W3wPyqm/Sign-up-amico.png"
+          src="https://i.postimg.cc/YCx0PvLx/Mobile-login-rafiki.png"
           alt="NextUI Album Cover"
           className="w-[600px]"
         />
       </div>
       <div className="w-full max-w-md">
-        <h3 className="text-3xl font-semibold mb-4 text-green-600 text-center">
+        <h3 className="text-3xl font-semibold mb-4 text-violet-600 text-center">
           Sign Up
         </h3>
         <form onSubmit={handleSubmitForm}>
@@ -96,7 +96,7 @@ export default function SignUpPage() {
               label="Image link"
               placeholder="Enter your Image link"
               required
-              className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+              className="w-full border-2 border-violet-500 rounded-xl focus:border-violet-700 hover:border-violet-600 transition duration-200"
             />
           </div>
           <div className="mb-4">
@@ -106,7 +106,7 @@ export default function SignUpPage() {
               label="Name"
               placeholder="Enter Your name"
               required
-              className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+              className="w-full border-2 border-violet-500 rounded-xl focus:border-violet-700 hover:border-violet-600 transition duration-200"
             />
           </div>
           <div className="mb-4">
@@ -116,7 +116,7 @@ export default function SignUpPage() {
               label="Email"
               placeholder="skillconnect@gmail.com"
               required
-              className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+              className="w-full border-2 border-violet-500 rounded-xl focus:border-violet-700 hover:border-violet-600 transition duration-200"
             />
           </div>
           <div className="mb-4">
@@ -126,7 +126,7 @@ export default function SignUpPage() {
               label="Password"
               placeholder="Enter your password"
               required
-              className="w-full border-2 border-green-500 rounded-xl focus:border-green-700 hover:border-green-600 transition duration-200"
+              className="w-full border-2 border-violet-500 rounded-xl focus:border-violet-700 hover:border-violet-600 transition duration-200"
             />
           </div>
           <div className="mb-4">
@@ -143,7 +143,7 @@ export default function SignUpPage() {
                   name="role"
                   value="freelancer"
                   required
-                  className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
+                  className="form-radio text-violet-500 rounded-xl focus:ring-violet-700 hover:bg-violet-200"
                 />
                 <span className="ml-2">Freelancer</span>
               </label>
@@ -153,7 +153,7 @@ export default function SignUpPage() {
                   name="role"
                   value="client"
                   required
-                  className="form-radio text-green-500 rounded-xl focus:ring-green-700 hover:bg-green-200"
+                  className="form-radio text-violet-500 rounded-xl focus:ring-violet-700 hover:bg-violet-200"
                 />
                 <span className="ml-2">Client</span>
               </label>
@@ -164,7 +164,7 @@ export default function SignUpPage() {
             shadow
             color="success"
             auto
-            className="w-full bg-green-500 rounded-xl hover:bg-green-600 text-white transition duration-200"
+            className="w-full bg-violet-500 rounded-xl hover:bg-violet-600 text-white transition duration-200"
           >
             Sign Up
           </Button>
@@ -178,7 +178,7 @@ export default function SignUpPage() {
             shadow
             color="success"
             auto
-            className="px-2 bg-green-500 hover:bg-green-600 text-white"
+            className="px-2 bg-violet-500 hover:bg-violet-600 text-white"
             onClick={() =>
               signIn("google", { callbackUrl: "http://localhost:3000" })
             }
@@ -191,7 +191,7 @@ export default function SignUpPage() {
             shadow
             color="success"
             auto
-            className="px-2 bg-green-500 hover:bg-green-600 text-white"
+            className="px-2 bg-violet-500 hover:bg-violet-600 text-white"
             onClick={() =>
               signIn("github", { callbackUrl: "http://localhost:3000" })
             }
@@ -203,7 +203,7 @@ export default function SignUpPage() {
         <div>
           <p className="text-center text-gray-600">
             Already have an account?{" "}
-            <Link className="hover:text-green-600" href="/api/auth/signin">
+            <Link className="hover:text-violet-600" href="/api/auth/signin">
               Sign in
             </Link>
           </p>

@@ -1,253 +1,183 @@
 "use client";
 
-import { Button, Card, CardFooter, Image } from "@nextui-org/react";
-import Link from "next/link"; // Import Next.js Link component
-import {
-  FaArrowRight,
-  FaCamera,
-  FaCode,
-  FaDesktop,
-  FaMobileAlt,
-  FaMusic,
-  FaPen,
-} from "react-icons/fa";
+
+import React from 'react';
+import { Card, CardFooter, Image, Button } from '@nextui-org/react';
+import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaMobileAlt, FaArrowRight } from 'react-icons/fa';
+import Link from 'next/link';
+import { motion } from 'framer-motion'; // Import motion from framer-motion
+
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 
 const TopCategories = () => {
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-left text-4xl font-medium text-[#2e8b57] mb-7 mt-8 flex items-center">
+      <h2 className="text-left text-4xl font-medium text-[#8a2be2] mb-7 mt-8 flex items-center">
         Most Popular Categories
         <FaArrowRight className="ml-2" />
       </h2>
 
+      {/* First row: 3 cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {/* Graphic Design */}
 
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="Graphic Design"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaDesktop size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                Graphic Design
-              </div>
-            </div>
-            <Link href="graphic-design">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
+        {/* Card components with motion */}
+        {[
+          {
+            title: "Graphic Design",
+            icon: <FaDesktop size={24} />,
+            imageSrc: "https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg",
+            link: "/graphic-design"
+          },
+          {
+            title: "Web Development",
+            icon: <FaCode size={24} />,
+            imageSrc: "https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg",
+            link: "/web-development"
+          },
+          {
+            title: "Content Writing",
+            icon: <FaPen size={24} />,
+            imageSrc: "https://i.postimg.cc/mkpX22Cy/unseen-studio-s9-CC2-SKy-SJM-unsplash.jpg",
+            link: "/content-writing"
+          },
+        ].map((category, index) => (
+          <motion.div
+            key={index}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+          >
+            <Card
+              isFooterBlurred
+              radius="lg"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+            >
+              <Image
+                alt={category.title}
+                className="object-cover"
+                height={250}
+                src={category.imageSrc}
+                width="100%"
+              />
+              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                <div className="flex items-center space-x-2 text-center">
+                  <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
+                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                </div>
+                <Link href={category.link}>
+                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
 
-        {/* Web Development */}
+      {/* Second row: 2 cards (aligned to the left) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+        {/* Card components with motion */}
+        {[
+          {
+            title: "Photography",
+            icon: <FaCamera size={24} />,
+            imageSrc: "https://i.postimg.cc/mZm6SVJ1/jamie-street-q-WYv-QMIJyf-E-unsplash.jpg",
+            link: "/photography"
+          },
+          {
+            title: "Music Production",
+            icon: <FaMusic size={24} />,
+            imageSrc: "https://i.postimg.cc/tgGrgcZw/caught-in-joy-Puk-ZSAi-K5o-unsplash.jpg",
+            link: "/music-production"
+          },
+        ].map((category, index) => (
+          <motion.div
+            key={index}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+          >
+            <Card
+              isFooterBlurred
+              radius="lg"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+            >
+              <Image
+                alt={category.title}
+                className="object-cover"
+                height={250}
+                src={category.imageSrc}
+                width="100%"
+              />
+              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                <div className="flex items-center space-x-2 text-center">
+                  <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
+                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                </div>
+                <Link href={category.link}>
+                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
 
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="Web Development"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaCode size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                Web Development
-              </div>
-            </div>
-            <Link href="/web-development">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
+      {/* Third row: 1 card (aligned to the left) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+        {/* Card components with motion */}
+        {[
+          {
+            title: "App Development",
+            icon: <FaMobileAlt size={24} />,
+            imageSrc: "https://i.postimg.cc/QtX0QWqq/wahid-khene-i-Kd-QCIi-SMl-Q-unsplash.jpg",
+            link: "/app-development"
+          },
+        ].map((category, index) => (
+          <motion.div
+            key={index}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+          >
+            <Card
+              isFooterBlurred
+              radius="lg"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+            >
+              <Image
+                alt={category.title}
+                className="object-cover"
+                height={250}
+                src={category.imageSrc}
+                width="100%"
+              />
+              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                <div className="flex items-center space-x-2 text-center">
+                  <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
+                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                </div>
+                <Link href={category.link}>
+                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
+        ))}
 
-        {/* Content Writing */}
-        {/* Route for Content Writing */}
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="Content Writing"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/mkpX22Cy/unseen-studio-s9-CC2-SKy-SJM-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaPen size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                Content Writing
-              </div>
-            </div>
-            <Link href="/content-writing">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
-
-        {/* Photography */}
-        {/* Route for Photography */}
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="Photography"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/mZm6SVJ1/jamie-street-q-WYv-QMIJyf-E-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaCamera size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                Photography
-              </div>
-            </div>
-            <Link href="/photography">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
-
-        {/* Music Production */}
-        {/* Route for Music Production */}
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="Music Production"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/tgGrgcZw/caught-in-joy-Puk-ZSAi-K5o-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaMusic size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                Music Production
-              </div>
-            </div>
-            <Link href="/music-production">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
-
-        {/* App Development */}
-        {/* Route for App Development */}
-        <Card
-          isFooterBlurred
-          radius="lg"
-          className="border-4 border-transparent hover:border-[#92ff67] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
-        >
-          <Image
-            alt="App Development"
-            className="object-cover"
-            height={250}
-            src="https://i.postimg.cc/QtX0QWqq/wahid-khene-i-Kd-QCIi-SMl-Q-unsplash.jpg"
-            width="100%"
-          />
-          <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <div className="flex items-center space-x-2 text-center">
-              <div className="text-3xl text-green-500">
-                <FaMobileAlt size={24} />
-              </div>
-              <div className="text-lg font-bold text-green-400">
-                App Development
-              </div>
-            </div>
-            <Link href="/app-development">
-              {" "}
-              <Button
-                className="text-sm text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-              >
-                Explore
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
       </div>
     </div>
   );

@@ -1,18 +1,18 @@
 import Image from "next/image";
-import about from "../../Image/Remote meeting-cuate.png"; 
+import about from "../../Image/Connecting teams-bro.png"; 
 
 
 import { FaBullhorn, FaGlobe, FaHandshake } from 'react-icons/fa';
 
 const About = () => {
   return (
-    <section className="flex flex-col items-center py-16 bg-white px-4 md:px-8 lg:px-16">
+    <section className="flex flex-col items-center py-16  px-4 md:px-8 lg:px-16">
       {/* Headline Section */}
 <div className="text-center mb-12">
-  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 hover:text-green-500 transition-colors duration-300">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 hover:text-violet-bg-violet-400 transition-colors duration-300">
     Who We Are
   </h2>
-  <div className="w-16 sm:w-20 h-1 bg-green-500 mx-auto mt-2 rounded-full"></div>
+  <div className="w-16 sm:w-20 h-1 bg-violet-400 mx-auto mt-2 rounded-full"></div>
 </div>
 
 {/* Main Content Section */}

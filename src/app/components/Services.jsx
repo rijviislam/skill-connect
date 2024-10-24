@@ -138,7 +138,7 @@ export default function Services() {
                   <Button
                     size="md"
                     onPress={() => onOpenChange(true)}
-                    className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                    className="bg-[#b064eb] text-white hover:bg-[#7a3da0] hover:text-black"
                   >
                     View
                   </Button>

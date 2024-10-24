@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <div>
       <BannerSlider />
-      <TopCategories />
       <WorkflowSteps />
+      <TopCategories />
       <Feature />
       <JobPosts/>
      

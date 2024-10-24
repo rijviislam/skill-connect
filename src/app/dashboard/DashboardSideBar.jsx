@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaAd, FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
-import logo from "../../Image/C-removebg-preview.png";
+import logo from "../../Image/Skill-removebg-preview.png";
 
 const DashboardSideBar = () => {
   const pathname = usePathname();
@@ -16,10 +16,10 @@ const DashboardSideBar = () => {
   console.log("FindRole", currentUserRole);
 
   return (
-    <div className="flex flex-col w-62 h-full bg-green-300 p-4">
+    <div className="flex flex-col w-62 h-full bg-violet-300 p-4">
       <div className="">
         <ul className="menu flex flex-col w-full">
-          <Link href="/" className="w-20 h-8 mb-5">
+          <Link href="/" className="w-60 h-20 mb-10">
             <Image src={logo} alt="Digital Web Design" className="" />
           </Link>
           {currentUserRole === "freelancer" && (
@@ -30,7 +30,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/profile"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/profile")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -43,7 +43,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/earnings"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/earnings")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -55,7 +55,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/proposals"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/proposals")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -67,7 +67,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/ongoing"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/ongoing")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -79,7 +79,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/messages"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/messages")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -91,7 +91,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/myServices"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/myServices")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -111,7 +111,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/clientProfile"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/clientProfile")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -123,7 +123,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/job"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/job")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -135,7 +135,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/posted-job-client"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/posted-job-client")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -147,7 +147,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/manageJobs"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/manageJobs")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -159,7 +159,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/services"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/services")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -171,7 +171,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/management"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/management")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -183,7 +183,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/payment"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/payment")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -195,7 +195,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/feedback"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/feedback")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -213,7 +213,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/user"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/user")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
@@ -223,7 +223,7 @@ const DashboardSideBar = () => {
                   href="/dashboard/report"
                   className={`flex items-center mb-4 text-lg ${
                     isActive("/dashboard/report")
-                      ? "font-extrabold text-green-800"
+                      ? "font-extrabold text-violet-800"
                       : ""
                   }`}
                 >
