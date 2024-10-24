@@ -7,7 +7,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  FaAd,
   FaBars,
   FaBook,
   FaHome,
@@ -169,115 +168,6 @@ const Dashboard = () => {
                       }`}
                     >
                       <FaUsers className="mr-2" /> My Services
-                    </Link>
-                  </li>
-                </>
-              )}
-
-              {currentUserRole === "client" && (
-                <>
-                  <li className="font-bold text-lg mb-4">Client Menu</li>
-                  <li>
-                    <Link
-                      href="/dashboard/clientProfile"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/clientProfile")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> My Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/job"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/job")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Job Posting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/posted-job-client"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/posted-job-client")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Posted Job
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/manageJobs"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/manageJobs")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Manage Job
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/services"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/services")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Services
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/payment-management"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/payment-management")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Payment Management
-                    </Link>
-                  </li>
-                </>
-              )}
-
-              {currentUserRole === "admin" && (
-                <>
-                  <div className="divider my-4"></div>
-                  <li className="font-bold text-lg mb-4">Admin Menu</li>
-                  <li>
-                    <Link
-                      href="/dashboard/user"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/user")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaAd className="mr-2" /> User Management
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/report"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/report")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaAd className="mr-2" /> Reports
                     </Link>
                   </li>
                 </>
