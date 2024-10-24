@@ -1,13 +1,25 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { Avatar } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { FaAd, FaBook, FaHome, FaList, FaUsers, FaBars, FaTimes, FaCog, FaBriefcase, FaEnvelope, FaFileContract, FaTasks, FaUserTie } from "react-icons/fa";
 import logo from "../../Image/Skill-removebg-preview.png";
 
 import { useState } from "react";
+import {
+  FaAd,
+  FaBars,
+  FaBook,
+  FaHome,
+  FaList,
+  FaTimes,
+  FaUsers,
+} from "react-icons/fa";
+import logo from "../../Image/Skill-removebg-preview.png";
 
 const Dashboard = () => {
   const pathname = usePathname();
@@ -23,7 +35,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col h-full">
-      
+
       <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
         <button onClick={toggleSidebar} className="text-xl md:hidden">
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -31,7 +43,9 @@ const Dashboard = () => {
         <h1 className="text-xl font-bold ">Dashboard</h1>
       </header>
 
+
       <div className={`flex flex-grow h-full ${isSidebarOpen ? "block" : "hidden md:flex"}`}>
+
         {/* Sidebar */}
         <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
           <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
@@ -48,12 +62,13 @@ const Dashboard = () => {
                   color="secondary"
                   name="User Avatar"
                   size="sm"
-                  src={session?.user?.profile?.avatarUrl }
+                  src={session?.user?.profile?.avatarUrl || "https://i.postimg.cc/MGvwhcVk/photo-1500648767791-00dcc994a43e.avif"}
                 />
               </div>
               <div>
                 <p className="font-semibold">
-                  <span>{session?.user?.role}</span>: <span>{session?.user?.email}</span>
+                  <span>{session?.user?.role}</span>:{" "}
+                  <span>{session?.user?.email}</span>
                 </p>
               </div>
             </div>
@@ -62,19 +77,31 @@ const Dashboard = () => {
             <ul className="menu flex flex-col w-full">
               {currentUserRole === "freelancer" && (
                 <>
-                  <li className="font-bold text-lg mb-4 mt-5">Freelancer Menu</li>
+                  <li className="font-bold text-lg mb-4 mt-5">
+                    Freelancer Menu
+                  </li>
                   <li>
+
                     <Link href="/dashboard/profile" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/profile") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
                       <FaUserTie className="mr-2" />
+
                       Freelancer Profile
                     </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/earnings" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/earnings") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                    <Link
+                      href="/dashboard/earnings"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/earnings")
+                          ? "font-extrabold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
                       <FaBook className="mr-2" /> Earnings Tracking
                     </Link>
                   </li>
                   <li>
+
                     <Link href="/dashboard/proposals" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/proposals") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
                       <FaFileContract className="mr-2" /> My Proposals
                     </Link>
@@ -92,6 +119,7 @@ const Dashboard = () => {
                   <li>
                     <Link href="/dashboard/myServices" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/myServices") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
                       <FaBriefcase className="mr-2" /> My Services
+
                     </Link>
                   </li>
                 </>
@@ -101,6 +129,7 @@ const Dashboard = () => {
                 <>
                   <li className="font-bold text-lg mb-4">Client Menu</li>
                   <li>
+
                     <Link href="/dashboard/clientProfile" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/clientProfile") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
                       <FaUserTie className="mr-2" /> My Profile
                     </Link>
@@ -123,6 +152,7 @@ const Dashboard = () => {
                   <li>
                     <Link href="/dashboard/services" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/services") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
                       <FaBriefcase className="mr-2" /> Services
+
                     </Link>
                   </li>
                 </>
@@ -133,12 +163,26 @@ const Dashboard = () => {
                   <div className="divider my-4"></div>
                   <li className="font-bold text-lg mb-4">Admin Menu</li>
                   <li>
-                    <Link href="/dashboard/user" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/user") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                    <Link
+                      href="/dashboard/user"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/user")
+                          ? "font-extrabold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
                       <FaAd className="mr-2" /> User Management
                     </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/report" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/report") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                    <Link
+                      href="/dashboard/report"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/report")
+                          ? "font-extrabold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
                       <FaAd className="mr-2" /> Reports
                     </Link>
                   </li>
