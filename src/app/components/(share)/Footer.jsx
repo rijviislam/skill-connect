@@ -1,21 +1,26 @@
 import Image from "next/image";
 import logo from "../../../Image/Skill-removebg-preview.png";
+
 export default function Footer() {
   return (
     <footer className="px-4 bg-violet-100 divide-y drop-shadow-2xl border-t border-[#8a2be2]">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
-        <div className="lg:w-1/3">
-          <a rel="noopener noreferrer" href="#" className="flex items-start">
-            <span className="self-start text-2xl font-bold text-[#8a2be2] flex items-start justify-start">
-              <Image
-                src={logo}
-                alt="Digital Web Design"
-                className="w-96 h-96 "
-              />
-            </span>
+        {/* Left side with logo */}
+        <div className="lg:w-1/3 flex items-start">
+          <a rel="noopener noreferrer" href="#">
+            <Image
+              src={logo}
+              alt="Skill Connect Logo"
+              width={150} // Adjust the width as needed
+              height={50} // Adjust the height as needed
+              className="object-contain"
+            />
           </a>
         </div>
+
+        {/* Right side with links */}
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
+          {/* Product Links */}
           <div className="space-y-3">
             <h3 className="uppercase text-[#8a2be2] font-semibold">Product</h3>
             <ul className="space-y-1 text-[#8a2be2] font-medium">
@@ -57,6 +62,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Company Links */}
           <div className="space-y-3">
             <h3 className="uppercase text-[#8a2be2] font-semibold">Company</h3>
             <ul className="space-y-1 text-[#8a2be2] font-medium">
@@ -80,6 +87,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Developer Links */}
           <div className="space-y-3">
             <h3 className="uppercase text-[#8a2be2] font-semibold">
               Developers
@@ -114,6 +123,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Social Media Links */}
           <div className="space-y-3">
             <div className="uppercase text-[#8a2be2] font-semibold">
               Social media
@@ -162,15 +173,12 @@ export default function Footer() {
                   fill="currentColor"
                   className="w-5 h-5"
                 >
-                  <path d="M16 0.396484C7.16406 0.396484 0 7.55469 0 16.3965C0 23.3242 4.58203 29.124 10.9375 31.3203C11.75 31.4648 12.0391 30.9688 12.0391 30.542V27.6211C7.57812 28.5117 6.74219 25.4648 6.74219 25.4648C6.01562 23.5508 5.01172 23.0586 5.01172 23.0586C3.57422 22.0898 5.12891 22.1133 5.12891 22.1133C6.71484 22.2266 7.55859 23.7695 7.55859 23.7695C8.95703 26.2227 11.3086 25.4922 12.2734 25.0469C12.4023 24.0547 12.8203 23.3945 13.2812 23.0117C9.66406 22.6289 5.875 21.2734 5.875 15.6758C5.875 13.957 6.48828 12.5508 7.49609 11.4375C7.32422 11.0547 6.78516 9.39453 7.66406 7.19922C7.66406 7.19922 9.01172 6.79297 11.9922 8.69141C13.2812 8.33594 14.6641 8.15625 16.0469 8.14844C17.4297 8.15625 18.8125 8.33594 20.1055 8.69141C23.0781 6.78516 24.4219 7.19922 24.4219 7.19922C25.3008 9.39453 24.7617 11.0547 24.5938 11.4375C25.6055 12.5508 26.2188 13.957 26.2188 15.6758C26.2188 21.2852 22.4219 22.625 18.7969 23.0039C19.3555 23.4648 19.832 24.3242 19.832 25.5898V30.542C19.832 30.9727 20.1172 31.4688 20.9414 31.3203C27.292 29.1211 31.875 23.3242 31.875 16.3965C31.875 7.55469 24.707 0.396484 16 0.396484Z"></path>
+                  <path d="M16 0.396484c-8.839844 0-16 7.160156-16 16 0 7.074219 4.582031 13.066406 10.9375 15.183594 0.800781 0.148438 1.09375-0.347656 1.09375-0.773438 0-0.382812-0.015625-1.644531-0.023438-2.980469-4.453125 0.96875-5.390625-1.910156-5.390625-1.910156-0.726562-1.847656-1.773437-2.34375-1.773437-2.34375-1.449219-0.992188 0.109375-0.972656 0.109375-0.972656 1.601563 0.113281 2.445312 1.644531 2.445312 1.644531 1.425781 2.441406 3.738281 1.734375 4.648437 1.324219 0.144532-1.03125 0.558594-1.734375 1.015625-2.132812-3.554687-0.40625-7.289063-1.777344-7.289063-7.90625 0-1.746094 0.621094-3.171875 1.640625-4.289063-0.164062-0.40625-0.710937-2.039062 0.15625-4.253906 0 0 1.335937-0.429688 4.375 1.640625 1.269531-0.355469 2.632812-0.53125 3.984375-0.539063 1.351563 0.007812 2.714844 0.183594 3.984375 0.539063 3.035156-2.070313 4.371094-1.640625 4.371094-1.640625 0.867187 2.214844 0.320313 3.847656 0.15625 4.253906 1.019531 1.117188 1.640625 2.542969 1.640625 4.289063 0 6.148437-3.742188 7.496094-7.304688 7.894531 0.574219 0.496094 1.085938 1.480469 1.085938 2.988281 0 2.15625-0.019531 3.894531-0.019531 4.421875 0 0.433594 0.285156 0.929688 1.105469 0.769531 6.359375-2.121094 10.9375-8.109375 10.9375-15.183594 0-8.839844-7.160156-16-16-16zm0 0"></path>
                 </svg>
               </a>
             </div>
           </div>
         </div>
-      </div>
-      <div className="py-6 text-sm text-center text-[#8a2be2] font-semibold">
-        © 2024 Skill Connect. All rights reserved.
       </div>
     </footer>
   );

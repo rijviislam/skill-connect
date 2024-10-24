@@ -1,18 +1,15 @@
 "use client";
 
-
 import React from 'react';
 import { Card, CardFooter, Image, Button } from '@nextui-org/react';
 import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaMobileAlt, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
-import { motion } from 'framer-motion'; // Import motion from framer-motion
-
+import { motion } from 'framer-motion'; 
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
-
 
 const TopCategories = () => {
   return (
@@ -22,10 +19,8 @@ const TopCategories = () => {
         <FaArrowRight className="ml-2" />
       </h2>
 
-      {/* First row: 3 cards */}
+      {/* First row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-        {/* Card components with motion */}
         {[
           {
             title: "Graphic Design",
@@ -51,7 +46,7 @@ const TopCategories = () => {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+            transition={{ duration: 0.5, delay: index * 0.1 }} 
           >
             <Card
               isFooterBlurred
@@ -65,13 +60,13 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
                     Explore
                   </Button>
                 </Link>
@@ -81,9 +76,8 @@ const TopCategories = () => {
         ))}
       </div>
 
-      {/* Second row: 2 cards (aligned to the left) */}
+      {/* Second row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
-        {/* Card components with motion */}
         {[
           {
             title: "Photography",
@@ -103,7 +97,7 @@ const TopCategories = () => {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card
               isFooterBlurred
@@ -117,13 +111,13 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
                     Explore
                   </Button>
                 </Link>
@@ -133,9 +127,8 @@ const TopCategories = () => {
         ))}
       </div>
 
-      {/* Third row: 1 card (aligned to the left) */}
+      {/* Third row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
-        {/* Card components with motion */}
         {[
           {
             title: "App Development",
@@ -149,7 +142,7 @@ const TopCategories = () => {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.5, delay: index * 0.1 }} // Add a delay based on index
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card
               isFooterBlurred
@@ -163,13 +156,13 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-white/55 border-white/40 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-[#b19cd9]">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-black/20" variant="flat" color="default" radius="lg" size="sm">
+                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
                     Explore
                   </Button>
                 </Link>
@@ -177,8 +170,8 @@ const TopCategories = () => {
             </Card>
           </motion.div>
         ))}
-
       </div>
+      
     </div>
   );
 };
