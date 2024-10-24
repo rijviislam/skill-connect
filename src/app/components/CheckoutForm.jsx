@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useMutation } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -52,21 +53,22 @@ export default function CheckoutForm() {
   useEffect(() => {
     fetchUserByEmail();
   }, [userEmail]);
+
   console.log("user", currUser);
 
-  // const { mutateAsync } = useMutation({
-  //   mutationFn: async (paymentMethod) => {
-  //     if (currUser) {
-  //       const result = await axios.patch(
-  //         `/api/payment-info-update/${userEmail}`,
-  //         {
-  //           paymentMethod, // Pass the paymentMethod here
-  //         }
-  //       );
-  //       return result.data;
-  //     }
-  //   },
-  // });
+  const { mutateAsync } = useMutation({
+    mutationFn: async (paymentIntent) => {
+      if (currUser) {
+        const result = await axios.patch(
+          `/api/payment-info-update/${userEmail}`,
+          {
+            paymentMethod, // Pass the paymentMethod here
+          }
+        );
+        return result.data;
+      }
+    },
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
