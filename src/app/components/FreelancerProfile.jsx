@@ -64,6 +64,8 @@ export default function FreelancerProfile() {
   const [review, setReview] = useState(0);
   const { register, handleSubmit, reset } = useForm();
 
+  
+
   const fetchProfiles = async () => {
     setLoading(true);
     try {
@@ -225,6 +227,7 @@ export default function FreelancerProfile() {
   };
   console.log("CurrentUser", currUser);
   console.log("Current Profile", selectedProfile);
+  
 
   return (
     <div className="mx-10">
@@ -269,7 +272,7 @@ export default function FreelancerProfile() {
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-full max-w-md min-w-[300px] h-auto"
+                className="py-4 w-full max-w-md min-w-[300px] h-auto bg-gray-50 border-2 border-violet-400"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
@@ -339,7 +342,7 @@ export default function FreelancerProfile() {
 
                   <div className="flex justify-between items-end w-full">
                     <Button
-                      className="text-sm text-white bg-[#C20E4D] mt-3 hover:underline"
+                      className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
                       onClick={() => handleReportUser(profile._id)}
                     >
                       {dropdownVisible[profile._id] ? "Cancel" : "Report User"}

@@ -249,11 +249,11 @@ export default function ClientProfile() {
           <Spinner size="lg" color="primary" />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile, idx) => (
               <Card
-                className="py-4  lg:w-[450px] min-w-[350px] h-[450px]"
+                className="py-4 w-full max-w-md min-w-[300px] h-auto bg-gray-50 border-2 border-violet-400"
                 key={idx}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
