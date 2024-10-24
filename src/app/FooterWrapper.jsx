@@ -1,13 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import NavbarComponent from "./components/(share)/NavbarComponent";
 
-export default function NavbarWrapper() {
+import Footer from "./components/(share)/Footer";
+
+export default function FooterWrapper() {
   const pathname = usePathname();
 
-  
-  const noNavbarBasePaths = [
+
+  const noFooterBasePaths = [
     '/dashboard',
     '/dashboard/profile',
     '/dashboard/earnings',
@@ -27,8 +28,8 @@ export default function NavbarWrapper() {
     '/dashboard/manageJobs'
   ];
 
- 
-  const shouldHideNavbar = noNavbarBasePaths.some(basePath => pathname.startsWith(basePath));
+  
+  const shouldHideFooter = noFooterBasePaths.some(basePath => pathname.startsWith(basePath));
 
-  return !shouldHideNavbar ? <NavbarComponent /> : null;
+  return !shouldHideFooter ? <Footer /> : null;
 }

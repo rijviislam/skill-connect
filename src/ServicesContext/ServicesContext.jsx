@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { createContext } from "react";
@@ -33,7 +34,7 @@ export default function ServicesContext({ children }) {
     },
   });
 
-  if (isLoading) return <h1>Loading....</h1>;
+  if (isLoading) return <h1><Loading/></h1>;
   if (isError) return <h1>Error ...</h1>;
   //   console.log(services);
   const val = {

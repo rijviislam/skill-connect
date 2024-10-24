@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const ProfilePage = () => {
     setShowPassword(!showPassword);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p><Loading/></p>;
   return (
     <div>
       <div>
