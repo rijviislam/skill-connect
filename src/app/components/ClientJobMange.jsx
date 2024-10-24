@@ -76,7 +76,7 @@ const ClientJobMange = () => {
                 <Divider />
                 <CardBody>
                   <Progress
-                    size="sm"
+                    size="lg"
                     radius="sm"
                     classNames={{
                       base: "max-w-md",
