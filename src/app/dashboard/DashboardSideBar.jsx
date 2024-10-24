@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 import { FaAd, FaBook, FaHome, FaList, FaUsers, FaBars, FaTimes, FaCog, FaBriefcase, FaEnvelope, FaFileContract, FaTasks, FaUserTie } from "react-icons/fa";
 import logo from "../../Image/Skill-removebg-preview.png";
-import { Avatar } from "@nextui-org/react";
 
 import { useState } from "react";
 import {
@@ -57,16 +56,13 @@ const Dashboard = () => {
           <div>
             <div className="mr-4">
               <div>
-                <Avatar
+                <Image
                   isBordered
                   className="w-20 h-20 border-5 border-violet-500"
                   color="secondary"
                   name="User Avatar"
                   size="sm"
-                  src={
-                    session?.user?.profile?.avatarUrl ||
-                    "https://i.postimg.cc/MGvwhcVk/photo-1500648767791-00dcc994a43e.avif"
-                  }
+                  src={session?.user?.profile?.avatarUrl || "https://i.postimg.cc/MGvwhcVk/photo-1500648767791-00dcc994a43e.avif"}
                 />
               </div>
               <div>
