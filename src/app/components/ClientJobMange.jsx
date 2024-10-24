@@ -14,6 +14,8 @@ import {
   Progress,
   useDisclosure,
 } from "@nextui-org/react";
+
+import Link from "next/link";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -90,7 +92,7 @@ const ClientJobMange = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter className=" gap-2">
-                  <Button color="success">Message</Button>
+                  <Link href={`/dashboard/manageJobs/${job._id}`}><Button color="success">Message</Button></Link>
                   {job.ongoingWork === 100 ? (
                     // <Button color="success"> Make Payment </Button>
                     <p>Rijvi</p>

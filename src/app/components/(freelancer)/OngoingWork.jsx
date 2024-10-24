@@ -3,6 +3,7 @@ import { Button, Card, CardBody, CardHeader, Progress } from "@nextui-org/react"
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const OngoingWork = () => {
   const { data: session } = useSession();
@@ -76,12 +77,14 @@ const OngoingWork = () => {
               >
                 Update work 10%
               </Button>
+              <Link href={`/dashboard/manageJobs/${project._id}`}>
               <Button
                 size="md"
                 className="bg-red-800 text-white hover:bg-[#b12d2d]"
               >
                 Message
               </Button>
+              </Link>
             </div>
           </CardHeader>
         </Card>
