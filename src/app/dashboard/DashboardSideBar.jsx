@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaAd,
   FaBars,
@@ -20,6 +20,8 @@ import logo from "../../Image/Skill-removebg-preview.png";
 const Dashboard = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const [currUser, setCurrUser] = useState(null);
+  const userEmail = session?.user?.email;
   const currentUserRole = session?.user?.role;
 
   const isActive = (path) => pathname === path;
@@ -29,8 +31,27 @@ const Dashboard = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  // Fetch profiles from API by email
+  const fetchUserByEmail = async () => {
+    try {
+      const response = await fetch(`/api/get-user?email=${userEmail}`);
+      if (response.ok) {
+        const data = await response.json();
+        setCurrUser(data);
+      } else {
+        console.error("Failed to fetch user:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserByEmail();
+  }, [userEmail]);
+
+  console.log(currUser);
   return (
-    <div className="flex flex-col h-full">
+    <div className="fixed h-screen">
       <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
         <button onClick={toggleSidebar} className="text-xl md:hidden">
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -55,14 +76,11 @@ const Dashboard = () => {
               <div>
                 <Avatar
                   isBordered
-                  className="w-20 h-20 border-5 border-violet-500"
+                  className="w-20 h-20 border-2 border-violet-500"
                   color="secondary"
                   name="User Avatar"
                   size="sm"
-                  src={
-                    session?.user?.profile?.avatarUrl ||
-                    "https://i.postimg.cc/MGvwhcVk/photo-1500648767791-00dcc994a43e.avif"
-                  }
+                  src={currUser?.profile?.avatarUrl}
                 />
               </div>
               <div>
@@ -217,6 +235,18 @@ const Dashboard = () => {
                       }`}
                     >
                       <FaHome className="mr-2" /> Services
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/dashboard/payment-management"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/payment-management")
+                          ? "font-extrabold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <FaHome className="mr-2" /> Payment Management
                     </Link>
                   </li>
                 </>
