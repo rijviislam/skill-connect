@@ -7,7 +7,7 @@ export default function Payment() {
   return (
     <div>
       <Elements stripe={stripePromise}>
-        <CheckoutForm />
+        <CheckoutForm stripe={stripePromise} />
       </Elements>
     </div>
   );
