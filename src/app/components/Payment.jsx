@@ -1,9 +1,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
-const stripePromise = loadStripe(
-  "pk_test_51QDCjcJ5DOhPgyVe7YUAFGSevnE6ZmRHyIxkuLASDXiPxgu8ASLZleauYIYgpsG07KIqgQfiLpohYXPsTbpwWTef00ZSIddo9S"
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PAYMENT_GAEWAY_PK);
 
 export default function Payment() {
   return (
