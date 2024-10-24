@@ -172,6 +172,24 @@ const NavbarComponent = () => {
               <DropdownItem href="dashboard" key="dashboard">
                 Dashboard
               </DropdownItem>
+              <DropdownItem href="freelancerProfiles" key="Freelancer profiles">
+              Freelancer profiles
+              </DropdownItem>
+              <DropdownItem href="clientProfiles" key="Client profiles">
+              Client profiles
+              </DropdownItem>
+              <DropdownItem href="jobs" key="Jobs">
+              Jobs
+              </DropdownItem>
+              <DropdownItem href="fAQ" key="FAQ">
+              FAQ
+              </DropdownItem>
+              <DropdownItem href="us" key="Contact Us">
+              Contact Us
+              </DropdownItem>
+              <DropdownItem href="about" key="About">
+                About
+              </DropdownItem>
 
               <DropdownItem onClick={() => signOut()} color="danger">
                 Log Out
