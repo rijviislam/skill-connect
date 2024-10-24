@@ -5,6 +5,11 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { FaAd, FaBook, FaHome, FaList, FaUsers, FaBars, FaTimes, FaCog, FaBriefcase, FaEnvelope, FaFileContract, FaTasks, FaUserTie } from "react-icons/fa";
+import logo from "../../Image/Skill-removebg-preview.png";
+import { Avatar } from "@nextui-org/react";
+
 import { useState } from "react";
 import {
   FaAd,
@@ -31,6 +36,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col h-full">
+
       <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
         <button onClick={toggleSidebar} className="text-xl md:hidden">
           {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -38,11 +44,9 @@ const Dashboard = () => {
         <h1 className="text-xl font-bold ">Dashboard</h1>
       </header>
 
-      <div
-        className={`flex flex-grow h-full ${
-          isSidebarOpen ? "block" : "hidden md:flex"
-        }`}
-      >
+
+      <div className={`flex flex-grow h-full ${isSidebarOpen ? "block" : "hidden md:flex"}`}>
+
         {/* Sidebar */}
         <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
           <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
@@ -81,15 +85,10 @@ const Dashboard = () => {
                     Freelancer Menu
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/profile"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/profile")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" />
+
+                    <Link href="/dashboard/profile" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/profile") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaUserTie className="mr-2" />
+
                       Freelancer Profile
                     </Link>
                   </li>
@@ -106,51 +105,25 @@ const Dashboard = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/proposals"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/proposals")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaList className="mr-2" /> My Proposals
+
+                    <Link href="/dashboard/proposals" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/proposals") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaFileContract className="mr-2" /> My Proposals
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/ongoing"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/ongoing")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaList className="mr-2" /> Ongoing
+                    <Link href="/dashboard/ongoing" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/ongoing") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaTasks className="mr-2" /> Ongoing
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/messages"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/messages")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaUsers className="mr-2" /> Messages
+                    <Link href="/dashboard/messages" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/messages") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaEnvelope className="mr-2" /> Messages
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/myServices"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/myServices")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaUsers className="mr-2" /> My Services
+                    <Link href="/dashboard/myServices" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/myServices") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaBriefcase className="mr-2" /> My Services
+
                     </Link>
                   </li>
                 </>
@@ -160,63 +133,30 @@ const Dashboard = () => {
                 <>
                   <li className="font-bold text-lg mb-4">Client Menu</li>
                   <li>
-                    <Link
-                      href="/dashboard/clientProfile"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/clientProfile")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> My Profile
+
+                    <Link href="/dashboard/clientProfile" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/clientProfile") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaUserTie className="mr-2" /> My Profile
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/job"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/job")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Job Posting
+                    <Link href="/dashboard/job" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/job") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaFileContract className="mr-2" /> Job Posting
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/posted-job-client"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/posted-job-client")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Posted Job
+                    <Link href="/dashboard/posted-job-client" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/posted-job-client") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaTasks className="mr-2" /> Posted Job
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/manageJobs"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/manageJobs")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Manage Job
+                    <Link href="/dashboard/manageJobs" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/manageJobs") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaCog className="mr-2" /> Manage Job
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/dashboard/services"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/services")
-                          ? "font-extrabold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaHome className="mr-2" /> Services
+                    <Link href="/dashboard/services" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/services") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaBriefcase className="mr-2" /> Services
+
                     </Link>
                   </li>
                 </>
