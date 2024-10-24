@@ -15,12 +15,13 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { HiMenu } from "react-icons/hi"; 
 import logo from "../../../Image/Skill-removebg-preview.png";
 
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
+  const userImage = session?.user?.profile?.avatarUrl;
+  const userType = session?.user?.role;
   const userEmail = session?.user?.email;
   const [loading, setLoading] = useState(status === "loading");
   const [currUser, setCurrUser] = useState([]);
@@ -53,35 +54,73 @@ const NavbarComponent = () => {
   return (
     <Navbar
       isBordered
-      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]"
+      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea] "
     >
-      <div className="flex items-center justify-between w-full">
+      <div className=" flex items-center gap-20">
         <NavbarContent justify="start">
-          <NavbarBrand className="mr-4">
+          <NavbarBrand className="mr-4 ">
             <Link href="/" className="-ml-30 lg:-ml-44 ">
-              <Image src={logo} alt="Digital Web Design" width={300} height={60} className="object-contain" /> 
+              <Image src={logo} alt="Digital Web Design" className="" />
             </Link>
           </NavbarBrand>
-        </NavbarContent>
-
-     
-        <NavbarContent className="hidden sm:flex gap-5">
-          {["freelancerProfile", "clientProfile", "jobs", "about", "faq", "us"].map((route) => (
-            <NavbarItem key={route}>
+          <NavbarContent className="hidden sm:flex gap-3">
+            <NavbarItem>
               <Link
                 color="foreground"
-                href={route}
+                href="freelancerProfile"
                 className="font-bold text-white"
               >
-                {route.charAt(0).toUpperCase() + route.slice(1).replace(/([A-Z])/g, ' $1')}
+                Freelancer profiles
               </Link>
             </NavbarItem>
-          ))}
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="clientProfile"
+                className="font-bold text-white"
+              >
+                Client profiles
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="jobs"
+                className="font-bold text-white"
+              >
+                Jobs
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="about"
+                className="font-bold text-white"
+              >
+                About
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="faq"
+                className="font-bold text-white"
+              >
+                FAQ
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="us"
+                className="font-bold text-white"
+              >
+                Contact Us
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
         </NavbarContent>
 
-     
-
-        
         <NavbarContent
           as="div"
           className="items-center w-[500px] pr-[200px] m-0 p-0"
@@ -94,7 +133,7 @@ const NavbarComponent = () => {
                   <Avatar
                     isBordered
                     as="button"
-                    className="transition-transform"
+                    className="transition-transform "
                     color="secondary"
                     name="Jason Hughes"
                     size="sm"
@@ -105,7 +144,11 @@ const NavbarComponent = () => {
             ) : (
               <>
                 <NavbarItem>
-                  <Button onClick={() => signIn()} color="primary" variant="ghost">
+                  <Button
+                    onClick={() => signIn()}
+                    color="primary"
+                    variant="ghost"
+                  >
                     Sign In
                   </Button>
                 </NavbarItem>
@@ -119,24 +162,16 @@ const NavbarComponent = () => {
               </>
             )}
 
-            <DropdownMenu aria-label="Profile Actions , Navigation Links" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2 ">
                 <p className="font-semibold">
-                  <span>{session?.user?.role}</span>: <span> {userEmail}</span>
+                  <span>{userType}</span>: <span> {userEmail}</span>
                 </p>
               </DropdownItem>
 
               <DropdownItem href="dashboard" key="dashboard">
                 Dashboard
               </DropdownItem>
-
-              {["freelancerProfile", "clientProfile", "jobs", "about", "faq", "us"].map((route) => (
-                <DropdownItem key={route}>
-                  <Link href={route}>
-                    {route.charAt(0).toUpperCase() + route.slice(1).replace(/([A-Z])/g, ' $1')}
-                  </Link>
-                </DropdownItem>
-              ))}
 
               <DropdownItem onClick={() => signOut()} color="danger">
                 Log Out
