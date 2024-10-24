@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion"; 
 import banner from "../../../Image/Telecommuting-rafiki.png";
-import background from "../../../Image/Banner11.png"; // Add your background image here
+import background from "../../../Image/Banner11.png"; 
 
 const BannerSlider = () => {
   const oscillateY = {
@@ -29,7 +29,7 @@ const BannerSlider = () => {
       <div
         className="h-[600px] bg-cover bg-center flex items-center"
         style={{
-          backgroundImage: `url(${background.src})`, // Set background image
+          backgroundImage: `url(${background.src})`, 
         }}
       >
         <div className="container mx-auto flex flex-col lg:flex-row-reverse items-center justify-center py-5 px-4 h-full">
@@ -38,16 +38,16 @@ const BannerSlider = () => {
             initial="hidden"
             animate="visible"
             variants={oscillateY}
-            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6" // Reduced margin bottom for mobile
+            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6" 
           >
             <Image
               src={banner}
               alt="Digital Web Design"
               layout="responsive"
-              width={400} // Reduced width for smaller size
-              height={300} // Reduced height for smaller size
+              width={400} 
+              height={300} 
               objectFit="cover"
-              className="rounded-lg" 
+              className="" 
             />
           </motion.div>
           

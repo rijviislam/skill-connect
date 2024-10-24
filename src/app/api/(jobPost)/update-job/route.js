@@ -3,11 +3,11 @@ import { ObjectId } from "mongodb";
 
 export const PATCH = async (request) => {
   try {
-    const db = await connectDB(); // Connect to the database
+    const db = await connectDB();
     const jobPostCollection = db.collection("jobs");
 
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id"); // Get the job ID from query parameters
+    const id = searchParams.get("id");
 
     if (!id) {
       return new Response(JSON.stringify({ message: "ID is required" }), {
@@ -15,17 +15,16 @@ export const PATCH = async (request) => {
       });
     }
 
-    // Ensure the id is valid before trying to create an ObjectId
     if (!ObjectId.isValid(id)) {
       return new Response(JSON.stringify({ message: "Invalid ID format" }), {
         status: 400,
       });
     }
 
-    const updatedData = await request.json(); // Get the updated data from the request body
+    const updatedData = await request.json();
     console.log("UpdatedData", updatedData);
     const { appliedPeople } = updatedData;
-    const user = appliedPeople[0]; // Assuming `appliedPeople` contains only one user at a time
+    const user = appliedPeople[0];
     console.log("Applie user", user);
     if (!user) {
       return new Response(
@@ -34,7 +33,6 @@ export const PATCH = async (request) => {
       );
     }
 
-    // Find the job post by its ID
     const job = await jobPostCollection.findOne({ _id: new ObjectId(id) });
 
     if (!job) {
@@ -43,7 +41,6 @@ export const PATCH = async (request) => {
       });
     }
 
-    // Check if the user has already applied
     const hasAlreadyApplied = job.appliedPeople?.some(
       (person) => person.email === user.email
     );
@@ -55,10 +52,9 @@ export const PATCH = async (request) => {
       );
     }
 
-    // Perform the update operation if the user has not applied yet
     const result = await jobPostCollection.updateOne(
       { _id: new ObjectId(id) },
-      { $addToSet: { appliedPeople: user } } // Use $addToSet to ensure the user is only added once
+      { $addToSet: { appliedPeople: user } }
     );
 
     if (result.modifiedCount === 0) {

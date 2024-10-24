@@ -1,5 +1,5 @@
 "use client";
-import Slider from "react-slick";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Img4 from "../../../Image/photo-1500648767791-00dcc994a43e.avif";
@@ -59,6 +59,13 @@ const Review = () => {
 
     if (reviews.length === 0) return null; 
 
+
+    const slideIn = {
+        hidden: { x: '-50%', opacity: 0 },
+        visible: { x: 0, opacity: 1, transition: { duration: 1.5 } },
+      };
+    
+
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="max-w-6xl px-6 py-10 mx-auto">
@@ -102,4 +109,4 @@ const Review = () => {
     );
 };
 
-export default Review;
+export default Review;      
