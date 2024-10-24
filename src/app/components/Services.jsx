@@ -11,10 +11,10 @@ import {
   ModalFooter,
   ModalHeader,
   Slider,
-  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
 
 export default function Services() {
@@ -90,7 +90,7 @@ export default function Services() {
         <Slider
           key="success"
           showTooltip={true}
-          color="success"
+          color="secondary"
           step={50}
           maxValue={5000}
           minValue={100}
@@ -103,9 +103,10 @@ export default function Services() {
       </div>
       {/* GRID  */}
       {loading ? (
-        <div className="flex justify-center my-10">
-          <Spinner size="lg" color="success" />
-        </div>
+        // <div className="flex justify-center my-10">
+        //   <Spinner size="lg" color="success" />
+        // </div>
+        <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
           {filteredServices?.map((profile, idx) => (
