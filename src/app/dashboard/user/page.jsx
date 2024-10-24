@@ -158,7 +158,7 @@ const UsersManagementPage = () => {
 
       <div className="overflow-x-auto max-w-full">
         <div className="max-h-screen overflow-y-auto border border-gray-300 rounded-lg shadow-md">
-          <table className="min-w-full bg-green-50">
+          <table className="min-w-full bg-violet-50">
             <thead className="bg-gray-200 sticky top-0 z-10">
               <tr className="bg-gray-200">
                 <th className="py-2 px-4">
