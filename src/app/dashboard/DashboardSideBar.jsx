@@ -4,9 +4,10 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaAd, FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
+import { FaAd, FaBook, FaHome, FaList, FaUsers, FaBars, FaTimes } from "react-icons/fa";
 import logo from "../../Image/Skill-removebg-preview.png";
 import { Avatar } from "@nextui-org/react";
+import { useState } from "react";
 
 const Dashboard = () => {
   const pathname = usePathname();
@@ -14,13 +15,26 @@ const Dashboard = () => {
   const currentUserRole = session?.user?.role;
 
   const isActive = (path) => pathname === path;
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* Sidebar and Content Container */}
-      <div className="flex flex-grow">
+    <div className="flex flex-col h-full">
+      
+      <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200">
+        <button onClick={toggleSidebar} className="text-xl md:hidden">
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        <h1 className="text-xl font-bold ">Dashboard</h1>
+      </header>
+
+     
+      <div className={`flex flex-grow h-full ${isSidebarOpen ? "block" : "hidden md:flex"}`}>
         {/* Sidebar */}
-        <div className="flex flex-col w-72 h-full bg-gray-100 border-2 border-x-violet-400 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-violet-400 scrollbar-track-gray-200">
+        <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
           <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
             <Image src={logo} alt="Digital Web Design" />
           </Link>
@@ -134,8 +148,6 @@ const Dashboard = () => {
             </ul>
           </div>
         </div>
-
-        
       </div>
     </div>
   );
