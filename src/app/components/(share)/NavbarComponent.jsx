@@ -12,7 +12,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import logo from "../../../Image/Skill-removebg-preview.png";
