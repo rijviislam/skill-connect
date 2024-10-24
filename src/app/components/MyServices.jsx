@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { IoIosCreate } from "react-icons/io";
 import Swal from "sweetalert2";
 import ServicesCard from "./ServicesCard";
+import Loading from "../loading";
 
 export default function MyServices() {
   const { refetch, isLoading, isError } = useContext(CardContext);
@@ -130,7 +131,7 @@ export default function MyServices() {
       console.error("Error deleting post:", error);
     }
   };
-  if (isLoading) return <h1>Loading....</h1>;
+  if (isLoading) return <h1><Loading/></h1>;
   if (isError) return <h1>Error Occer...</h1>;
   return (
     <div>

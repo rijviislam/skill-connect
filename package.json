@@ -28,9 +28,7 @@
     "framer-motion": "^11.11.9",
     "mongodb": "^6.9.0",
     "mongoose": "^8.6.3",
-
     "next": "^14.2.16",
-
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
@@ -43,6 +41,7 @@
     "react-slick": "^0.30.2",
     "sharp": "^0.33.5",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.8.0",
     "stripe": "^17.2.1",
     "sweetalert2": "^11.14.1",
     "swiper": "^11.1.14",
