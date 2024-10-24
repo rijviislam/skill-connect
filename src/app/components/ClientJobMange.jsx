@@ -1,21 +1,33 @@
 "use client";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Progress,
+  useDisclosure,
+} from "@nextui-org/react";
+import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Divider,
-  Button,
-  Progress,
-} from "@nextui-org/react";
+import Payment from "./Payment";
+// MOVE THIS PL ON ENV FILE //
+const stripePromise = loadStripe(
+  "pk_test_51QCpuOGEX6Eqe35Hv4dantxhBHbgULI7BLvzdscxlq8EmRz4637jBLEf0uzU79yliwANHLBrBubzBWXckbMCZxaO003DhTl6n3"
+);
 
 const ClientJobMange = () => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
+  const { isOpen, onOpenChange } = useDisclosure();
 
   const {
     data: jobPost = [],
@@ -35,7 +47,7 @@ const ClientJobMange = () => {
 
       return result.data;
     },
-    enabled: !!userEmail, // Ensure the query runs only when userEmail is available
+    enabled: !!userEmail, //
   });
 
   console.log(jobPost, "fooomm  ");
@@ -46,7 +58,10 @@ const ClientJobMange = () => {
         jobPost.map(
           (job, index) =>
             job.hired && (
-              <Card key={index} className="max-w-[400px] border-2 border-violet-500 bg-slate-100 shadow-xl">
+              <Card
+                key={index}
+                className="max-w-[400px] border-2 border-violet-500 bg-slate-100 shadow-xl"
+              >
                 <CardHeader className="flex gap-3">
                   <div className="flex flex-col">
                     <p className="text-md">{job.title}</p>
@@ -77,9 +92,15 @@ const ClientJobMange = () => {
                 <CardFooter className=" gap-2">
                   <Button color="success">Message</Button>
                   {job.ongoingWork === 100 ? (
-                    <Button color="success">Make Payment</Button>
+                    // <Button color="success"> Make Payment </Button>
+                    <p>Rijvi</p>
                   ) : (
-                    <Button color="success" disabled>
+                    <Button
+                      onPress={() => {
+                        onOpenChange(true);
+                      }}
+                      color="success"
+                    >
                       Make Payment
                     </Button>
                   )}
@@ -87,6 +108,32 @@ const ClientJobMange = () => {
               </Card>
             )
         )}
+
+      <Modal
+        size="3xl"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="center"
+        className="bg-purple-200"
+      >
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">
+            Payment Form:
+          </ModalHeader>
+          <ModalBody>
+            <Payment />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              color="danger"
+              variant="light"
+              onPress={() => onOpenChange(false)}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
