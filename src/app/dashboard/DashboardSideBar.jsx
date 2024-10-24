@@ -80,11 +80,13 @@ const Dashboard = () => {
                 <div>
                   <Image
                     isBordered
-                    className="w-20 h-20 border-2 border-violet-500"
+                    className="w-20 h-20 border-2 border-violet-500 rounded-full"
                     color="secondary"
                     name="User Avatar"
                     size="sm"
-                    src={session?.user?.profile?.avatarUrl}
+                    width={80}
+                    height={80}
+                    src={currUser?.profile?.avatarUrl}
                   />
                 </div>
                 <div>
