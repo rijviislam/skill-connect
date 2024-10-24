@@ -231,9 +231,7 @@ export default function FreelancerProfile() {
 
   return (
     <div className="mx-10">
-      <h2 className="text-4xl font-bold bg-violet-500 bg-clip-text text-transparent text-center">
-        Freelancer Profiles
-      </h2>
+      
 
       <div className="flex justify-between items-center mt-10">
         <div className="lg:w-[400px] mt-5">
@@ -272,7 +270,7 @@ export default function FreelancerProfile() {
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-full max-w-md min-w-[300px] h-auto bg-gray-50 border-2 border-violet-400"
+                className="py-4 w-[300px] h-[500px] lg:w-[400px] lg:h-[400px] bg-violet-100 border-2 border-violet-400"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
