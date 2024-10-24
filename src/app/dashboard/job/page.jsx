@@ -15,7 +15,7 @@ const JobPostingForm = () => {
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState("")
 
   const availableTitles = [
     "Website Development",
@@ -180,11 +180,11 @@ const JobPostingForm = () => {
               Required Skills
             </label>
             <select
-              value={skills}
-              onChange={(e) => setSkills([e.target.value])}
-              required
-              className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-violet-200 focus:ring-violet-300"
-            >
+  value={skills}
+  onChange={(e) => setSkills(e.target.value)} // Keep it as a single value
+  required
+  className="mt-1 block w-full text-lg py-3 px-4 rounded-md shadow-sm focus:ring bg-violet-200 focus:ring-violet-300"
+>
               <option value="">Select Required Skill</option>
               {availableSkills.map((skill) => (
                 <option key={skill} value={skill}>
