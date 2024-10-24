@@ -8,10 +8,8 @@ import { useEffect, useState } from "react";
 import {
   FaAd,
   FaBars,
-  FaBook,
   FaBriefcase,
   FaCog,
-  FaEnvelope,
   FaFileContract,
   FaHome,
   FaTasks,
@@ -117,18 +115,7 @@ const Dashboard = () => {
                         Freelancer Profile
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        href="/dashboard/earnings"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/earnings")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaBook className="mr-2" /> Earnings Tracking
-                      </Link>
-                    </li>
+
                     <li>
                       <Link
                         href="/dashboard/proposals"
@@ -153,18 +140,7 @@ const Dashboard = () => {
                         <FaTasks className="mr-2" /> Ongoing
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        href="/dashboard/messages"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/messages")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaEnvelope className="mr-2" /> Messages
-                      </Link>
-                    </li>
+
                     <li>
                       <Link
                         href="/dashboard/myServices"

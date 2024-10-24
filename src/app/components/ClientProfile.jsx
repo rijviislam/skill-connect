@@ -13,7 +13,6 @@ import {
   ModalHeader,
   Select,
   SelectItem,
-  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
 import { Rating } from "@smastrom/react-rating";
@@ -25,6 +24,7 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
 
 export default function ClientProfile() {
@@ -221,10 +221,11 @@ export default function ClientProfile() {
 
   return (
     <div className="mx-10">
-
-      
       {/* SEARCH BAR */}
-      <div className="flex justify-between items-center mt-10">
+      <h2 className="text-3xl text-center font-bold text-violet-500 mt-10">
+        Client profiles
+      </h2>
+      <div className="flex justify-between items-center mt-10 mx-5">
         <div className="lg:w-[400px] mt-5">
           <Input
             isClearable
@@ -241,9 +242,10 @@ export default function ClientProfile() {
 
       {/* GRID CARD */}
       {loading ? (
-        <div className="flex justify-center my-10">
-          <Spinner size="lg" color="primary" />
-        </div>
+        // <div className="flex justify-center my-10">
+        //   <Spinner size="lg" color="primary" />
+        // </div>
+        <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
           {Array.isArray(filterData) && filterData.length > 0 ? (
