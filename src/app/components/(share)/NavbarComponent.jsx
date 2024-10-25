@@ -20,6 +20,8 @@ import logo from "../../../Image/Skill-removebg-preview.png";
 const NavbarComponent = () => {
   const { data: session, status } = useSession();
   const isAuthenticated = status === "authenticated";
+  const userImage = session?.user?.profile?.avatarUrl;
+  const userType = session?.user?.role;
   const userEmail = session?.user?.email;
   const [loading, setLoading] = useState(status === "loading");
   const [currUser, setCurrUser] = useState([]);
@@ -30,6 +32,7 @@ const NavbarComponent = () => {
     }
   }, [status]);
 
+  // Fetch profiles from API by email
   const fetchUserByEmail = async () => {
     try {
       const response = await fetch(`/api/get-user?email=${userEmail}`);
@@ -51,71 +54,71 @@ const NavbarComponent = () => {
   return (
     <Navbar
       isBordered
-      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea] mx-auto px-6 lg:px-16" // Equal margins on both sides
+      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]"
     >
-      <div className="flex items-center justify-between w-full">
-        <NavbarBrand className="mr-4">
-          <Link href="/">
-            <Image
-              src={logo}
-              alt="Digital Web Design"
-              className="w-56 md:w-24 lg:w-72 lg:-ml-16"
-            />
-          </Link>
-        </NavbarBrand>
-
-        {/* Navigation Links for Desktop */}
-        <NavbarContent className="hidden sm:flex gap-3">
-          <NavbarItem>
-            <Link
-              color="foreground"
-              href="freelancerProfile"
-              className="font-bold text-white"
-            >
-              Freelancer profiles
+      <div className=" flex items-center gap-20">
+        <NavbarContent justify="start">
+          <NavbarBrand className="mr-4 ">
+            <Link href="/" className="lg:-ml-30 lg:-ml-44 ">
+              <Image src={logo} alt="Digital Web Design" />
             </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              color="foreground"
-              href="clientProfile"
-              className="font-bold text-white"
-            >
-              Client profiles
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              color="foreground"
-              href="jobs"
-              className="font-bold text-white"
-            >
-              Jobs
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              color="foreground"
-              href="about"
-              className="font-bold text-white"
-            >
-              About
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link
-              color="foreground"
-              href="faq"
-              className="font-bold text-white"
-            >
-              FAQ
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="us" className="font-bold text-white">
-              Contact Us
-            </Link>
-          </NavbarItem>
+          </NavbarBrand>
+          <NavbarContent className="hidden sm:flex gap-3">
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="freelancerProfile"
+                className="font-bold text-white"
+              >
+                Freelancer profiles
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="clientProfile"
+                className="font-bold text-white"
+              >
+                Client profiles
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="jobs"
+                className="font-bold text-white"
+              >
+                Jobs
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="about"
+                className="font-bold text-white"
+              >
+                About
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="faq"
+                className="font-bold text-white"
+              >
+                FAQ
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="us"
+                className="font-bold text-white"
+              >
+                Contact Us
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
         </NavbarContent>
 
         <NavbarContent
@@ -130,8 +133,9 @@ const NavbarComponent = () => {
                   <Avatar
                     isBordered
                     as="button"
-                    className="transition-transform"
+                    className="transition-transform "
                     color="secondary"
+                    name="Jason Hughes"
                     size="sm"
                     src={currUser?.profile?.avatarUrl}
                   />
@@ -159,9 +163,9 @@ const NavbarComponent = () => {
             )}
 
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
+              <DropdownItem key="profile" className="h-14 gap-2 ">
                 <p className="font-semibold">
-                  <span>{session?.user?.role}</span>: <span>{userEmail}</span>
+                  <span>{userType}</span>: <span> {userEmail}</span>
                 </p>
               </DropdownItem>
 
