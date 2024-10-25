@@ -13,7 +13,6 @@ import {
   ModalHeader,
   Select,
   SelectItem,
-  Spinner,
   useDisclosure,
 } from "@nextui-org/react";
 import { Rating } from "@smastrom/react-rating";
@@ -25,6 +24,7 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
 
 export default function FreelancerProfile() {
@@ -63,8 +63,6 @@ export default function FreelancerProfile() {
   const [currUser, setCurrUser] = useState([]);
   const [review, setReview] = useState(0);
   const { register, handleSubmit, reset } = useForm();
-
-  
 
   const fetchProfiles = async () => {
     setLoading(true);
@@ -227,13 +225,14 @@ export default function FreelancerProfile() {
   };
   console.log("CurrentUser", currUser);
   console.log("Current Profile", selectedProfile);
-  
 
   return (
     <div className="mx-10">
-      
+      <h2 className="text-3xl text-center font-bold text-violet-500 mt-10">
+        Freelancer profiles
+      </h2>
 
-      <div className="flex justify-between items-center mt-10">
+      <div className="flex justify-between items-center mt-10 mx-5">
         <div className="lg:w-[400px] mt-5">
           <Input
             isClearable
@@ -262,9 +261,10 @@ export default function FreelancerProfile() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center my-10">
-          <Spinner size="lg" color="success" />
-        </div>
+        // <div className="flex justify-center my-10">
+        //   <Spinner size="lg" color="success" />
+        // </div>
+        <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
           {filterData.length > 0 ? (
