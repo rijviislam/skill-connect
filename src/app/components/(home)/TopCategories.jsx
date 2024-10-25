@@ -1,10 +1,17 @@
 "use client";
 
-import React from 'react';
-import { Card, CardFooter, Image, Button } from '@nextui-org/react';
-import { FaDesktop, FaCode, FaPen, FaCamera, FaMusic, FaMobileAlt, FaArrowRight } from 'react-icons/fa';
-import Link from 'next/link';
-import { motion } from 'framer-motion'; 
+import { Button, Card, CardFooter, Image } from "@nextui-org/react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  FaArrowRight,
+  FaCamera,
+  FaCode,
+  FaDesktop,
+  FaMobileAlt,
+  FaMusic,
+  FaPen,
+} from "react-icons/fa";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,20 +32,23 @@ const TopCategories = () => {
           {
             title: "Graphic Design",
             icon: <FaDesktop size={24} />,
-            imageSrc: "https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg",
-            link: "/graphic-design"
+            imageSrc:
+              "https://i.postimg.cc/x88nq8Js/dose-media-gx-Gtq-G5ul2g-unsplash.jpg",
+            link: "/graphic-design",
           },
           {
             title: "Web Development",
             icon: <FaCode size={24} />,
-            imageSrc: "https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg",
-            link: "/web-development"
+            imageSrc:
+              "https://i.postimg.cc/cCWZMhbb/farzad-p-x-Sl33-Wxyc-unsplash.jpg",
+            link: "/web-development",
           },
           {
             title: "Content Writing",
             icon: <FaPen size={24} />,
-            imageSrc: "https://i.postimg.cc/mkpX22Cy/unseen-studio-s9-CC2-SKy-SJM-unsplash.jpg",
-            link: "/content-writing"
+            imageSrc:
+              "https://i.postimg.cc/mkpX22Cy/unseen-studio-s9-CC2-SKy-SJM-unsplash.jpg",
+            link: "/content-writing",
           },
         ].map((category, index) => (
           <motion.div
@@ -46,7 +56,7 @@ const TopCategories = () => {
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.5, delay: index * 0.1 }} 
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card
               isFooterBlurred
@@ -63,10 +73,18 @@ const TopCategories = () => {
               <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                    {category.title}
+                  </div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
+                  <Button
+                    className="text-sm text-white bg-[#8a2be2]"
+                    variant="flat"
+                    color="default"
+                    radius="lg"
+                    size="sm"
+                  >
                     Explore
                   </Button>
                 </Link>
@@ -82,14 +100,16 @@ const TopCategories = () => {
           {
             title: "Photography",
             icon: <FaCamera size={24} />,
-            imageSrc: "https://i.postimg.cc/mZm6SVJ1/jamie-street-q-WYv-QMIJyf-E-unsplash.jpg",
-            link: "/photography"
+            imageSrc:
+              "https://i.postimg.cc/mZm6SVJ1/jamie-street-q-WYv-QMIJyf-E-unsplash.jpg",
+            link: "/photography",
           },
           {
             title: "Music Production",
             icon: <FaMusic size={24} />,
-            imageSrc: "https://i.postimg.cc/tgGrgcZw/caught-in-joy-Puk-ZSAi-K5o-unsplash.jpg",
-            link: "/music-production"
+            imageSrc:
+              "https://i.postimg.cc/tgGrgcZw/caught-in-joy-Puk-ZSAi-K5o-unsplash.jpg",
+            link: "/music-production",
           },
         ].map((category, index) => (
           <motion.div
@@ -114,10 +134,18 @@ const TopCategories = () => {
               <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                    {category.title}
+                  </div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
+                  <Button
+                    className="text-sm text-white bg-[#8a2be2]"
+                    variant="flat"
+                    color="default"
+                    radius="lg"
+                    size="sm"
+                  >
                     Explore
                   </Button>
                 </Link>
@@ -133,8 +161,9 @@ const TopCategories = () => {
           {
             title: "App Development",
             icon: <FaMobileAlt size={24} />,
-            imageSrc: "https://i.postimg.cc/QtX0QWqq/wahid-khene-i-Kd-QCIi-SMl-Q-unsplash.jpg",
-            link: "/app-development"
+            imageSrc:
+              "https://i.postimg.cc/QtX0QWqq/wahid-khene-i-Kd-QCIi-SMl-Q-unsplash.jpg",
+            link: "/app-development",
           },
         ].map((category, index) => (
           <motion.div
@@ -159,10 +188,18 @@ const TopCategories = () => {
               <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">{category.title}</div>
+                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                    {category.title}
+                  </div>
                 </div>
                 <Link href={category.link}>
-                  <Button className="text-sm text-white bg-[#8a2be2]" variant="flat" color="default" radius="lg" size="sm">
+                  <Button
+                    className="text-sm text-white bg-[#8a2be2]"
+                    variant="flat"
+                    color="default"
+                    radius="lg"
+                    size="sm"
+                  >
                     Explore
                   </Button>
                 </Link>
@@ -171,7 +208,6 @@ const TopCategories = () => {
           </motion.div>
         ))}
       </div>
-      
     </div>
   );
 };
