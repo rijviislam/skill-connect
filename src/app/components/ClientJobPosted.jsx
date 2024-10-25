@@ -186,14 +186,14 @@ export default function ClientJobPosted() {
                     <div className="mt-5 w-full flex justify-between">
                       <Button
                         size="md"
-                        className="bg-[#2E8B57] text-white hover:bg-[#90EE90] hover:text-black"
+                        className="bg-[#8062dc] text-white hover:bg-[#90EE90] hover:text-black"
                         onPress={() => handleEditClick(post)}
                       >
                         Edit
                       </Button>
                       <Button
                         size="md"
-                        className="bg-red-800 text-white hover:bg-[#b12d2d]"
+                        className="bg-violet-800 text-white hover:bg-[#b12d2d]"
                         onClick={() => handleDelete(post._id)}
                       >
                         Delete
