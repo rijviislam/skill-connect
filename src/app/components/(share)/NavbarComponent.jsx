@@ -54,13 +54,13 @@ const NavbarComponent = () => {
   return (
     <Navbar
       isBordered
-      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea] "
+      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]"
     >
       <div className=" flex items-center gap-20">
         <NavbarContent justify="start">
           <NavbarBrand className="mr-4 ">
-            <Link href="/" className="-ml-30 lg:-ml-44 ">
-              <Image src={logo} alt="Digital Web Design" className="" />
+            <Link href="/" className="lg:-ml-30 lg:-ml-44 ">
+              <Image src={logo} alt="Digital Web Design" />
             </Link>
           </NavbarBrand>
           <NavbarContent className="hidden sm:flex gap-3">
@@ -123,7 +123,7 @@ const NavbarComponent = () => {
 
         <NavbarContent
           as="div"
-          className="items-center w-[500px] pr-[200px] m-0 p-0"
+          className="items-center lg:w-[500px] pr-[200px] m-0 p-0"
           justify="end"
         >
           <Dropdown placement="bottom-end">
@@ -171,6 +171,33 @@ const NavbarComponent = () => {
 
               <DropdownItem href="dashboard" key="dashboard">
                 Dashboard
+              </DropdownItem>
+
+              <DropdownItem
+                className="lg:hidden"
+                href="freelancerProfiles"
+                key="Freelancer profiles"
+              >
+                Freelancer profiles
+              </DropdownItem>
+              <DropdownItem
+                className="lg:hidden"
+                href="clientProfiles"
+                key="Client profiles"
+              >
+                Client profiles
+              </DropdownItem>
+              <DropdownItem className="lg:hidden" href="jobs" key="Jobs">
+                Jobs
+              </DropdownItem>
+              <DropdownItem className="lg:hidden" href="faq" key="FAQ">
+                FAQ
+              </DropdownItem>
+              <DropdownItem className="lg:hidden" href="us" key="Contact Us">
+                Contact Us
+              </DropdownItem>
+              <DropdownItem className="lg:hidden" href="about" key="About">
+                About
               </DropdownItem>
 
               <DropdownItem onClick={() => signOut()} color="danger">

@@ -11,7 +11,7 @@ import {
   FaBriefcase,
   FaCog,
   FaFileContract,
-  FaHome,
+  FaMoneyBill,
   FaTasks,
   FaTimes,
   FaUserTie,
@@ -78,6 +78,7 @@ const Dashboard = () => {
                 <div>
                   <Image
                     isBordered
+                    alt="profile"
                     className="w-20 h-20 border-2 border-violet-500 rounded-full"
                     color="secondary"
                     name="User Avatar"
@@ -228,7 +229,7 @@ const Dashboard = () => {
                             : ""
                         }`}
                       >
-                        <FaHome className="mr-2" /> Payment Management
+                        <FaMoneyBill className="mr-2" /> Payment Management
                       </Link>
                     </li>
                   </>
