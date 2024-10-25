@@ -12,8 +12,10 @@ import {
   FaCog,
   FaFileContract,
   FaHome,
+  FaList,
   FaTasks,
   FaTimes,
+  FaUsers,
   FaUserTie,
 } from "react-icons/fa";
 import logo from "../../Image/Skill-removebg-preview.png";
@@ -27,10 +29,6 @@ const Dashboard = () => {
 
   const isActive = (path) => pathname === path;
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   // Fetch profiles from API by email
   const fetchUserByEmail = async () => {
@@ -50,34 +48,38 @@ const Dashboard = () => {
     fetchUserByEmail();
   }, [userEmail]);
 
-  console.log(currUser);
-  return (
-    <div className="fixed h-screen">
-      <div className="flex flex-col h-full">
-        <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
-          <button onClick={toggleSidebar} className="text-xl md:hidden">
-            {isSidebarOpen ? <FaTimes /> : <FaBars />}
-          </button>
-          <h1 className="text-xl font-bold ">Dashboard</h1>
-        </header>
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
 
-        <div
-          className={`flex flex-grow h-full ${
-            isSidebarOpen ? "block" : "hidden md:flex"
-          }`}
-        >
-          {/* Sidebar */}
-          <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
-            <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
-              <Image src={logo} alt="Digital Web Design" />
-            </Link>
-            <hr className="border-2 border-violet-300 my-2" />
+
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+
+      <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
+        <button onClick={toggleSidebar} className="text-xl md:hidden">
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        <h1 className="text-xl font-bold ">Dashboard</h1>
+      </header>
+
+
+      <div className={`flex flex-grow h-full ${isSidebarOpen ? "block" : "hidden md:flex"}`}>
+
+        {/* Sidebar */}
+        <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
+          <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
+            <Image src={logo} alt="Digital Web Design" />
+          </Link>
+          <hr className="border-2 border-violet-300 my-2" />
 
             <div>
               <div className="mr-4">
                 <div>
                   <Image
                     isBordered
+                    alt="profile"
                     className="w-20 h-20 border-2 border-violet-500 rounded-full"
                     color="secondary"
                     name="User Avatar"
@@ -96,6 +98,7 @@ const Dashboard = () => {
               </div>
               <hr className="border-2 border-violet-300 my-2" />
 
+
               <ul className="menu flex flex-col w-full">
                 {currentUserRole === "freelancer" && (
                   <>
@@ -107,7 +110,7 @@ const Dashboard = () => {
                         href="/dashboard/profile"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/profile")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -121,7 +124,7 @@ const Dashboard = () => {
                         href="/dashboard/proposals"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/proposals")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -133,7 +136,7 @@ const Dashboard = () => {
                         href="/dashboard/ongoing"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/ongoing")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -146,7 +149,7 @@ const Dashboard = () => {
                         href="/dashboard/myServices"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/myServices")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -156,6 +159,7 @@ const Dashboard = () => {
                   </>
                 )}
 
+
                 {currentUserRole === "client" && (
                   <>
                     <li className="font-bold text-lg mb-4">Client Menu</li>
@@ -164,7 +168,7 @@ const Dashboard = () => {
                         href="/dashboard/clientProfile"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/clientProfile")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -176,7 +180,7 @@ const Dashboard = () => {
                         href="/dashboard/job"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/job")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -188,7 +192,7 @@ const Dashboard = () => {
                         href="/dashboard/posted-job-client"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/posted-job-client")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -200,7 +204,7 @@ const Dashboard = () => {
                         href="/dashboard/manageJobs"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/manageJobs")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -212,7 +216,7 @@ const Dashboard = () => {
                         href="/dashboard/services"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/services")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -224,7 +228,7 @@ const Dashboard = () => {
                         href="/dashboard/payment-management"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/payment-management")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -243,7 +247,7 @@ const Dashboard = () => {
                         href="/dashboard/user"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/user")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -255,7 +259,7 @@ const Dashboard = () => {
                         href="/dashboard/report"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/report")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -269,7 +273,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

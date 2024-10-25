@@ -38,7 +38,7 @@ const BannerSlider = () => {
             initial="hidden"
             animate="visible"
             variants={oscillateY}
-            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6" 
+            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6 " 
           >
             <Image
               src={banner}
@@ -55,12 +55,12 @@ const BannerSlider = () => {
             initial="hidden"
             animate="visible"
             variants={slideIn}
-            className="text-center lg:text-left lg:mb-0 mb-6 lg:mr-10"
+            className="text-center lg:text-left lg:mb-0 mb-6 lg:mr-10 "
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800">
               FIND THE 
               <br/>
-              RIGHT <span className="text-white">FREELANCER</span>
+              RIGHT <span className="text-violet-700">FREELANCER</span>
             </h1>
             <p className="py-2 text-lg sm:text-xl md:text-xl text-violet-800">
               FOR YOUR NEXT PROJECT
