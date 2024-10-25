@@ -57,7 +57,7 @@ export default function ServicesCard({ handleDelete }) {
     try {
       const { _id, ...updatedFields } = data; // Destructure and exclude _id
       const response = await axios.patch(
-        `http://localhost:3000/api/update-service?id=${selectedService._id}`,
+        `/api/update-service?id=${selectedService._id}`,
         updatedFields // Send the modified object without _id
       );
 

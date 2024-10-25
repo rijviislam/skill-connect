@@ -201,7 +201,7 @@ export default function ClientProfile() {
     };
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        `/api/add-review?id=${selectedProfile._id}`,
         formData
       );
       if (response.status === 200) {
