@@ -110,7 +110,7 @@ const Dashboard = () => {
                         href="/dashboard/profile"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/profile")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -124,7 +124,7 @@ const Dashboard = () => {
                         href="/dashboard/proposals"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/proposals")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -136,7 +136,7 @@ const Dashboard = () => {
                         href="/dashboard/ongoing"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/ongoing")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -149,7 +149,7 @@ const Dashboard = () => {
                         href="/dashboard/myServices"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/myServices")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -168,7 +168,7 @@ const Dashboard = () => {
                         href="/dashboard/clientProfile"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/clientProfile")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -180,7 +180,7 @@ const Dashboard = () => {
                         href="/dashboard/job"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/job")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -192,7 +192,7 @@ const Dashboard = () => {
                         href="/dashboard/posted-job-client"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/posted-job-client")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -204,7 +204,7 @@ const Dashboard = () => {
                         href="/dashboard/manageJobs"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/manageJobs")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -216,7 +216,7 @@ const Dashboard = () => {
                         href="/dashboard/services"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/services")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -228,7 +228,7 @@ const Dashboard = () => {
                         href="/dashboard/payment-management"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/payment-management")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -247,7 +247,7 @@ const Dashboard = () => {
                         href="/dashboard/user"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/user")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
@@ -259,7 +259,7 @@ const Dashboard = () => {
                         href="/dashboard/report"
                         className={`flex items-center mb-4 text-lg ${
                           isActive("/dashboard/report")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
+                            ? "font-bold bg-violet-200 rounded-lg"
                             : ""
                         }`}
                       >
