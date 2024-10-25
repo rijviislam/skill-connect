@@ -14,8 +14,10 @@ import {
   FaEnvelope,
   FaFileContract,
   FaHome,
+  FaList,
   FaTasks,
   FaTimes,
+  FaUsers,
   FaUserTie,
 } from "react-icons/fa";
 import logo from "../../Image/Skill-removebg-preview.png";
@@ -29,10 +31,6 @@ const Dashboard = () => {
 
   const isActive = (path) => pathname === path;
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   // Fetch profiles from API by email
   const fetchUserByEmail = async () => {
@@ -52,28 +50,31 @@ const Dashboard = () => {
     fetchUserByEmail();
   }, [userEmail]);
 
-  console.log(currUser);
-  return (
-    <div className="fixed h-screen">
-      <div className="flex flex-col h-full">
-        <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
-          <button onClick={toggleSidebar} className="text-xl md:hidden">
-            {isSidebarOpen ? <FaTimes /> : <FaBars />}
-          </button>
-          <h1 className="text-xl font-bold ">Dashboard</h1>
-        </header>
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
 
-        <div
-          className={`flex flex-grow h-full ${
-            isSidebarOpen ? "block" : "hidden md:flex"
-          }`}
-        >
-          {/* Sidebar */}
-          <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
-            <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
-              <Image src={logo} alt="Digital Web Design" />
-            </Link>
-            <hr className="border-2 border-violet-300 my-2" />
+
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+
+      <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
+        <button onClick={toggleSidebar} className="text-xl md:hidden">
+          {isSidebarOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        <h1 className="text-xl font-bold ">Dashboard</h1>
+      </header>
+
+
+      <div className={`flex flex-grow h-full ${isSidebarOpen ? "block" : "hidden md:flex"}`}>
+
+        {/* Sidebar */}
+        <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
+          <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
+            <Image src={logo} alt="Digital Web Design" />
+          </Link>
+          <hr className="border-2 border-violet-300 my-2" />
 
             <div>
               <div className="mr-4">
@@ -99,87 +100,56 @@ const Dashboard = () => {
               </div>
               <hr className="border-2 border-violet-300 my-2" />
 
-              <ul className="menu flex flex-col w-full">
-                {currentUserRole === "freelancer" && (
-                  <>
-                    <li className="font-bold text-lg mb-4 mt-5">
-                      Freelancer Menu
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/profile"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/profile")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaUserTie className="mr-2" />
-                        Freelancer Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/earnings"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/earnings")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaBook className="mr-2" /> Earnings Tracking
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/proposals"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/proposals")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaFileContract className="mr-2" /> My Proposals
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/ongoing"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/ongoing")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaTasks className="mr-2" /> Ongoing
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/messages"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/messages")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaEnvelope className="mr-2" /> Messages
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/dashboard/myServices"
-                        className={`flex items-center mb-4 text-lg ${
-                          isActive("/dashboard/myServices")
-                            ? "font-extrabold bg-violet-200 rounded-lg"
-                            : ""
-                        }`}
-                      >
-                        <FaBriefcase className="mr-2" /> My Services
-                      </Link>
-                    </li>
-                  </>
-                )}
+            <ul className="menu flex flex-col w-full">
+              {currentUserRole === "freelancer" && (
+                <>
+                  <li className="font-bold text-lg mb-4 mt-5">
+                    Freelancer Menu
+                  </li>
+                  <li>
+
+                    <Link href="/dashboard/profile" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/profile") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaUserTie className="mr-2" />
+
+                      Freelancer Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/dashboard/earnings"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/earnings")
+                          ? "font-extrabold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <FaBook className="mr-2" /> Earnings Tracking
+                    </Link>
+                  </li>
+                  <li>
+
+                    <Link href="/dashboard/proposals" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/proposals") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaFileContract className="mr-2" /> My Proposals
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/ongoing" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/ongoing") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaTasks className="mr-2" /> Ongoing
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/messages" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/messages") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaEnvelope className="mr-2" /> Messages
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/myServices" className={`flex items-center mb-4 text-lg ${isActive("/dashboard/myServices") ? "font-extrabold bg-violet-200 rounded-lg" : ""}`}>
+                      <FaBriefcase className="mr-2" /> My Services
+
+                    </Link>
+                  </li>
+                </>
+              )}
 
                 {currentUserRole === "client" && (
                   <>
@@ -294,7 +264,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 
