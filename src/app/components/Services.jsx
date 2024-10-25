@@ -24,6 +24,7 @@ export default function Services() {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState(100); // Default to 100
   const [loading, setLoading] = useState(true);
+  const [selectedService, setSelectedService] = useState(null); // For selected service data
 
   // Fetch services from the backend
   const fetchServices = async () => {
@@ -51,7 +52,6 @@ export default function Services() {
   };
 
   // Apply filtering on the services based on price range
-
   useEffect(() => {
     if (priceRange !== 100) {
       const filtered = services.filter(
@@ -62,18 +62,23 @@ export default function Services() {
       setFilteredServices(services);
     }
   }, [priceRange, services]);
-  //   AND THIS FILTERING IS NOW WORKING PERFECTLY NEED TO IMPROVE IT AFTER THIS WEEK //
-  console.log(filteredServices);
+
   useEffect(() => {
     fetchServices();
   }, [searchTerm]);
 
+  // Open modal and set selected service data
+  const openServiceModal = (service) => {
+    setSelectedService(service);
+    onOpenChange(true);
+  };
+
   return (
     <div>
       <h2 className="text-4xl font-medium">Services</h2>
-      {/* SEARCH AND FILTER  */}
-      <div className="flex justify-between items-end mt-10 ">
-        <div className="lg:w-[400px] mt-5 ">
+      {/* SEARCH AND FILTER */}
+      <div className="flex justify-between items-end mt-10">
+        <div className="lg:w-[400px] mt-5">
           <Input
             isClearable
             radius="lg"
@@ -101,11 +106,8 @@ export default function Services() {
           className="w-[250px]"
         />
       </div>
-      {/* GRID  */}
+      {/* GRID */}
       {loading ? (
-        // <div className="flex justify-center my-10">
-        //   <Spinner size="lg" color="success" />
-        // </div>
         <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-5">
@@ -138,7 +140,7 @@ export default function Services() {
                 <div className="mt-5 w-full">
                   <Button
                     size="md"
-                    onPress={() => onOpenChange(true)}
+                    onPress={() => openServiceModal(profile)}
                     className="bg-[#b064eb] text-white hover:bg-[#7a3da0] hover:text-black"
                   >
                     View
@@ -156,13 +158,28 @@ export default function Services() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                {selectedService?.title || "Service Details"}
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                </p>
+                {selectedService ? (
+                  <>
+                    <p>
+                      <strong>Description:</strong> {selectedService.description}
+                    </p>
+                    <p>
+                      <strong>Delivery Time:</strong> {selectedService.deliveryTime}
+                    </p>
+                    <p>
+                      <strong>Price:</strong> {selectedService.price}
+                    </p>
+                    <p>
+                      <strong>Skills:</strong>{" "}
+                      {selectedService?.tags?.join(", ")}
+                    </p>
+                  </>
+                ) : (
+                  <p>Loading service details...</p>
+                )}
               </ModalBody>
               <ModalFooter>
                 <Button color="primary">Hire</Button>
