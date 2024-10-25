@@ -201,7 +201,7 @@ export default function ClientProfile() {
     };
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/add-review?id=${selectedProfile._id}`,
+        `/api/add-review?id=${selectedProfile._id}`,
         formData
       );
       if (response.status === 200) {
@@ -251,7 +251,7 @@ export default function ClientProfile() {
           {Array.isArray(filterData) && filterData.length > 0 ? (
             filterData.map((profile, idx) => (
               <Card
-                className="py-4 w-[300px] h-[500px] lg:w-[400px] lg:h-[400px] bg-violet-100 border-2 border-violet-400"
+                className="py-4 w-[300px] h-[500px] lg:w-[400px] lg:w-h-[400px] bg-violet-100 border-2 border-violet-400"
                 key={idx}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
