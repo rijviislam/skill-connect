@@ -92,16 +92,16 @@ const ClientJobMange = () => {
                 </CardBody>
                 <Divider />
                 <CardFooter className=" gap-2">
-                  <Link href={`/dashboard/manageJobs/${job._id}`}><Button color="success">Message</Button></Link>
+                  <Link href={`/dashboard/manageJobs/${job._id}`}><Button className="bg-violet-300">Message</Button></Link>
                   {job.ongoingWork === 100 ? (
-                    // <Button color="success"> Make Payment </Button>
+                    // <Button className="bg-violet-400"> Make Payment </Button>
                     <p>Rijvi</p>
                   ) : (
                     <Button
                       onPress={() => {
                         onOpenChange(true);
                       }}
-                      color="success"
+                      className="bg-violet-500"
                     >
                       Make Payment
                     </Button>
