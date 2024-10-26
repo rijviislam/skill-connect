@@ -115,18 +115,7 @@ const Dashboard = () => {
                     </Link>
                   </li>
 
-                  <li>
-                    <Link
-                      href="/dashboard/proposals"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/proposals")
-                          ? "font-bold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaFileContract className="mr-2" /> My Proposals
-                    </Link>
-                  </li>
+                  
                   <li>
                     <Link
                       href="/dashboard/ongoing"
