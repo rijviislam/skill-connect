@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Input,
   Modal,
@@ -261,16 +262,14 @@ export default function FreelancerProfile() {
       </div>
 
       {loading ? (
-        // <div className="flex justify-center my-10">
-        //   <Spinner size="lg" color="success" />
-        // </div>
+        
         <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-[300px] h-[500px] lg:w-[400px] lg:min-h-[400px] bg-violet-100 border-2 border-violet-400"
+                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
@@ -303,7 +302,8 @@ export default function FreelancerProfile() {
                     </p>
                   </div>
                 </CardBody>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
+                <div className="  px-4 flex-col items-start gap-1">
+                  <div className="">
                   <p>
                     <strong>Skills:</strong> {profile.skills || "N/A"}
                   </p>
@@ -321,24 +321,10 @@ export default function FreelancerProfile() {
                     )}
                   </p>
 
-                  {dropdownVisible[profile._id] && (
-                    <Select
-                      label="Select Report Reason"
-                      placeholder="Select a reason"
-                      onChange={(event) =>
-                        handleReasonChange(profile._id, event.target.value)
-                      }
-                      className="mt-2"
-                    >
-                      {reportReasons.map((item) => (
-                        <SelectItem key={item.key} value={item.key}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-
-                  <div className="flex justify-between items-end w-full">
+                  </div>
+                </div>
+                 <CardFooter>
+                <div className="flex justify-between items-end mb-8 w-full">
                     <Button
                       className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
                       onClick={() => handleReportUser(profile._id)}
@@ -362,7 +348,24 @@ export default function FreelancerProfile() {
                       Details
                     </Button>
                   </div>
-                </CardHeader>
+                  
+                  </CardFooter>
+                  {dropdownVisible[profile._id] && (
+                    <Select
+                      label="Select Report Reason"
+                      placeholder="Select a reason"
+                      onChange={(event) =>
+                        handleReasonChange(profile._id, event.target.value)
+                      }
+                      className="mt-1"
+                    >
+                      {reportReasons.map((item) => (
+                        <SelectItem key={item.key} value={item.key}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  )}
               </Card>
             ))
           ) : (

@@ -83,7 +83,7 @@ const Dashboard = () => {
                   size="sm"
                   width={80}
                   height={80}
-                  src={currUser?.profile?.avatarUrl}
+                  src={currUser?.profile?.avatarUrl }
                 />
               </div>
               <div>
