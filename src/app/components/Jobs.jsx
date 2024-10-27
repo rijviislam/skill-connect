@@ -147,7 +147,7 @@ export default function Jobs() {
                       <small className="text-xs flex items-center">
                         <strong>Skills:</strong>
                         <div className="pl-1 flex gap-1">
-                          <p className="text-xs">{job.skills.join(", ")}</p>
+                          <p className="text-xs">{Array.isArray(job?.skills) ? job.skills.join(", ") : "N/A"}</p>
                         </div>
                       </small>
                       <p className="text-xs">

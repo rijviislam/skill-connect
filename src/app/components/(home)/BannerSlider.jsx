@@ -1,17 +1,37 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion"; 
 import banner from "../../../Image/Telecommuting-rafiki.png";
 import background from "../../../Image/Banner11.png"; 
+import { useSession } from "next-auth/react";
 
 const BannerSlider = () => {
+  const { data: session } = useSession();  
+  const [bannerText, setBannerText] = useState("");
+  const userType = session?.user?.role;
+
+  useEffect(() => {
+    switch (userType) {
+      case "freelancer":
+        setBannerText("Welcome Freelancer! Showcase your skills and find great projects.");
+        break;
+      case "client":
+        setBannerText("Hello Client! Discover talented freelancers for your projects.");
+        break;
+      
+      default:
+        setBannerText("Welcome! Explore opportunities and find the right talent for your needs.");
+    }
+  }, [userType]);
+
   const oscillateY = {
     hidden: { y: 0 },
     visible: {
-      y: [0, -20, 0],
+      y: [0, -60, 0],
       transition: {
-        duration: 2,
+        duration: 1,
         ease: "easeInOut",
         repeat: Infinity,
         repeatType: "loop",
@@ -38,16 +58,16 @@ const BannerSlider = () => {
             initial="hidden"
             animate="visible"
             variants={oscillateY}
-            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6 " 
+            className="max-w-full lg:max-w-xl rounded-lg h-auto mb-4 sm:mb-6 transition-transform transform hover:scale-105"
           >
             <Image
               src={banner}
               alt="Digital Web Design"
               layout="responsive"
-              width={400} 
-              height={300} 
+              width={500} 
+              height={400} 
               objectFit="cover"
-              className="" 
+              className="rounded-lg" 
             />
           </motion.div>
           
@@ -55,15 +75,17 @@ const BannerSlider = () => {
             initial="hidden"
             animate="visible"
             variants={slideIn}
-            className="text-center lg:text-left lg:mb-0 mb-6 lg:mr-10 "
+            className="text-center lg:text-left lg:mb-0 mb-6 lg:mr-10"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-800">
-              FIND THE 
-              <br/>
-              RIGHT <span className="text-violet-700">FREELANCER</span>
+            <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-gray-800 leading-snug">
+              {bannerText.split('\n').map((line, index) => (
+                <span key={index} className="block mb-2">
+                  {line}
+                </span>
+              ))}
             </h1>
-            <p className="py-2 text-lg sm:text-xl md:text-xl text-violet-800">
-              FOR YOUR NEXT PROJECT
+            <p className="mt-4 text-lg text-gray-600">
+              Join us and make your mark in the freelance world!
             </p>
           </motion.div>
         </div>
