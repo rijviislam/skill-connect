@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Input,
   Modal,
   ModalBody,
@@ -31,14 +30,17 @@ import { SearchIcon } from "./SearchIcon";
 export default function FreelancerProfile() {
   const categories = [
     { key: "all", label: "All" },
+    { key: "web development", label: "Web Development" },
+    { key: "javascrip", label: "Javascrip" },
+    { key: "react", label: "React" },
+    { key: "graphic designer", label: "Graphic Designer" },
+    { key: "social media manager", label: "Social Media Manager" },
     { key: "web developer", label: "Web Developer" },
-    { key: "frontend developer", label: "Frontend Developer" },
-    { key: "backend developer", label: "Backend Developer" },
-    { key: "devops engineer", label: "DevOps Engineer" },
-    { key: "php developer", label: "PHP Developer" },
-    { key: "full stack developer", label: "Full Stack Developer" },
+    { key: "full-stack developer", label: " Full-stack Developer" },
+    { key: "data scientist", label: "Data Scientist" },
     { key: "ui/ux designer", label: "UI/UX Designer" },
-    { key: "graphics designer", label: "Graphics Designer" },
+    { key: "content writer", label: "Content Writer" },
+    { key: "tailwind css", label: "Tailwind Css" },
   ];
 
   const reportReasons = [
@@ -118,7 +120,7 @@ export default function FreelancerProfile() {
     if (selectedCategory && selectedCategory !== "all") {
       filtered = filtered.filter(
         (profile) =>
-          profile.profession?.toLowerCase() === selectedCategory.toLowerCase()
+          profile.skills?.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -262,7 +264,6 @@ export default function FreelancerProfile() {
       </div>
 
       {loading ? (
-        
         <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
@@ -304,27 +305,26 @@ export default function FreelancerProfile() {
                 </CardBody>
                 <div className="  px-4 flex-col items-start gap-1">
                   <div className="">
-                  <p>
-                    <strong>Skills:</strong> {profile.skills || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Bio:</strong> {profile.bio || "No bio available"}
-                  </p>
-                  <p>
-                    <strong>LinkedIn:</strong>{" "}
-                    {profile.linkedin ? (
-                      <a href={profile.linkedin} target="_blank">
-                        View Profile
-                      </a>
-                    ) : (
-                      "N/A"
-                    )}
-                  </p>
-
+                    <p>
+                      <strong>Skills:</strong> {profile.skills || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Bio:</strong> {profile.bio || "No bio available"}
+                    </p>
+                    <p>
+                      <strong>LinkedIn:</strong>{" "}
+                      {profile.linkedin ? (
+                        <a href={profile.linkedin} target="_blank">
+                          View Profile
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
+                    </p>
                   </div>
                 </div>
-                 <CardFooter>
-                <div className="flex justify-between items-end mb-8 w-full">
+                <CardFooter>
+                  <div className="flex justify-between items-end mb-8 w-full">
                     <Button
                       className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
                       onClick={() => handleReportUser(profile._id)}
@@ -348,24 +348,23 @@ export default function FreelancerProfile() {
                       Details
                     </Button>
                   </div>
-                  
-                  </CardFooter>
-                  {dropdownVisible[profile._id] && (
-                    <Select
-                      label="Select Report Reason"
-                      placeholder="Select a reason"
-                      onChange={(event) =>
-                        handleReasonChange(profile._id, event.target.value)
-                      }
-                      className="mt-1"
-                    >
-                      {reportReasons.map((item) => (
-                        <SelectItem key={item.key} value={item.key}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
+                </CardFooter>
+                {dropdownVisible[profile._id] && (
+                  <Select
+                    label="Select Report Reason"
+                    placeholder="Select a reason"
+                    onChange={(event) =>
+                      handleReasonChange(profile._id, event.target.value)
+                    }
+                    className="mt-1"
+                  >
+                    {reportReasons.map((item) => (
+                      <SelectItem key={item.key} value={item.key}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                )}
               </Card>
             ))
           ) : (
