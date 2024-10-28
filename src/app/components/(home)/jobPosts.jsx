@@ -131,12 +131,13 @@ const JobPosts = () => {
                         {job.timeline}
                       </p>
                       <p className="mb-2 flex items-center">
-                        <FaTools className="mr-2 text-purple-600" />
-                        <strong className="font-bold text-black">
-                          Skills:
-                        </strong>{" "}
-                        {job.skills.join(", ")}
-                      </p>
+  <FaTools className="mr-2 text-purple-600" />
+  <strong className="font-bold text-black">
+    Skills:
+  </strong>{" "}
+  {Array.isArray(job.skills) ? job.skills.join(", ") : "N/A"}
+</p>
+
                       <p className="mb-2 flex items-start">
                         <FaClipboardList className="mr-2 text-violet-600" />
                         <strong className="font-bold text-black mr-1">
@@ -211,9 +212,10 @@ const JobPosts = () => {
               <strong>Timeline:</strong> {selectedJob?.timeline || "N/A"}
             </p>
             <p>
-              <strong>Skills Required:</strong>{" "}
-              {selectedJob?.skills?.join(", ") || "N/A"}
-            </p>
+  <strong>Skills Required:</strong>{" "}
+  {Array.isArray(selectedJob?.skills) ? selectedJob.skills.join(", ") : "N/A"}
+</p>
+
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="light" onPress={handleCloseModal}>

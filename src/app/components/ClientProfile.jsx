@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Input,
   Modal,
@@ -221,247 +222,231 @@ export default function ClientProfile() {
 
   return (
     <div className="mx-10">
-      {/* SEARCH BAR */}
-      <h2 className="text-3xl text-center font-bold text-violet-500 mt-10">
-        Client profiles
-      </h2>
-      <div className="flex justify-between items-center mt-10 mx-5">
-        <div className="lg:w-[400px] mt-5">
-          <Input
-            isClearable
-            radius="lg"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search for clients..."
-            startContent={
-              <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-            }
-          />
-        </div>
+    <h2 className="text-3xl text-center font-bold text-violet-500 mt-10">
+      Freelancer profiles
+    </h2>
+
+    <div className="flex justify-between items-center mt-10 mx-5">
+      <div className="lg:w-[400px] mt-5">
+        <Input
+          isClearable
+          radius="lg"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Type to search..."
+          startContent={
+            <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+          }
+        />
       </div>
 
-      {/* GRID CARD */}
-      {loading ? (
-        // <div className="flex justify-center my-10">
-        //   <Spinner size="lg" color="primary" />
-        // </div>
-        <Loading />
-      ) : (
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
-          {Array.isArray(filterData) && filterData.length > 0 ? (
-            filterData.map((profile, idx) => (
-              <Card
-                className="py-4 w-[300px] h-[500px] lg:w-[400px] lg:w-h-[400px] bg-violet-100 border-2 border-violet-400"
-                key={idx}
-              >
-                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-                  <Image
-                    alt="Profile avatar"
-                    className="object-cover w-[100px] h-[100px] rounded-full"
-                    src={
-                      profile.profile?.avatarUrl?.startsWith("http")
-                        ? profile.profile?.avatarUrl
-                        : "/images/default-avatar.png"
-                    }
-                    width={100}
-                    height={100}
-                  />
-
-                  <div className="mt-3">
-                    <h4 className="text-sm font-semibold">
-                      {profile.username}
-                    </h4>
-                    <h5 className="text-sm">
-                      {profile.profile?.bio || "Client"}
-                    </h5>
-                    <p>
-                      <strong>Email:</strong> {profile.email || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Phone:</strong> {profile.profile?.phone || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Location:</strong>{" "}
-                      {profile.profile?.address?.city},{" "}
-                      {profile.profile?.address?.country || "N/A"}
-                    </p>
-                  </div>
-                </CardBody>
-
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start gap-1">
-                  <p>
-                    <strong>Services:</strong>{" "}
-                    {profile.services.length > 0
-                      ? profile.services.join(", ")
-                      : "No services listed"}
-                  </p>
-                  <p>
-                    <strong>Ratings:</strong>{" "}
-                    {profile.ratings.averageRating || "0"} ⭐ (
-                    {profile.ratings.totalRatings} reviews)
-                  </p>
-                  <p>
-                    <strong>Payment Info:</strong>{" "}
-                    {profile.paymentInfo.bankDetails || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Skills:</strong>{" "}
-                    {profile.profile?.skills.length > 0
-                      ? profile.profile?.skills.join(", ")
-                      : "N/A"}
-                  </p>
-                  <p>
-                    <strong>LinkedIn:</strong>{" "}
-                    {profile.profile?.socialLinks?.linkedin ? (
-                      <a
-                        href={profile.profile?.socialLinks?.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View Profile
-                      </a>
-                    ) : (
-                      "N/A"
-                    )}
-                  </p>
-
-                  {/* Report User */}
-                  {dropdownVisible[profile._id] && (
-                    <Select
-                      label="Select Report Reason"
-                      placeholder="Select a reason"
-                      onChange={(event) =>
-                        handleReasonChange(profile._id, event.target.value)
-                      }
-                      className="mt-2"
-                    >
-                      {reportReasons.map((item) => (
-                        <SelectItem key={item.key} value={item.key}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-
-                  <div className="flex justify-between items-end w-full">
-                    <Button
-                      className="text-sm text-white bg-[#C20E4D] mt-3 hover:underline"
-                      onClick={() => handleReportUser(profile._id)}
-                    >
-                      {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                    </Button>
-                    {dropdownVisible[profile._id] && (
-                      <Button
-                        className="text-sm text-white bg-[#C20E4D] mt-2 hover:underline"
-                        onClick={() => submitReport(profile._id)}
-                      >
-                        Submit Report
-                      </Button>
-                    )}
-                    <Button
-                      className="bg-[#7828C8] text-white"
-                      onPress={() => {
-                        setSelectedProfile(profile);
-                        onOpenChange(true);
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))
-          ) : (
-            <p>No clients found</p>
-          )}
-        </div>
-      )}
-      {/* MODAL */}
-      <Modal size="5xl" isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {selectedProfile.username || "Profile Details"}
-              </ModalHeader>
-              <ModalBody>
-                <div>
-                  <p>
-                    <strong>Email: </strong>
-                    {selectedProfile.email}
-                  </p>
-                  <p>
-                    <strong>Phone: </strong>
-                    {selectedProfile.phone}
-                  </p>
-                  <p>
-                    <strong>Location: </strong>
-                    {selectedProfile.profile?.address?.city},{" "}
-                    {selectedProfile?.address?.country || "N/A"}
-                  </p>
-                </div>
-                <p>
-                  <strong>Ratings:</strong>{" "}
-                  {selectedProfile.ratings.averageRating || "0"} ⭐ (
-                  {selectedProfile.ratings.totalRatings} reviews)
-                </p>
-                <p>
-                  <strong>Bio:</strong>{" "}
-                  {selectedProfile.bio || "No bio available"}
-                </p>
-
-                <div className="b h-[100px]">
-                  <Marquee pauseOnHover={true} className="flex gap-5">
-                    {selectedProfile?.reviewCollection?.map((rev) => (
-                      <div
-                        key={rev._id}
-                        className="w-[250px] mx-5 flex flex-col items-center"
-                      >
-                        <Image
-                          src={rev.reviewerImage}
-                          alt="Reviewer Image"
-                          width={50}
-                          height={50}
-                          className="w-10 h-10  rounded-full"
-                        />
-                        <strong>{rev.reviewerName}</strong>
-                        <p>{rev.description}</p>
-                      </div>
-                    ))}
-                  </Marquee>
-                </div>
-
-                {selectedProfile?.hiredFreelancers?.includes(currUserEmail) && (
-                  <form
-                    className="flex w-[360px] md:w-[500px] lg:w-full flex-col"
-                    onSubmit={handleSubmit(onSubmit)}
-                  >
-                    <input
-                      className="my-2 bg-transparent border-b outline-none border-[#9353D3] w-full h-[50px] p-2 rounded-lg"
-                      placeholder="description"
-                      type="text"
-                      {...register("description", { required: true })}
-                    />
-                    <Rating
-                      style={{ maxWidth: 150 }}
-                      value={review}
-                      onChange={(value) => setReview(value)}
-                    />
-                    <input
-                      type="submit"
-                      placeholder="Add Review"
-                      className="bg-[#9353D3] text-white p-3 font-semibold rounded-xl cursor-pointer mt-3 w-[100px] h-12"
-                    />
-                  </form>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button className="bg-[#6020A0] text-white">Hire</Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      
     </div>
+
+    {loading ? (
+      
+      <Loading />
+    ) : (
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
+        {filterData.length > 0 ? (
+          filterData.map((profile) => (
+            <Card
+              className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400"
+              key={profile._id}
+            >
+              <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                <Image
+                  alt="Profile avatar"
+                  className="object-cover w-[100px] h-[100px] rounded-full"
+                  src={
+                    profile.profile?.avatarUrl?.startsWith("http")
+                      ? profile.profile?.avatarUrl
+                      : "https://i.postimg.cc/L56NR5qd/masi-mohammadi-Fg-GVblk-ZTy-A-unsplash.jpg"
+                  }
+                  width={100}
+                  height={100}
+                />
+
+                <div className="mt-3">
+                  <h4 className="text-sm font-semibold">
+                    {profile.username}
+                  </h4>
+                  <h5 className="text-sm">{profile.role || "N/A"}</h5>
+                  <p>
+                    <strong>Email:</strong> {profile.email || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> {profile.phone || "N/A"}
+                  </p>
+                  <p>
+                    <strong>Location:</strong> {profile.city},{" "}
+                    {profile.country}
+                  </p>
+                </div>
+              </CardBody>
+              <div className="  px-4 flex-col items-start gap-1">
+                <div className="">
+                <p>
+                  <strong>Skills:</strong> {profile.skills || "N/A"}
+                </p>
+                <p>
+                  <strong>Bio:</strong> {profile.bio || "No bio available"}
+                </p>
+                <p>
+                  <strong>LinkedIn:</strong>{" "}
+                  {profile.linkedin ? (
+                    <a href={profile.linkedin} target="_blank">
+                      View Profile
+                    </a>
+                  ) : (
+                    "N/A"
+                  )}
+                </p>
+
+                </div>
+              </div>
+               <CardFooter>
+              <div className="flex justify-between items-end mb-8 w-full">
+                  <Button
+                    className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
+                    onClick={() => handleReportUser(profile._id)}
+                  >
+                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
+                  </Button>
+                  {dropdownVisible[profile._id] && (
+                    <Button
+                      className="text-sm text-white mt-2 hover:underline bg-[#C20E4D]"
+                      onClick={() => submitReport(profile._id)}
+                    >
+                      Submit Report
+                    </Button>
+                  )}
+                  <Button
+                    onPress={() => {
+                      setSelectedProfile(profile);
+                      onOpenChange(true);
+                    }}
+                  >
+                    Details
+                  </Button>
+                </div>
+                
+                </CardFooter>
+                {dropdownVisible[profile._id] && (
+                  <Select
+                    label="Select Report Reason"
+                    placeholder="Select a reason"
+                    onChange={(event) =>
+                      handleReasonChange(profile._id, event.target.value)
+                    }
+                    className="mt-1"
+                  >
+                    {reportReasons.map((item) => (
+                      <SelectItem key={item.key} value={item.key}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                )}
+            </Card>
+          ))
+        ) : (
+          <div>No profiles found.</div>
+        )}
+      </div>
+    )}
+
+    <Modal
+      size="5xl"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      placement="center"
+    >
+      <ModalContent>
+        <ModalHeader className="flex flex-col gap-1">
+          Profile Details: {selectedProfile.username || "N/A"}
+        </ModalHeader>
+        <ModalBody>
+          <p>
+            <strong>Email:</strong> {selectedProfile.email || "N/A"}
+          </p>
+          <p>
+            <strong>Phone:</strong> {selectedProfile.phone || "N/A"}
+          </p>
+          <p>
+            <strong>Location:</strong> {selectedProfile.city},{" "}
+            {selectedProfile.country}
+          </p>
+
+          <p>
+            <strong>Bio:</strong> {selectedProfile.bio || "N/A"}
+          </p>
+          <p>
+            <strong>LinkedIn:</strong>{" "}
+            {selectedProfile.linkedin ? (
+              <a href={selectedProfile.linkedin} target="_blank">
+                View Profile
+              </a>
+            ) : (
+              "N/A"
+            )}
+          </p>
+          <div className="b h-[100px]">
+            <Marquee pauseOnHover={true} className="flex gap-5">
+              {selectedProfile?.reviewCollection?.map((rev) => (
+                <div
+                  key={rev._id}
+                  className="w-[250px] mx-5 flex flex-col items-center"
+                >
+                  <Image
+                    src={rev.reviewerImage}
+                    alt="Reviewer Image"
+                    width={50}
+                    height={50}
+                    className="w-10 h-10  rounded-full"
+                  />
+                  <strong>{rev.reviewerName}</strong>
+                  <p>{rev.description}</p>
+                </div>
+              ))}
+            </Marquee>
+          </div>
+
+          {selectedProfile?.hiredClients?.includes(currUserEmail) && (
+            <form
+              className="flex w-[360px] md:w-[500px] lg:w-full flex-col"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <input
+                className="my-2 bg-transparent border-b outline-none border-[#9353D3] w-full h-[50px] p-2 rounded-lg"
+                placeholder="description"
+                type="text"
+                {...register("description", { required: true })}
+              />
+              <Rating
+                style={{ maxWidth: 150 }}
+                value={review}
+                onChange={(value) => setReview(value)}
+              />
+              <input
+                type="submit"
+                placeholder="Add Review"
+                className="bg-[#9353D3] text-white p-3 font-semibold rounded-xl cursor-pointer mt-3 w-[100px] h-12"
+              />
+            </form>
+          )}
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="danger"
+            variant="light"
+            onPress={() => onOpenChange(false)}
+          >
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  </div>
   );
 }
