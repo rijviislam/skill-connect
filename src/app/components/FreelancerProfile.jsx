@@ -24,9 +24,10 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import CloseDot from "../../Image/arrow.png";
+import Dot from "../../Image/dots.png";
 import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
-
 export default function FreelancerProfile() {
   const categories = [
     { key: "all", label: "All" },
@@ -270,7 +271,7 @@ export default function FreelancerProfile() {
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400"
+                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400 relative"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
@@ -324,22 +325,9 @@ export default function FreelancerProfile() {
                   </div>
                 </div>
                 <CardFooter>
-                  <div className="flex justify-between items-end mb-8 w-full">
+                  <div className="flex justify-between items-end mb-8 w-full ">
                     <Button
-                      className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
-                      onClick={() => handleReportUser(profile._id)}
-                    >
-                      {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                    </Button>
-                    {dropdownVisible[profile._id] && (
-                      <Button
-                        className="text-sm text-white mt-2 hover:underline bg-[#C20E4D]"
-                        onClick={() => submitReport(profile._id)}
-                      >
-                        Submit Report
-                      </Button>
-                    )}
-                    <Button
+                      className="bg-purple-300 text-white font-bold"
                       onPress={() => {
                         setSelectedProfile(profile);
                         onOpenChange(true);
@@ -347,6 +335,29 @@ export default function FreelancerProfile() {
                     >
                       Details
                     </Button>
+                    <Button
+                      className=" bg-transparent absolute top-1 right-0"
+                      onClick={() => handleReportUser(profile._id)}
+                    >
+                      {dropdownVisible[profile._id] ? (
+                        <Image
+                          src={CloseDot}
+                          alt="dot"
+                          width={15}
+                          height={15}
+                        />
+                      ) : (
+                        <Image src={Dot} alt="dot" width={15} height={15} />
+                      )}
+                    </Button>
+                    {dropdownVisible[profile._id] && (
+                      <Button
+                        className="text-sm text-white absulate botto-1 hover:underline bg-[#C20E4D]"
+                        onClick={() => submitReport(profile._id)}
+                      >
+                        Submit Report
+                      </Button>
+                    )}
                   </div>
                 </CardFooter>
                 {dropdownVisible[profile._id] && (
@@ -356,7 +367,7 @@ export default function FreelancerProfile() {
                     onChange={(event) =>
                       handleReasonChange(profile._id, event.target.value)
                     }
-                    className="mt-1"
+                    className="mt-1 absolute top-10"
                   >
                     {reportReasons.map((item) => (
                       <SelectItem key={item.key} value={item.key}>
