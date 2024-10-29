@@ -1,54 +1,52 @@
 "use client";
-import { useRouter } from 'next/navigation';
-import { Input, Button, Spacer, Image } from '@nextui-org/react';
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
-import Loader from '../../../../app/loading'; // Adjust the import path as needed
-import Link from 'next/link';
-import { FcGoogle } from "react-icons/fc";
+import { Button, Image, Input, Spacer } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import Swal from 'sweetalert2';
-
+import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
+import Loader from "../../../../app/loading";
 
 export default function SignInPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // State for loading
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     const res = await signIn("credentials", {
       redirect: false,
       email: e.target.email.value,
       passwordHash: e.target.password.value,
     });
-    setLoading(false); // Stop loading
+    setLoading(false);
 
     if (res?.error) {
-      // Handle error display to the user
       console.error(res.error);
       Swal.fire({
-        icon: 'error',
-        title: 'Sign-in failed',
+        icon: "error",
+        title: "Sign-in failed",
         text: res.error,
       });
     } else {
-      router.push('/');
+      router.push("/");
     }
   };
 
   const handleSocialLogin = async (provider) => {
-    setLoading(true); // Start loading
+    setLoading(true);
     const res = await signIn(provider, {
       redirect: true,
-      callbackUrl: "/dashboard"
+      callbackUrl: "/dashboard",
     });
-    setLoading(false); // Stop loading
+    setLoading(false);
 
     if (res?.error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Login failed',
+        icon: "error",
+        title: "Login failed",
         text: res.error,
       });
     } else {
@@ -62,7 +60,6 @@ export default function SignInPage() {
     }
   };
 
-  // If loading, show the loader
   if (loading) {
     return <Loader />;
   }
@@ -78,10 +75,11 @@ export default function SignInPage() {
         />
       </div>
       <div className="w-full max-w-md">
-        <h3 className="text-2xl font-semibold mb-4 text-violet-500 text-center">Sign In</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-violet-500 text-center">
+          Sign In
+        </h3>
         <form onSubmit={handleSubmit}>
           <Input
-            
             type="email"
             name="email"
             label="Email"
@@ -93,7 +91,6 @@ export default function SignInPage() {
           <Input
             type="password"
             name="password"
-            
             label="Password"
             placeholder="Enter your password"
             className="w-full border-2 rounded-xl border-violet-500 bg-violet-100 text-violet-700 focus:border-violet-600 focus:bg-violet-200"
@@ -103,7 +100,6 @@ export default function SignInPage() {
           <Button
             type="submit"
             shadow
-            
             auto
             className="w-full bg-violet-500 hover:bg-violet-600 text-white"
           >
@@ -113,11 +109,10 @@ export default function SignInPage() {
         <Spacer y={4} />
         <hr />
         <Spacer y={4} />
-        <div className='flex justify-center items-center gap-2'>
+        <div className="flex justify-center items-center gap-2">
           <Button
             type="submit"
             shadow
-            
             auto
             className="px-2 bg-violet-500 hover:bg-violet-600 text-white"
             onClick={() => handleSocialLogin("google")}
@@ -130,7 +125,6 @@ export default function SignInPage() {
           <Button
             type="submit"
             shadow
-            
             auto
             className="px-2 bg-violet-500 hover:bg-violet-600 text-white"
             onClick={() => handleSocialLogin("github")}
@@ -141,7 +135,10 @@ export default function SignInPage() {
         <Spacer y={1.5} />
         <div>
           <p className="text-center text-gray-600">
-            Do not have an account? <Link className='hover:text-violet-600' href="/api/auth/signup">Sign up</Link>
+            Do not have an account?{" "}
+            <Link className="hover:text-violet-600" href="/api/auth/signup">
+              Sign up
+            </Link>
           </p>
         </div>
       </div>

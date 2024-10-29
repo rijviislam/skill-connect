@@ -25,7 +25,6 @@ export const POST = async (request) => {
     createdAt: new Date(),
   };
 
-  // Insert the  reports collection
   const reportsCollection = db.collection('reports');
   await reportsCollection.insertOne(reportData);
 

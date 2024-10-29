@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import connectDB from "@/lib/connectDB";
 import { ObjectId } from "mongodb";
+import { NextResponse } from 'next/server';
 
 export const DELETE = async (request, { params }) => {
   try {
@@ -17,7 +17,6 @@ export const DELETE = async (request, { params }) => {
       _id: new ObjectId(params.id),
     });
 
-    // If no users were deleted, respond with a 404 status
     if (resp.deletedCount === 0) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }

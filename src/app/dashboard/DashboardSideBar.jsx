@@ -49,7 +49,7 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
+  console.log(currUser?.profile?.avatarUrl);
   return (
     <div className="flex flex-col h-full">
       <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
@@ -83,7 +83,7 @@ const Dashboard = () => {
                   size="sm"
                   width={80}
                   height={80}
-                  src={currUser?.profile?.avatarUrl }
+                  src={currUser?.profile?.avatarUrl}
                 />
               </div>
               <div>
@@ -115,7 +115,6 @@ const Dashboard = () => {
                     </Link>
                   </li>
 
-                  
                   <li>
                     <Link
                       href="/dashboard/ongoing"

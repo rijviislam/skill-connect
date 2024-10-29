@@ -1,6 +1,6 @@
   import connectDB from '@/lib/connectDB';
 
-  export const dynamic = 'force-dynamic'; // Ensure Next.js knows this API route is dynamic
+  export const dynamic = 'force-dynamic'; 
   
   export const GET = async (request) => {
     try {
@@ -8,7 +8,7 @@
       const jobPostCollection = db.collection("jobs");
   
       const { searchParams } = new URL(request.url);
-      const email = searchParams.get('email'); // Extract email from search params
+      const email = searchParams.get('email'); 
       let jobPosts;
   
       if (email) {

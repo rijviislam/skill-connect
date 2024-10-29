@@ -5,7 +5,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
   Input,
   Modal,
   ModalBody,
@@ -25,20 +24,24 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import CloseDot from "../../Image/arrow.png";
+import Dot from "../../Image/dots.png";
 import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
-
 export default function FreelancerProfile() {
   const categories = [
     { key: "all", label: "All" },
+    { key: "web development", label: "Web Development" },
+    { key: "javascrip", label: "Javascrip" },
+    { key: "react", label: "React" },
+    { key: "graphic designer", label: "Graphic Designer" },
+    { key: "social media manager", label: "Social Media Manager" },
     { key: "web developer", label: "Web Developer" },
-    { key: "frontend developer", label: "Frontend Developer" },
-    { key: "backend developer", label: "Backend Developer" },
-    { key: "devops engineer", label: "DevOps Engineer" },
-    { key: "php developer", label: "PHP Developer" },
-    { key: "full stack developer", label: "Full Stack Developer" },
+    { key: "full-stack developer", label: " Full-stack Developer" },
+    { key: "data scientist", label: "Data Scientist" },
     { key: "ui/ux designer", label: "UI/UX Designer" },
-    { key: "graphics designer", label: "Graphics Designer" },
+    { key: "content writer", label: "Content Writer" },
+    { key: "tailwind css", label: "Tailwind Css" },
   ];
 
   const reportReasons = [
@@ -118,7 +121,7 @@ export default function FreelancerProfile() {
     if (selectedCategory && selectedCategory !== "all") {
       filtered = filtered.filter(
         (profile) =>
-          profile.profession?.toLowerCase() === selectedCategory.toLowerCase()
+          profile.skills?.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
@@ -262,14 +265,13 @@ export default function FreelancerProfile() {
       </div>
 
       {loading ? (
-        
         <Loading />
       ) : (
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:my-10 md:my-5 my-5 place-items-center gap-8">
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400"
+                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400 relative"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
@@ -304,42 +306,28 @@ export default function FreelancerProfile() {
                 </CardBody>
                 <div className="  px-4 flex-col items-start gap-1">
                   <div className="">
-                  <p>
-                    <strong>Skills:</strong> {profile.skills || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Bio:</strong> {profile.bio || "No bio available"}
-                  </p>
-                  <p>
-                    <strong>LinkedIn:</strong>{" "}
-                    {profile.linkedin ? (
-                      <a href={profile.linkedin} target="_blank">
-                        View Profile
-                      </a>
-                    ) : (
-                      "N/A"
-                    )}
-                  </p>
-
+                    <p>
+                      <strong>Skills:</strong> {profile.skills || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Bio:</strong> {profile.bio || "No bio available"}
+                    </p>
+                    <p>
+                      <strong>LinkedIn:</strong>{" "}
+                      {profile.linkedin ? (
+                        <a href={profile.linkedin} target="_blank">
+                          View Profile
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
+                    </p>
                   </div>
                 </div>
-                 <CardFooter>
-                <div className="flex justify-between items-end mb-8 w-full">
+                <CardFooter>
+                  <div className="flex justify-between items-end mb-8 w-full ">
                     <Button
-                      className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
-                      onClick={() => handleReportUser(profile._id)}
-                    >
-                      {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                    </Button>
-                    {dropdownVisible[profile._id] && (
-                      <Button
-                        className="text-sm text-white mt-2 hover:underline bg-[#C20E4D]"
-                        onClick={() => submitReport(profile._id)}
-                      >
-                        Submit Report
-                      </Button>
-                    )}
-                    <Button
+                      className="bg-purple-300 text-white font-bold"
                       onPress={() => {
                         setSelectedProfile(profile);
                         onOpenChange(true);
@@ -347,25 +335,47 @@ export default function FreelancerProfile() {
                     >
                       Details
                     </Button>
-                  </div>
-                  
-                  </CardFooter>
-                  {dropdownVisible[profile._id] && (
-                    <Select
-                      label="Select Report Reason"
-                      placeholder="Select a reason"
-                      onChange={(event) =>
-                        handleReasonChange(profile._id, event.target.value)
-                      }
-                      className="mt-1"
+                    <Button
+                      className=" bg-transparent absolute top-1 right-0"
+                      onClick={() => handleReportUser(profile._id)}
                     >
-                      {reportReasons.map((item) => (
-                        <SelectItem key={item.key} value={item.key}>
-                          {item.label}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
+                      {dropdownVisible[profile._id] ? (
+                        <Image
+                          src={CloseDot}
+                          alt="dot"
+                          width={15}
+                          height={15}
+                        />
+                      ) : (
+                        <Image src={Dot} alt="dot" width={15} height={15} />
+                      )}
+                    </Button>
+                    {dropdownVisible[profile._id] && (
+                      <Button
+                        className="text-sm text-white absulate botto-1 hover:underline bg-[#C20E4D]"
+                        onClick={() => submitReport(profile._id)}
+                      >
+                        Submit Report
+                      </Button>
+                    )}
+                  </div>
+                </CardFooter>
+                {dropdownVisible[profile._id] && (
+                  <Select
+                    label="Select Report Reason"
+                    placeholder="Select a reason"
+                    onChange={(event) =>
+                      handleReasonChange(profile._id, event.target.value)
+                    }
+                    className="mt-1 absolute top-10"
+                  >
+                    {reportReasons.map((item) => (
+                      <SelectItem key={item.key} value={item.key}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                )}
               </Card>
             ))
           ) : (

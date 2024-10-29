@@ -146,7 +146,7 @@ const NavbarComponent = () => {
                 <NavbarItem>
                   <Button
                     onClick={() => signIn()}
-                    color="primary"
+                    color="secondary"
                     variant="ghost"
                   >
                     Sign In
@@ -154,7 +154,7 @@ const NavbarComponent = () => {
                 </NavbarItem>
                 <NavbarItem>
                   <Link href="/api/auth/signup">
-                    <Button color="primary" variant="ghost">
+                    <Button color="secondary" variant="ghost">
                       Sign Up
                     </Button>
                   </Link>
