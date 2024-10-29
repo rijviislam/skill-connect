@@ -1,4 +1,3 @@
-// File: /pages/api/reports.js
 
 import connectDB from '@/lib/connectDB';
 

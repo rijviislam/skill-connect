@@ -13,7 +13,6 @@ export const DELETE = async (request) => {
       return new Response(JSON.stringify({ message: "ID is required" }), { status: 400 });
     }
 
-    // Ensure the id is valid before trying to create an ObjectId
     if (!ObjectId.isValid(id)) {
       return new Response(JSON.stringify({ message: "Invalid ID format" }), { status: 400 });
     }

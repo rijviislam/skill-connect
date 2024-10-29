@@ -1,18 +1,14 @@
-// import connectDB from "@/lib/connectDB";
 import connectDB from "@/lib/connectDB";
 import bcrypt from "bcrypt";
 
 export async function POST(request) {
   try {
     
-    // Connect to MongoDB
     const db = await connectDB();
     const userCollection = db.collection("users");
 
-    // Parse incoming request data
     const { image, username, email, passwordHash, role } = await request.json();
 
-    // Validate required fields
     if (!username || !email || !passwordHash || !role) {
       return new Response(JSON.stringify({ message: "Missing required fields" }), { status: 400 });
     }
@@ -22,7 +18,6 @@ export async function POST(request) {
       return Response.json({ message: "user Exists" }, { status: 500 });
     }
 
-    // Create a new user object with a complete skeleton
     const newUser = {
       username,
       email,
@@ -56,7 +51,7 @@ export async function POST(request) {
         paymentMethods: []
       }
     };
-     // Conditionally add empty arrays for hired clients or freelancers based on the role
+ 
      if (role === "freelancer") {
       newUser.hiredClients = [];
     } else if (role === "client") {
