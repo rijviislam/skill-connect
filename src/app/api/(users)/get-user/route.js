@@ -7,7 +7,6 @@ export async function GET(request) {
     const db = await connectDB();
     const userCollection = db.collection("users");
 
-    // Retrieve the session to get the logged-in user's email
     const session = await getServerSession(authOptions);
 
     if (!session) {

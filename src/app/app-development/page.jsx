@@ -1,17 +1,26 @@
-import Image from 'next/image';
-import { FaMobileAlt, FaCode, FaLaptopCode, FaRocket, FaDatabase } from 'react-icons/fa';
-import app from "../../Image/timothy-hales-bennett-OwvRB-M3GwE-unsplash.jpg"
-import app2 from "../../Image/olaf-val-UTk9cXzYWAg-unsplash.jpg"
-import app3 from "../../Image/tran-mau-tri-tam-g-pKprPg5yw-unsplash.jpg"
+import Image from "next/image";
+import {
+  FaCode,
+  FaDatabase,
+  FaLaptopCode,
+  FaMobileAlt,
+  FaRocket,
+} from "react-icons/fa";
+import app2 from "../../Image/olaf-val-UTk9cXzYWAg-unsplash.jpg";
+import app from "../../Image/timothy-hales-bennett-OwvRB-M3GwE-unsplash.jpg";
+import app3 from "../../Image/tran-mau-tri-tam-g-pKprPg5yw-unsplash.jpg";
 
 const AppDevelopmentPage = () => {
   return (
     <div className="container mx-auto p-6 ">
       {/* Header Section */}
       <header className="mb-8 text-center">
-        <h1 className="text-5xl font-extrabold text-violet-500">App Development</h1>
+        <h1 className="text-5xl font-extrabold text-violet-500">
+          App Development
+        </h1>
         <p className="mt-2 text-lg text-gray-700 max-w-2xl mx-auto">
-          Stay ahead in the fast-growing world of mobile and web app development with the latest insights.
+          Stay ahead in the fast-growing world of mobile and web app development
+          with the latest insights.
         </p>
       </header>
 
@@ -29,9 +38,12 @@ const AppDevelopmentPage = () => {
               height={300}
               className="rounded-md mb-4"
             />
-            <h3 className="text-2xl font-bold text-violet-500">Modern App Development Tools</h3>
+            <h3 className="text-2xl font-bold text-violet-500">
+              Modern App Development Tools
+            </h3>
             <p className="mt-2 text-gray-600">
-              Explore the latest tools and frameworks for building powerful mobile and web apps.
+              Explore the latest tools and frameworks for building powerful
+              mobile and web apps.
             </p>
           </article>
 
@@ -43,9 +55,12 @@ const AppDevelopmentPage = () => {
               height={300}
               className="rounded-md mb-4"
             />
-            <h3 className="text-2xl font-bold text-violet-500">Scalable Backend Solutions</h3>
+            <h3 className="text-2xl font-bold text-violet-500">
+              Scalable Backend Solutions
+            </h3>
             <p className="mt-2 text-gray-600">
-              Learn about backend technologies that ensure your apps can scale efficiently.
+              Learn about backend technologies that ensure your apps can scale
+              efficiently.
             </p>
           </article>
 
@@ -60,19 +75,24 @@ const AppDevelopmentPage = () => {
         </h2>
         <ul className="list-disc list-inside space-y-3 text-lg text-gray-700 bg-white p-4 rounded-lg shadow-md">
           <li className="flex items-center">
-            <FaMobileAlt className="text-violet-500 mr-2" /> Focus on creating a user-friendly interface.
+            <FaMobileAlt className="text-violet-500 mr-2" /> Focus on creating a
+            user-friendly interface.
           </li>
           <li className="flex items-center">
-            <FaCode className="text-violet-500 mr-2" /> Optimize your code for performance and efficiency.
+            <FaCode className="text-violet-500 mr-2" /> Optimize your code for
+            performance and efficiency.
           </li>
           <li className="flex items-center">
-            <FaLaptopCode className="text-violet-500 mr-2" /> Test your app on various devices and platforms.
+            <FaLaptopCode className="text-violet-500 mr-2" /> Test your app on
+            various devices and platforms.
           </li>
           <li className="flex items-center">
-            <FaRocket className="text-violet-500 mr-2" /> Ensure your app is fast and responsive.
+            <FaRocket className="text-violet-500 mr-2" /> Ensure your app is
+            fast and responsive.
           </li>
           <li className="flex items-center">
-            <FaDatabase className="text-violet-500 mr-2" /> Choose a reliable and scalable database solution.
+            <FaDatabase className="text-violet-500 mr-2" /> Choose a reliable
+            and scalable database solution.
           </li>
         </ul>
       </section>

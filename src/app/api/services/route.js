@@ -1,6 +1,6 @@
 import connectDB from '@/lib/connectDB';
 
-export const dynamic = 'force-dynamic';  // Force dynamic rendering
+export const dynamic = 'force-dynamic';  
 
 export const GET = async (request) => {
   try {
