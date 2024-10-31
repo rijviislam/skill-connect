@@ -49,7 +49,7 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-  console.log(currUser?.profile?.avatarUrl);
+
   return (
     <div className="flex flex-col h-full">
       <header className="flex justify-between items-center p-4 bg-violet-200 border-b border-gray-200 lg:hidden">
@@ -75,7 +75,6 @@ const Dashboard = () => {
             <div className="mr-4">
               <div>
                 <Image
-                  isBordered
                   alt="profile"
                   className="w-20 h-20 border-2 border-violet-500 rounded-full"
                   color="secondary"
@@ -83,7 +82,7 @@ const Dashboard = () => {
                   size="sm"
                   width={80}
                   height={80}
-                  src={currUser?.profile?.avatarUrl}
+                  src={session?.user?.image || currUser?.profile?.avatarUrl}
                 />
               </div>
               <div>
@@ -216,6 +215,18 @@ const Dashboard = () => {
                       }`}
                     >
                       <FaMoneyBill className="mr-2" /> Payment Management
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/dashboard/ai"
+                      className={`flex items-center mb-4 text-lg ${
+                        isActive("/dashboard/report")
+                          ? "font-bold bg-violet-200 rounded-lg"
+                          : ""
+                      }`}
+                    >
+                      <FaAd className="mr-2" /> AI
                     </Link>
                   </li>
                 </>
