@@ -1,18 +1,18 @@
 "use client";
 
-import Loading from '@/app/loading';
-import { Button, Input, Textarea } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
-import { BiShow, BiHide } from "react-icons/bi";
-import Swal from 'sweetalert2';
+import Loading from "@/app/loading";
+import { Button, Input, Textarea } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { BiHide, BiShow } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const ProfilePage = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(status === "loading");
   const [showPassword, setShowPassword] = useState(false);
-  
+
   // State for error messages
   const [errors, setErrors] = useState({});
 
@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   const updateHandler = async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
@@ -42,8 +42,10 @@ const ProfilePage = () => {
 
     // Validate required fields
     Object.keys(data).forEach((key) => {
-      if (!data[key] && key !== 'email') {
-        newErrors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`;
+      if (!data[key] && key !== "email") {
+        newErrors[key] = `${
+          key.charAt(0).toUpperCase() + key.slice(1)
+        } is required.`;
       }
     });
 
@@ -55,10 +57,10 @@ const ProfilePage = () => {
     console.log("Form data before sending:", data);
 
     try {
-      const response = await fetch('/api/put-user', {
-        method: 'PUT',
+      const response = await fetch("/api/put-user", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -69,29 +71,33 @@ const ProfilePage = () => {
 
       if (response.ok) {
         Swal.fire({
-          icon: 'success',
-          title: 'Profile Updated',
-          text: 'Profile updated successfully.',
+          icon: "success",
+          title: "Profile Updated",
+          text: "Profile updated successfully.",
         });
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Update Failed',
+          icon: "error",
+          title: "Update Failed",
           text: result.message || "Failed to update profile.",
         });
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'An error occurred. Please try again later.',
+        icon: "error",
+        title: "Error",
+        text: "An error occurred. Please try again later.",
       });
     }
   };
 
   if (loading) {
-    return <div><Loading/></div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -100,7 +106,7 @@ const ProfilePage = () => {
         <div className="flex flex-col gap-1">Edit Profile</div>
         <form onSubmit={updateHandler}>
           {/* Avatar URL and Username */}
-          <div className="lg:flex lg:gap-8">
+          <div className="lg:flex lg:gap-8 ">
             <Input
               clearable
               label="Avatar URL"
@@ -108,7 +114,7 @@ const ProfilePage = () => {
               defaultValue={userImage}
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.avatarUrl ? 'error' : undefined}
+              status={errors.avatarUrl ? "error" : undefined}
               helperText={errors.avatarUrl}
             />
             <Input
@@ -118,7 +124,7 @@ const ProfilePage = () => {
               defaultValue={userName}
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.username ? 'error' : undefined}
+              status={errors.username ? "error" : undefined}
               helperText={errors.username}
             />
           </div>
@@ -141,7 +147,7 @@ const ProfilePage = () => {
                 type={showPassword ? "text" : "password"}
                 className="transition-all duration-300 hover:bg-green-100"
                 required
-                status={errors.password ? 'error' : undefined}
+                status={errors.password ? "error" : undefined}
                 helperText={errors.password}
               />
               <div
@@ -162,7 +168,7 @@ const ProfilePage = () => {
               type="number"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.phone ? 'error' : undefined}
+              status={errors.phone ? "error" : undefined}
               helperText={errors.phone}
             />
             <Input
@@ -171,7 +177,7 @@ const ProfilePage = () => {
               name="street"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.street ? 'error' : undefined}
+              status={errors.street ? "error" : undefined}
               helperText={errors.street}
             />
           </div>
@@ -184,7 +190,7 @@ const ProfilePage = () => {
               name="city"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.city ? 'error' : undefined}
+              status={errors.city ? "error" : undefined}
               helperText={errors.city}
             />
             <Input
@@ -193,7 +199,7 @@ const ProfilePage = () => {
               name="state"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.state ? 'error' : undefined}
+              status={errors.state ? "error" : undefined}
               helperText={errors.state}
             />
           </div>
@@ -206,7 +212,7 @@ const ProfilePage = () => {
               name="zipCode"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.zipCode ? 'error' : undefined}
+              status={errors.zipCode ? "error" : undefined}
               helperText={errors.zipCode}
             />
             <Input
@@ -215,7 +221,7 @@ const ProfilePage = () => {
               name="country"
               className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
               required
-              status={errors.country ? 'error' : undefined}
+              status={errors.country ? "error" : undefined}
               helperText={errors.country}
             />
           </div>
@@ -227,7 +233,7 @@ const ProfilePage = () => {
             name="linkedin"
             className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
             required
-            status={errors.linkedin ? 'error' : undefined}
+            status={errors.linkedin ? "error" : undefined}
             helperText={errors.linkedin}
           />
           <Input
@@ -236,7 +242,7 @@ const ProfilePage = () => {
             name="socialLinks"
             className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
             required
-            status={errors.socialLinks ? 'error' : undefined}
+            status={errors.socialLinks ? "error" : undefined}
             helperText={errors.socialLinks}
           />
 
@@ -246,7 +252,7 @@ const ProfilePage = () => {
             name="skills"
             className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
             required
-            status={errors.skills ? 'error' : undefined}
+            status={errors.skills ? "error" : undefined}
             helperText={errors.skills}
           />
           <Textarea
@@ -254,7 +260,7 @@ const ProfilePage = () => {
             name="bio"
             className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
             required
-            status={errors.bio ? 'error' : undefined}
+            status={errors.bio ? "error" : undefined}
             helperText={errors.bio}
           />
 
@@ -264,13 +270,13 @@ const ProfilePage = () => {
             name="services"
             className="mb-4 transition-all duration-300 hover:bg-green-100 lg:w-full"
             required
-            status={errors.services ? 'error' : undefined}
+            status={errors.services ? "error" : undefined}
             helperText={errors.services}
           />
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <Link href={'/dashboard/profile'}>
+            <Link href={"/dashboard/profile"}>
               <Button color="danger" variant="light">
                 Close
               </Button>

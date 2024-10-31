@@ -11,12 +11,12 @@ import {
   Textarea,
   useDisclosure,
 } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import { FaLinkedin, FaMapMarkerAlt, FaPhone, FaUser } from "react-icons/fa";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const ProfilePage = () => {
@@ -25,6 +25,7 @@ const ProfilePage = () => {
   const { isOpen, onOpenChange } = useDisclosure();
   const { data: session } = useSession();
   const myEmail = session?.user?.email;
+  console.log(session?.user);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -139,15 +140,15 @@ const ProfilePage = () => {
             <div className="flex items-center border-b border-gray-300 pb-2">
               <FaLinkedin className="text-gray-600 mr-3" />
               <div className="lg:flex">
-              <div className="text-lg md:text-2xl font-bold">LinkedIn:</div>
-              <div className="-ml-8  lg:ml-4 text-sm  md:text-xl">
-                <a
-                  href={user.linkedin}
-                  className="text-blue-500 hover:underline"
-                >
-                  {user.linkedin}
-                </a>
-              </div>
+                <div className="text-lg md:text-2xl font-bold">LinkedIn:</div>
+                <div className="-ml-8  lg:ml-4 text-sm  md:text-xl">
+                  <a
+                    href={user.linkedin}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {user.linkedin}
+                  </a>
+                </div>
               </div>
             </div>
             <div className="flex items-center border-b border-gray-300 pb-2">
@@ -172,149 +173,175 @@ const ProfilePage = () => {
         </div>
       )}
 
-<Modal size="full" isOpen={isOpen} onOpenChange={onOpenChange}>
-  <ModalContent>
-    {(onClose) => (
-      <>
-        <ModalHeader className="flex flex-col gap-1 mt-10 text-center">
-          Edit Profile
-        </ModalHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ModalBody className="max-h-[70vh] overflow-y-auto"> {/* Added max height and overflow */}
-            <div className="flex flex-col md:flex-row gap-5">
-              <Input
-                type="file"
-                variant="bordered"
-                label="Avatar"
-                placeholder="Enter your image"
-                {...register("avatar")}
-                className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-              />
-              <Input
-                type="text"
-                variant="bordered"
-                label="Username"
-                placeholder="Enter your username"
-                {...register("username")}
-                className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-              />
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-5">
-              <Input
-                type="email"
-                variant="bordered"
-                label="Email"
-                placeholder="Enter your email"
-                {...register("email")}
-                className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-              />
-              <Input
-                type="password"
-                variant="bordered"
-                label="Password"
-                placeholder="Enter your password"
-                {...register("passwordHash")}
-                className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-              />
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-5">
-              <Input
-                type="number"
-                variant="bordered"
-                label="Phone Number"
-                placeholder="Enter your phone number"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("phone")}
-              />
-              <Input
-                type="text"
-                variant="bordered"
-                label="Street"
-                placeholder="Enter your street"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("street")}
-              />
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-5">
-              <Input
-                type="text"
-                variant="bordered"
-                label="City"
-                placeholder="Enter your city"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("city")}
-              />
-              <Input
-                type="text"
-                variant="bordered"
-                label="State"
-                placeholder="Enter your state"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("state")}
-              />
-              <Input
-                type="number"
-                variant="bordered"
-                label="Zip Code"
-                placeholder="Enter your zip code"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("zipCode")}
-              />
-              <Input
-                type="text"
-                variant="bordered"
-                label="Country"
-                placeholder="Enter your country"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("country")}
-              />
-              <Input
-                type="text"
-                variant="bordered"
-                label="linkedin"
-                placeholder="Enter your linkedin Link"
-                className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-                {...register("linkedin")}
-              />
-            </div>
-
-            <Textarea
-              label="skills"
-              placeholder="skills"
-              {...register("skills")}
-              className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-            />
-            <Textarea
-              label="Bio"
-              placeholder="Bio"
-              {...register("bio")}
-              className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg"
-              onPress={onClose}
-            >
-              Close
-            </Button>
-            <Button
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg"
-              type="submit"
-            >
-              Save
-            </Button>
-          </ModalFooter>
-        </form>
-      </>
-    )}
-  </ModalContent>
-</Modal>
-
-
+      <Modal size="full" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 mt-10 text-center ">
+                Edit Profile
+              </ModalHeader>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalBody className="max-h-[70vh] overflow-y-auto">
+                  {" "}
+                  {/* Added max height and overflow */}
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <Input
+                      type="file"
+                      variant="bordered"
+                      label="Avatar"
+                      placeholder="Enter your image"
+                      {...register("avatar")}
+                      className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                    />
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="Username"
+                      placeholder="Enter your username"
+                      {...register("username")}
+                      className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                    />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <Input
+                      type="email"
+                      variant="bordered"
+                      label="Email"
+                      placeholder="Enter your email"
+                      {...register("email")}
+                      className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                    />
+                    <Input
+                      type="password"
+                      variant="bordered"
+                      label="Password"
+                      placeholder="Enter your password"
+                      {...register("passwordHash")}
+                      className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                    />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <Input
+                      type="number"
+                      variant="bordered"
+                      label="Phone Number"
+                      placeholder="Enter your phone number"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("phone")}
+                    />
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="Street"
+                      placeholder="Enter your street"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("street")}
+                    />
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-5">
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="City"
+                      placeholder="Enter your city"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("city")}
+                    />
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="State"
+                      placeholder="Enter your state"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("state")}
+                    />
+                    <Input
+                      type="number"
+                      variant="bordered"
+                      label="Zip Code"
+                      placeholder="Enter your zip code"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("zipCode")}
+                    />
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="Country"
+                      placeholder="Enter your country"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("country")}
+                    />
+                    <Input
+                      type="text"
+                      variant="bordered"
+                      label="linkedin"
+                      placeholder="Enter your linkedin Link"
+                      className="h-[60px] border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                      {...register("linkedin")}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="role"
+                    >
+                      Role
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="freelancer"
+                          required
+                          className="form-radio text-violet-500 rounded-xl focus:ring-violet-700 hover:bg-violet-200"
+                        />
+                        <span className="ml-2">Freelancer</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="client"
+                          required
+                          className="form-radio text-violet-500 rounded-xl focus:ring-violet-700 hover:bg-violet-200"
+                        />
+                        <span className="ml-2">Client</span>
+                      </label>
+                    </div>
+                  </div>
+                  <Textarea
+                    label="skills"
+                    placeholder="skills"
+                    {...register("skills")}
+                    className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                  />
+                  <Textarea
+                    label="Bio"
+                    placeholder="Bio"
+                    {...register("bio")}
+                    className="border-2 border-gray-300 rounded-md hover:border-purple-500 transition-all duration-200 w-full"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg"
+                    onPress={onClose}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:shadow-lg"
+                    type="submit"
+                  >
+                    Save
+                  </Button>
+                </ModalFooter>
+              </form>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

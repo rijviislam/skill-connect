@@ -37,9 +37,10 @@ export default function SignInPage() {
 
   const handleSocialLogin = async (provider) => {
     setLoading(true);
+    console.log(provider);
     const res = await signIn(provider, {
       redirect: true,
-      callbackUrl: "/dashboard",
+      callbackUrl: "/dashboard/profile",
     });
     setLoading(false);
 
