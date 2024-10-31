@@ -1,12 +1,14 @@
 import ServicesContext from "@/ServicesContext/ServicesContext";
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import localFont from "next/font/local";
+import { FaBrain } from "react-icons/fa";
 import QueryProvider from "../../utils/QueryProvider";
+import Ai from "./components/Ai";
 import FooterWrapper from "./FooterWrapper";
 import "./globals.css";
 import NavbarWrapper from "./NavbarWrapper.jsx";
 import { Providers } from "./providers";
 import AuthProvider from "./services/AuthProvider";
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,17 +33,28 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Providers>
-            <NavbarWrapper /> 
+            <NavbarWrapper />
+            <div className=" flex items-end justify-end z-50 relative w-full">
+              <div className="fixed right-10 top-[600px] border-none">
+                <Popover placement="left" className="bg-none">
+                  <PopoverTrigger>
+                    <button className="border-none bg-none">
+                      <FaBrain className="text-5xl cursor-pointer text-purple-500" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <Ai />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
             <QueryProvider>
-            <ServicesContext>
-            
+              <ServicesContext>
                 <div className="min-h-screen">{children}</div>
-        
-            </ServicesContext>
+              </ServicesContext>
             </QueryProvider>
-           
-           <FooterWrapper/>
-           
+
+            <FooterWrapper />
           </Providers>
         </body>
       </AuthProvider>

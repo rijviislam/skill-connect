@@ -50,6 +50,7 @@ const NavbarComponent = () => {
   useEffect(() => {
     fetchUserByEmail();
   }, [userEmail]);
+  console.log(currUser);
 
   return (
     <Navbar
@@ -137,7 +138,7 @@ const NavbarComponent = () => {
                     color="secondary"
                     name="Jason Hughes"
                     size="sm"
-                    src={currUser?.profile?.avatarUrl}
+                    src={session?.user?.image || currUser?.profile?.avatarUrl}
                   />
                 </DropdownTrigger>
               </>
