@@ -155,7 +155,7 @@ const ProfilePage = () => {
               <span className="text-lg md:text-2xl font-bold">skills:</span>
               <span className="ml-4 text-md md:text-xl">{user.skills}</span>
             </div>
-            <div className="flex items-center border-b border-gray-300 pb-2">
+            <div className="flex  border-b border-gray-300 pb-2">
               <span className="text-lg md:text-2xl font-bold">Bio:</span>
               <span className="ml-4 text-md md:text-xl">{user.bio}</span>
             </div>

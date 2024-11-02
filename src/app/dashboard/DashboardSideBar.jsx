@@ -67,7 +67,7 @@ const Dashboard = () => {
         {/* Sidebar */}
         <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
           <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
-            <Image  src={logo} alt="Digital Web Design" />
+            <Image src={logo} alt="Digital Web Design" />
           </Link>
           <hr className="border-2 border-violet-300 my-2" />
 
@@ -215,18 +215,6 @@ const Dashboard = () => {
                       }`}
                     >
                       <FaMoneyBill className="mr-2" /> Payment Management
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/dashboard/ai"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/report")
-                          ? "font-bold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaAd className="mr-2" /> AI
                     </Link>
                   </li>
                 </>
