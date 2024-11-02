@@ -217,18 +217,6 @@ const Dashboard = () => {
                       <FaMoneyBill className="mr-2" /> Payment Management
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/dashboard/ai"
-                      className={`flex items-center mb-4 text-lg ${
-                        isActive("/dashboard/report")
-                          ? "font-bold bg-violet-200 rounded-lg"
-                          : ""
-                      }`}
-                    >
-                      <FaAd className="mr-2" /> AI
-                    </Link>
-                  </li>
                 </>
               )}
 

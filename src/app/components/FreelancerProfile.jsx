@@ -271,7 +271,7 @@ export default function FreelancerProfile() {
           {filterData.length > 0 ? (
             filterData.map((profile) => (
               <Card
-                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400 relative"
+                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[400px] bg-violet-100 border-2 border-violet-400 relative"
                 key={profile._id}
               >
                 <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
