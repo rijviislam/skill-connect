@@ -25,9 +25,9 @@ const TopCategories = () => {
         Most Popular Categories
         <FaArrowRight className="ml-2" />
       </h2>
-      <div  className=" absolute bottom-0 right-14 w-[400px] h-[400px] overflow-hidden rounded-full animate-spin-slow">
+      <div  className=" absolute bottom-0 right-14 w-[400px] h-[400px] overflow-hidden rounded-full animate-spin-slow hidden md:block">
         <Image
-          src={"https://i.ibb.co/JpQzWps/shap.png"}
+          src={"https://i.postimg.cc/KzNCx060/photo-2024-10-21-13-35-50.jpg"}
           alt="Sgg"
           width={400}
           height={400}
@@ -35,7 +35,7 @@ const TopCategories = () => {
         />
       </div>
       {/* First row */}
-      <div data-aos="fade-right" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
+      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
         {[
           {
             title: "Graphic Design",
@@ -103,7 +103,9 @@ const TopCategories = () => {
       </div>
 
       {/* Second row */}
-      <div data-aos="fade-right" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+      
+
+      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
         {[
           {
             title: "Photography",
@@ -164,7 +166,7 @@ const TopCategories = () => {
       </div>
 
       {/* Third row */}
-      <div data-aos="fade-right" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
         {[
           {
             title: "App Development",
