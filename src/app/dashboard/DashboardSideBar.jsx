@@ -67,7 +67,7 @@ const Dashboard = () => {
         {/* Sidebar */}
         <div className="flex flex-col w-72 bg-gray-100 border-2 border-x-violet-400 p-4">
           <Link href="/" className="w-72 h-20 -mt-32 mb-24 -ml-14">
-            <Image src={logo} alt="Digital Web Design" />
+            <Image  src={logo} alt="Digital Web Design" />
           </Link>
           <hr className="border-2 border-violet-300 my-2" />
 

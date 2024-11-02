@@ -27,6 +27,8 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import Loading from "../loading";
 import { SearchIcon } from "./SearchIcon";
+import CloseDot from "../../Image/arrow.png";
+import Dot from "../../Image/dots.png";
 
 export default function ClientProfile() {
   const { isOpen, onOpenChange } = useDisclosure();
@@ -223,7 +225,7 @@ export default function ClientProfile() {
   return (
     <div className="mx-10">
     <h2 className="text-3xl text-center font-bold text-violet-500 mt-10">
-      Freelancer profiles
+      Client profiles
     </h2>
 
     <div className="flex justify-between items-center mt-10 mx-5">
@@ -251,86 +253,94 @@ export default function ClientProfile() {
         {filterData.length > 0 ? (
           filterData.map((profile) => (
             <Card
-              className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[450px] bg-violet-100 border-2 border-violet-400"
-              key={profile._id}
-            >
-              <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
-                <Image
-                  alt="Profile avatar"
-                  className="object-cover w-[100px] h-[100px] rounded-full"
-                  src={
-                    profile.profile?.avatarUrl?.startsWith("http")
-                      ? profile.profile?.avatarUrl
-                      : "https://i.postimg.cc/L56NR5qd/masi-mohammadi-Fg-GVblk-ZTy-A-unsplash.jpg"
-                  }
-                  width={100}
-                  height={100}
-                />
+                className="py-4 w-[300px] h-[550px] lg:w-[400px] lg:h-[400px] bg-violet-100 border-2 border-violet-400 relative"
+                key={profile._id}
+              >
+                <CardBody className="overflow-visible py-2 flex items-start flex-row gap-5">
+                  <Image
+                    alt="Profile avatar"
+                    className="object-cover w-[100px] h-[100px] rounded-full"
+                    src={
+                      profile.profile?.avatarUrl?.startsWith("http")
+                        ? profile.profile?.avatarUrl
+                        : "https://i.postimg.cc/L56NR5qd/masi-mohammadi-Fg-GVblk-ZTy-A-unsplash.jpg"
+                    }
+                    width={100}
+                    height={100}
+                  />
 
-                <div className="mt-3">
-                  <h4 className="text-sm font-semibold">
-                    {profile.username}
-                  </h4>
-                  <h5 className="text-sm">{profile.role || "N/A"}</h5>
-                  <p>
-                    <strong>Email:</strong> {profile.email || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Phone:</strong> {profile.phone || "N/A"}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {profile.city},{" "}
-                    {profile.country}
-                  </p>
+                  <div className="mt-3">
+                    <h4 className="text-sm font-semibold">
+                      {profile.username}
+                    </h4>
+                    <h5 className="text-sm">{profile.role || "N/A"}</h5>
+                    <p>
+                      <strong>Email:</strong> {profile.email || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {profile.phone || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {profile.city},{" "}
+                      {profile.country}
+                    </p>
+                  </div>
+                </CardBody>
+                <div className="  px-4 flex-col items-start gap-1">
+                  <div className="">
+                    <p>
+                      <strong>Skills:</strong> {profile.skills || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Bio:</strong> {profile.bio || "No bio available"}
+                    </p>
+                    <p>
+                      <strong>LinkedIn:</strong>{" "}
+                      {profile.linkedin ? (
+                        <a href={profile.linkedin} target="_blank">
+                          View Profile
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </CardBody>
-              <div className="  px-4 flex-col items-start gap-1">
-                <div className="">
-                <p>
-                  <strong>Skills:</strong> {profile.skills || "N/A"}
-                </p>
-                <p>
-                  <strong>Bio:</strong> {profile.bio || "No bio available"}
-                </p>
-                <p>
-                  <strong>LinkedIn:</strong>{" "}
-                  {profile.linkedin ? (
-                    <a href={profile.linkedin} target="_blank">
-                      View Profile
-                    </a>
-                  ) : (
-                    "N/A"
-                  )}
-                </p>
-
-                </div>
-              </div>
-               <CardFooter>
-              <div className="flex justify-between items-end mb-8 w-full">
-                  <Button
-                    className="text-sm text-white bg-[#a362e4] mt-3 hover:underline"
-                    onClick={() => handleReportUser(profile._id)}
-                  >
-                    {dropdownVisible[profile._id] ? "Cancel" : "Report User"}
-                  </Button>
-                  {dropdownVisible[profile._id] && (
+                <CardFooter>
+                  <div className="flex justify-between items-end mb-8 w-full ">
                     <Button
-                      className="text-sm text-white mt-2 hover:underline bg-[#C20E4D]"
-                      onClick={() => submitReport(profile._id)}
+                      className="bg-purple-300 text-white font-bold"
+                      onPress={() => {
+                        setSelectedProfile(profile);
+                        onOpenChange(true);
+                      }}
                     >
-                      Submit Report
+                      Details
                     </Button>
-                  )}
-                  <Button
-                    onPress={() => {
-                      setSelectedProfile(profile);
-                      onOpenChange(true);
-                    }}
-                  >
-                    Details
-                  </Button>
-                </div>
-                
+                    <Button
+                      className=" bg-transparent absolute top-1 right-0"
+                      onClick={() => handleReportUser(profile._id)}
+                    >
+                      {dropdownVisible[profile._id] ? (
+                        <Image
+                          src={CloseDot}
+                          alt="dot"
+                          width={15}
+                          height={15}
+                        />
+                      ) : (
+                        <Image src={Dot} alt="dot" width={15} height={15} />
+                      )}
+                    </Button>
+                    {dropdownVisible[profile._id] && (
+                      <Button
+                        className="text-sm text-white absulate botto-1 hover:underline bg-[#C20E4D]"
+                        onClick={() => submitReport(profile._id)}
+                      >
+                        Submit Report
+                      </Button>
+                    )}
+                  </div>
                 </CardFooter>
                 {dropdownVisible[profile._id] && (
                   <Select
@@ -339,7 +349,7 @@ export default function ClientProfile() {
                     onChange={(event) =>
                       handleReasonChange(profile._id, event.target.value)
                     }
-                    className="mt-1"
+                    className="mt-1 absolute top-10"
                   >
                     {reportReasons.map((item) => (
                       <SelectItem key={item.key} value={item.key}>
@@ -348,7 +358,7 @@ export default function ClientProfile() {
                     ))}
                   </Select>
                 )}
-            </Card>
+              </Card>
           ))
         ) : (
           <div>No profiles found.</div>
