@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 async function fetchUserRole(authToken) {
   try {
     const response = await fetch(
-      "https://skill-connect-eta.vercel.app/api/get-user-role", 
+      `${process.env.NEXT_PUBLIC_NEXT_URL}/api/get-user-role`, 
       {
         headers: { Authorization: `Bearer ${authToken}` },
       }
@@ -25,9 +25,12 @@ async function fetchUserRole(authToken) {
 
 export async function middleware(request) {
   console.log("Middleware is Running");
+  
 
   const authToken = request.cookies.get("next-auth.session-token")?.value;
   const pathname = request.nextUrl.pathname;
+  console.log("Middleware is Running in Production");
+  console.log("Auth Token in Production:", authToken);
 
   console.log("Auth Token:", authToken);
 
