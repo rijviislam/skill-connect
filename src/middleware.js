@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 
-
 async function fetchUserRole(authToken) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_NEXT_URL}/api/get-user-role`, 
+      "https://skill-connect-eta.vercel.app/api/get-user-role", 
       {
         headers: { Authorization: `Bearer ${authToken}` },
       }
@@ -27,7 +26,6 @@ async function fetchUserRole(authToken) {
 export async function middleware(request) {
   console.log("Middleware is Running");
 
-
   const authToken = request.cookies.get("next-auth.session-token")?.value;
   const pathname = request.nextUrl.pathname;
 
@@ -49,34 +47,33 @@ export async function middleware(request) {
     "/dashboard/user",
   ];
 
-
   const isAuthPage = ["/api/auth/signin", "/api/auth/signup"].includes(pathname);
 
+  // Redirect authenticated users trying to access auth pages
   if (authToken && isAuthPage) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-
+  // Allow unauthenticated users to access auth pages
   if (!authToken && isAuthPage) {
     return NextResponse.next();
   }
 
+  // Fetch user role if authenticated
   const userRole = authToken ? await fetchUserRole(authToken) : null;
 
   console.log("User Role:", userRole);
 
-  if (userRole === "client" && clientOnlyRoutes.includes(pathname)) {
-    return NextResponse.next();
-  }
-  
-  if (userRole === "freelancer" && freelancerOnlyRoutes.includes(pathname)) {
-    return NextResponse.next();
-  }
-
-  if (userRole === "admin" && adminOnlyRoutes.includes(pathname)) {
+  // Role-based access control
+  if (
+    (userRole === "client" && clientOnlyRoutes.includes(pathname)) ||
+    (userRole === "freelancer" && freelancerOnlyRoutes.includes(pathname)) ||
+    (userRole === "admin" && adminOnlyRoutes.includes(pathname))
+  ) {
     return NextResponse.next();
   }
 
+  // If user role does not match or is null, redirect to home
   console.log("Redirecting to home due to unauthorized access");
   return NextResponse.redirect(new URL("/", request.url));
 }
