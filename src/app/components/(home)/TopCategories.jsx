@@ -20,22 +20,22 @@ const cardVariants = {
 
 const TopCategories = () => {
   return (
-    <div className="container mx-auto p-6 relative">
-      <h2 className="text-left text-4xl font-medium text-[#8a2be2] mb-7 mt-8 flex items-center">
+    <div className="container mx-auto p-4 md:p-6 lg:p-8 relative">
+      <h2 className="text-left text-2xl md:text-3xl lg:text-4xl font-medium text-[#8a2be2] mb-5 md:mb-7 mt-4 md:mt-8 flex items-center">
         Most Popular Categories
         <FaArrowRight className="ml-2" />
       </h2>
-      <div  className=" absolute bottom-0 right-14 w-[400px] h-[400px] overflow-hidden rounded-full animate-spin-slow hidden md:block">
+      <div className="absolute bottom-0 right-10 lg:right-14 w-[200px] md:w-[300px] lg:w-[400px] h-[200px] md:h-[300px] lg:h-[400px] overflow-hidden rounded-full animate-spin-slow hidden sm:block">
         <Image
-          src={"https://i.postimg.cc/KzNCx060/photo-2024-10-21-13-35-50.jpg"}
-          alt="Sgg"
+          src="https://i.postimg.cc/KzNCx060/photo-2024-10-21-13-35-50.jpg"
+          alt="Category Background"
           width={400}
           height={400}
-          className="rounded-full "
+          className="rounded-full"
         />
       </div>
       {/* First row */}
-      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {[
           {
             title: "Graphic Design",
@@ -69,7 +69,7 @@ const TopCategories = () => {
             <Card
               isFooterBlurred
               radius="lg"
-              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
             >
               <Image
                 alt={category.title}
@@ -78,10 +78,10 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between bg-white/80 border-white/40 border-1 overflow-hidden py-2 absolute rounded-lg bottom-1 w-[calc(100%-8px)] shadow-small mx-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                  <div className="text-lg font-bold text-black bg-white/70 px-3 py-1 rounded-md">
                     {category.title}
                   </div>
                 </div>
@@ -103,9 +103,7 @@ const TopCategories = () => {
       </div>
 
       {/* Second row */}
-      
-
-      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-5">
         {[
           {
             title: "Photography",
@@ -132,7 +130,7 @@ const TopCategories = () => {
             <Card
               isFooterBlurred
               radius="lg"
-              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
             >
               <Image
                 alt={category.title}
@@ -141,10 +139,10 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between bg-white/80 border-white/40 border-1 overflow-hidden py-2 absolute rounded-lg bottom-1 w-[calc(100%-8px)] shadow-small mx-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                  <div className="text-lg font-bold text-black bg-white/70 px-3 py-1 rounded-md">
                     {category.title}
                   </div>
                 </div>
@@ -166,7 +164,7 @@ const TopCategories = () => {
       </div>
 
       {/* Third row */}
-      <div data-aos="fade-right"  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-5">
         {[
           {
             title: "App Development",
@@ -186,7 +184,7 @@ const TopCategories = () => {
             <Card
               isFooterBlurred
               radius="lg"
-              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out w-full transform hover:scale-105 hover:shadow-xl"
+              className="border-4 border-transparent hover:border-[#d8b9ff] transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
             >
               <Image
                 alt={category.title}
@@ -195,10 +193,10 @@ const TopCategories = () => {
                 src={category.imageSrc}
                 width="100%"
               />
-              <CardFooter className="justify-between before:bg-[#ffffffaa] border-white/40 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-lg bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <CardFooter className="justify-between bg-white/80 border-white/40 border-1 overflow-hidden py-2 absolute rounded-lg bottom-1 w-[calc(100%-8px)] shadow-small mx-1 z-10">
                 <div className="flex items-center space-x-2 text-center">
                   <div className="text-3xl text-[#8a2be2]">{category.icon}</div>
-                  <div className="text-lg font-bold text-black bg-[#ffffffb3] px-3 py-1 rounded-md">
+                  <div className="text-lg font-bold text-black bg-white/70 px-3 py-1 rounded-md">
                     {category.title}
                   </div>
                 </div>
