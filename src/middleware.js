@@ -10,7 +10,7 @@ export async function middleware(req) {
   console.log("Middleware is Running in Production");
   console.log("Auth Token in Production:", authToken);
 
-  // Check if authToken exists and directly use role if available
+
   const userRole = authToken?.role || null;
   console.log("User Role from Token:", userRole);
 
@@ -32,17 +32,14 @@ export async function middleware(req) {
 
   const isAuthPage = ["/api/auth/signin", "/api/auth/signup"].includes(pathname);
 
-  // Redirect authenticated users trying to access auth pages
   if (authToken && isAuthPage) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // Allow unauthenticated users to access auth pages
   if (!authToken && isAuthPage) {
     return NextResponse.next();
   }
 
-  // Role-based access control based on token's role
   if (
     (userRole === "client" && clientOnlyRoutes.includes(pathname)) ||
     (userRole === "freelancer" && freelancerOnlyRoutes.includes(pathname)) ||
@@ -51,7 +48,6 @@ export async function middleware(req) {
     return NextResponse.next();
   }
 
-  // If user role does not match or is null, redirect to home
   console.log("Redirecting to home due to unauthorized access");
   return NextResponse.redirect(new URL("/", req.url));
 }
