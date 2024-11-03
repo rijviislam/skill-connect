@@ -28,10 +28,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <AuthProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {" "}
+        <AuthProvider>
           <Providers>
             <NavbarWrapper />
             <div className=" flex items-end justify-end z-50 relative w-full">
@@ -56,8 +57,8 @@ export default function RootLayout({ children }) {
 
             <FooterWrapper />
           </Providers>
-        </body>
-      </AuthProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
