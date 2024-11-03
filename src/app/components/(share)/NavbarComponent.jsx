@@ -6,7 +6,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -14,6 +13,7 @@ import {
 } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import logo from "../../../Image/Skill-removebg-preview.png";
 
@@ -55,7 +55,7 @@ const NavbarComponent = () => {
   return (
     <Navbar
       isBordered
-      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea]"
+      className="bg-gradient-to-r from-[#a383f2] via-[#9480fd] to-[#a983ea] "
     >
       <div className=" flex items-center gap-20">
         <NavbarContent justify="start">
@@ -64,7 +64,7 @@ const NavbarComponent = () => {
               <Image src={logo} alt="Digital Web Design" />
             </Link>
           </NavbarBrand>
-          <NavbarContent className="hidden sm:flex gap-3">
+          <NavbarContent className="hidden md:hidden lg:flex sm:hidden gap-3">
             <NavbarItem>
               <Link
                 color="foreground"
